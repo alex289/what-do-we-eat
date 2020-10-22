@@ -1,0 +1,31 @@
+{
+  "name": "what-do-we-eat",
+  "version": "1.0.0",
+  "description": "web app to tell you what to eat",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next dev",
+    "start": "next start",
+    "build": "next build",
+    "lint": "eslint components/** pages/**",
+    "format": "prettier --write pages/** components/**"
+  },
+  "keywords": [
+    "NextJs",
+    "NodeJs"
+  ],
+  "author": "Alex",
+  "license": "MIT",
+  "devDependencies": {
+    "babel-eslint": "^10.1.0",
+    "eslint": "^7.11.0",
+    "eslint-config-prettier": "^6.13.0",
+    "eslint-plugin-react": "^7.21.4",
+    "prettier": "^2.1.2"
+  },
+  "dependencies": {
+    "next": "^9.5.5",
+    "react": "^16.14.0",
+    "react-dom": "^16.14.0"
+  }
+}
