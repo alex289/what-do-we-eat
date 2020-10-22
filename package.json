@@ -7,8 +7,8 @@
     "dev": "next dev",
     "start": "next start",
     "build": "next build",
-    "lint": "eslint components/** pages/**",
-    "format": "prettier --write pages/** components/**"
+    "lint": "eslint food.js components/** pages/**",
+    "format": "prettier --write food.js pages/** components/**"
   },
   "keywords": [
     "NextJs",
@@ -16,6 +16,14 @@
   ],
   "author": "Alex",
   "license": "MIT",
+  "homepage": "https://github.com/JuzouSatoru2/what-do-we-eat#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JuzouSatoru2/what-do-we-eat.git"
+  },
+  "bugs": {
+    "url": "https://github.com/JuzouSatoru2/what-do-we-eat/issues"
+  },
   "devDependencies": {
     "babel-eslint": "^10.1.0",
     "eslint": "^7.11.0",
@@ -24,6 +32,8 @@
     "prettier": "^2.1.2"
   },
   "dependencies": {
+    "commander": "^6.1.0",
+    "inquirer": "^7.3.3",
     "next": "^9.5.5",
     "react": "^16.14.0",
     "react-dom": "^16.14.0"
