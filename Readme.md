@@ -4,4 +4,4 @@
 
 Use the cli to add food to the List or make your own json list.
 
-Run `node food.js --help` to get to know how to use it
+Run `node food.js` to get to know how to use it
