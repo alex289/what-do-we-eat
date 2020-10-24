@@ -7,7 +7,9 @@ const Random = () => {
     <ul className="list-group list-group-flush">
       <li className="list-group-item">Name: {randomFood.name}</li>
       <li className="list-group-item">Size: {randomFood.size}</li>
-      <li className="list-group-item">Deliverable: {randomFood.deliverable}</li>
+      <li className="list-group-item">
+        Deliverable: {randomFood.deliverable ? 'Yes' : 'No'}
+      </li>
       <li className="list-group-item">Effort: {randomFood.effort}</li>
       <style jsx>{`
         ul {

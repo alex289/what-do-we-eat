@@ -1,4 +1,4 @@
 node_modules
 .next
-sw.js
-workbox-*.js
+sw*.js*
+workbox-*.js*
