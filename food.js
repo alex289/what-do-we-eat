@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 'use strict';
 
 const fs = require('fs');
@@ -8,6 +9,7 @@ const jsonOptions = {};
 
 const program = new Command();
 program.version(require('./package.json').version);
+program.description('Cli to crud the food.json list');
 program
   .option('-a, --add', 'add new food')
   .option('-g, --get', 'get food list')
@@ -178,6 +180,6 @@ if (program.get) {
   });
 }
 
-if (process.argv.length <= 2) {
+if (!program.args.length) {
   program.help();
 }
