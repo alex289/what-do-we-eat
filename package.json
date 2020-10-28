@@ -26,18 +26,18 @@
   },
   "devDependencies": {
     "babel-eslint": "^10.1.0",
-    "eslint": "^7.11.0",
-    "eslint-config-prettier": "^6.13.0",
-    "eslint-plugin-react": "^7.21.4",
+    "eslint": "^7.12.1",
+    "eslint-config-prettier": "^6.15.0",
+    "eslint-plugin-react": "^7.21.5",
     "prettier": "^2.1.2"
   },
   "dependencies": {
-    "commander": "^6.1.0",
+    "commander": "^6.2.0",
     "inquirer": "^7.3.3",
-    "next": "^9.5.5",
+    "next": "^10.0.0",
     "next-pwa": "^3.1.5",
     "prettyjson": "^1.2.1",
-    "react": "^16.14.0",
-    "react-dom": "^16.14.0"
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1"
   }
 }
