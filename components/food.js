@@ -1,4 +1,4 @@
-import * as foodList from '../food.json';
+import * as foodList from '@/food';
 
 const Food = () => (
   <div className="container">

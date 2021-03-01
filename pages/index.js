@@ -1,8 +1,8 @@
 import { useState } from 'react';
 
-import Food from '../components/food';
-import Random from '../components/random';
-import Layout from '../components/layout';
+import Food from '@/components/food';
+import Random from '@/components/random';
+import Layout from '@/components/layout';
 
 export default function Index() {
   const [clicked, setClicked] = useState(false);
