@@ -18,6 +18,7 @@ program
   .option('-d, --delete', 'delete food from List');
 
 program.parse(process.argv);
+const options = program.opts();
 
 let rawdata;
 try {
@@ -30,7 +31,7 @@ try {
 }
 const foodList = JSON.parse(rawdata);
 
-if (program.add) {
+if (options.add) {
   const questions = [
     {
       type: 'input',
@@ -70,7 +71,7 @@ if (program.add) {
   });
 }
 
-if (program.edit) {
+if (options.edit) {
   const question = [
     {
       type: 'input',
@@ -124,7 +125,7 @@ if (program.edit) {
   });
 }
 
-if (program.search) {
+if (options.search) {
   const question = [
     {
       type: 'input',
@@ -147,7 +148,7 @@ if (program.search) {
   });
 }
 
-if (program.delete) {
+if (options.delete) {
   const question = [
     {
       type: 'input',
@@ -174,12 +175,12 @@ if (program.delete) {
   });
 }
 
-if (program.get) {
+if (options.get) {
   foodList.food.map((item) => {
     console.log(prettyjson.render(item, jsonOptions) + '\n');
   });
 }
 
-if (!program.args.length) {
+if (Object.keys(options).length === 0) {
   program.help();
 }
