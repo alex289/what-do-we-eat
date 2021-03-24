@@ -16,13 +16,13 @@
   ],
   "author": "Alex",
   "license": "MIT",
-  "homepage": "https://github.com/JuzouSatoru2/what-do-we-eat#readme",
+  "homepage": "https://github.com/Alex289/what-do-we-eat#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/JuzouSatoru2/what-do-we-eat.git"
+    "url": "git+https://github.com/Alex289/what-do-we-eat.git"
   },
   "bugs": {
-    "url": "https://github.com/JuzouSatoru2/what-do-we-eat/issues"
+    "url": "https://github.com/Alex289/what-do-we-eat/issues"
   },
   "devDependencies": {
     "babel-eslint": "^10.1.0",
