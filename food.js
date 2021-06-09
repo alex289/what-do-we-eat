@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+/* eslint-disable */
 'use strict';
 
 const fs = require('fs');
@@ -22,7 +23,7 @@ const options = program.opts();
 
 let rawdata;
 try {
-  rawdata = fs.readFileSync('food.json');
+  rawdata = fs.readFileSync('foodList.json');
 } catch (error) {
   console.error(
     '\x1b[31mMake sure the food list exists and follows standard json format'
@@ -65,7 +66,11 @@ if (options.add) {
     }
     if (!found) {
       foodList.food.push(answers);
-      fs.writeFileSync('food.json', JSON.stringify(foodList));
+      fs.writeFileSync('foodList.json', JSON.stringify(foodList));
+      fs.writeFileSync(
+        'foodList.ts',
+        'export default' + JSON.stringify(foodList)
+      );
       console.log(prettyjson.render(answers, jsonOptions));
     }
   });
@@ -113,7 +118,11 @@ if (options.edit) {
 
         inquirer.prompt(questions).then((answers) => {
           foodList.food[index] = answers;
-          fs.writeFileSync('food.json', JSON.stringify(foodList));
+          fs.writeFileSync('foodList.json', JSON.stringify(foodList));
+          fs.writeFileSync(
+            'foodList.ts',
+            'export default' + JSON.stringify(foodList)
+          );
           console.log(prettyjson.render(answers, jsonOptions));
         });
         found = true;
@@ -162,7 +171,11 @@ if (options.delete) {
     for (let index = 0; index < foodList.food.length; index++) {
       if (foodList.food[index].name === answer.name) {
         foodList.food.splice(index, 1);
-        fs.writeFileSync('food.json', JSON.stringify(foodList));
+        fs.writeFileSync('foodList.json', JSON.stringify(foodList));
+        fs.writeFileSync(
+          'foodList.ts',
+          'export default' + JSON.stringify(foodList)
+        );
         foodList.food.map((item) => {
           console.log(prettyjson.render(item, jsonOptions) + '\n');
         });
