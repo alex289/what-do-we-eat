@@ -2,6 +2,13 @@ import type { AppProps } from 'next/app';
 
 import useDarkMode from 'use-dark-mode';
 
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Switch from '@material-ui/core/Switch';
+import Box from '@material-ui/core/Box';
+
 import { createMuiTheme } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -17,12 +24,25 @@ export default function App({ Component, pageProps }: AppProps) {
       type: 'light',
     },
   });
-  const { value: isDark } = useDarkMode(true);
+  const { value: isDark, toggle: toggleDarkMode } = useDarkMode(true);
   const themeConfig = isDark ? darkTheme : lightTheme;
   return (
     <div>
       <ThemeProvider theme={themeConfig}>
         <CssBaseline></CssBaseline>
+        <AppBar position="static">
+          <Toolbar>
+            <Box display="flex" flexGrow={1}>
+              <Typography variant="h6">What do we eat?</Typography>
+            </Box>
+            <FormControlLabel
+              control={<Switch onClick={toggleDarkMode} />}
+              labelPlacement="start"
+              checked={isDark}
+              label="Light/Dark Mode"
+            />
+          </Toolbar>
+        </AppBar>
         <Component {...pageProps} />
       </ThemeProvider>
       <style jsx global>{`
