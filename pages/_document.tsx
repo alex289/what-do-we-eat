@@ -23,6 +23,7 @@ class MyDocument extends Document {
           />
         </Head>
         <body>
+          <script src="static/noflash.js" />
           <Main />
           <NextScript />
         </body>

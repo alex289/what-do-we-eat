@@ -26,7 +26,7 @@ export default function Index() {
           <SvgIcon>
             <Shuffle></Shuffle>
           </SvgIcon>
-          {btnTitle}
+          <div className="btnText">{btnTitle}</div>
         </Button>
       </Box>
       {!clicked ? <Food></Food> : <Random></Random>}
@@ -35,6 +35,9 @@ export default function Index() {
           .MuiCard-root {
             height: 250px;
           }
+        }
+        .btnText {
+          margin-left: 10px;
         }
       `}</style>
     </Layout>

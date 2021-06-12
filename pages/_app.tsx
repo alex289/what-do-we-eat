@@ -5,9 +5,11 @@ import useDarkMode from 'use-dark-mode';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Switch from '@material-ui/core/Switch';
+import IconButton from '@material-ui/core/IconButton';
 import Box from '@material-ui/core/Box';
+
+import Brightness4Icon from '@material-ui/icons/Brightness4';
+import Brightness7Icon from '@material-ui/icons/Brightness7';
 
 import { createMuiTheme } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/core/styles';
@@ -35,12 +37,15 @@ export default function App({ Component, pageProps }: AppProps) {
             <Box display="flex" flexGrow={1}>
               <Typography variant="h6">What do we eat?</Typography>
             </Box>
-            <FormControlLabel
-              control={<Switch onClick={toggleDarkMode} />}
-              labelPlacement="start"
-              checked={isDark}
-              label="Light/Dark Mode"
-            />
+            <div onClick={toggleDarkMode}>
+              <IconButton>
+                {isDark ? (
+                  <Brightness4Icon htmlColor="#fff" />
+                ) : (
+                  <Brightness7Icon htmlColor="#fff" />
+                )}
+              </IconButton>
+            </div>
           </Toolbar>
         </AppBar>
         <Component {...pageProps} />
