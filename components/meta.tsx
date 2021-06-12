@@ -16,7 +16,6 @@ const Meta = () => (
     <meta name="msapplication-TileColor" content="#2B5797" />
     <meta name="msapplication-tap-highlight" content="no" />
     <meta name="theme-color" content="#000000" />
-    <meta name="robots" content="all" />
 
     <link
       rel="apple-touch-icon"
