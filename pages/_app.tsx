@@ -38,11 +38,11 @@ export default function App({ Component, pageProps }: AppProps) {
               <Typography variant="h6">What do we eat?</Typography>
             </Box>
             <div onClick={toggleDarkMode}>
-              <IconButton>
+              <IconButton aria-label="Light/Dark Mode">
                 {isDark ? (
-                  <Brightness4Icon htmlColor="#fff" />
-                ) : (
                   <Brightness7Icon htmlColor="#fff" />
+                ) : (
+                  <Brightness4Icon htmlColor="#fff" />
                 )}
               </IconButton>
             </div>
