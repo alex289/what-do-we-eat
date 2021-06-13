@@ -11,4 +11,4 @@ Run `node food.js` to get to know how to use it
 ## Todo
 
 - Add searchbar
-- Add filter functionality
+- Add filter/Sorter functionality
