@@ -19,21 +19,6 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 
 export default function App({ Component, pageProps }: AppProps) {
   useEffect(() => {
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', function () {
-        navigator.serviceWorker.register('/sw.js').then(
-          function (registration) {
-            console.log(
-              'Service Worker registration successful with scope: ',
-              registration.scope
-            );
-          },
-          function (err) {
-            console.log('Service Worker registration failed: ', err);
-          }
-        );
-      });
-    }
     const jssStyles = document.querySelector('#jss-server-side');
     if (jssStyles) {
       jssStyles?.parentElement?.removeChild(jssStyles);

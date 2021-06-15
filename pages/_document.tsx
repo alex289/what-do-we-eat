@@ -5,6 +5,7 @@ import Document, {
   NextScript,
   DocumentContext,
 } from 'next/document';
+import Script from 'next/script';
 
 import { Children } from 'react';
 
@@ -27,7 +28,7 @@ class MyDocument extends Document {
           />
         </Head>
         <body>
-          <script src="static/noflash.js" />
+          <Script src="static/noflash.js" strategy="beforeInteractive" />
           <Main />
           <NextScript />
         </body>
