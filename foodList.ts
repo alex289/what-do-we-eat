@@ -1,4 +1,4 @@
-export default {
+const foodList = {
   food: [
     { name: 'Pizza', size: '1 per person', deliverable: true, effort: 0 },
     {
@@ -38,5 +38,26 @@ export default {
       effort: 6,
     },
     { name: 'McDonalds', size: 'all.', deliverable: false, effort: 2 },
+    { name: 'Trying sth new', size: 'all.', deliverable: false, effort: 10 },
+    {
+      name: 'Ofenkäse',
+      size: '1 pack per 1-4 people',
+      deliverable: false,
+      effort: 2,
+    },
+    { name: 'Starve', size: 'all.', deliverable: false, effort: 0 },
+    {
+      name: 'Käsenudeln',
+      size: '1 pack per 4 people',
+      deliverable: false,
+      effort: 5,
+    },
+    {
+      name: 'Bratkartoffeln',
+      size: '1 pack per 4 people',
+      deliverable: false,
+      effort: 4,
+    },
   ],
 };
+export default foodList;

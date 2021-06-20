@@ -69,7 +69,9 @@ if (options.add) {
       fs.writeFileSync('foodList.json', JSON.stringify(foodList));
       fs.writeFileSync(
         'foodList.ts',
-        'export default' + JSON.stringify(foodList)
+        'const foodList =' +
+          JSON.stringify(foodList) +
+          '; export default foodList;'
       );
       console.log(prettyjson.render(answers, jsonOptions));
     }
@@ -121,7 +123,9 @@ if (options.edit) {
           fs.writeFileSync('foodList.json', JSON.stringify(foodList));
           fs.writeFileSync(
             'foodList.ts',
-            'export default' + JSON.stringify(foodList)
+            'const foodList =' +
+              JSON.stringify(foodList) +
+              '; export default foodList;'
           );
           console.log(prettyjson.render(answers, jsonOptions));
         });
@@ -174,7 +178,9 @@ if (options.delete) {
         fs.writeFileSync('foodList.json', JSON.stringify(foodList));
         fs.writeFileSync(
           'foodList.ts',
-          'export default' + JSON.stringify(foodList)
+          'const foodList =' +
+            JSON.stringify(foodList) +
+            '; export default foodList;'
         );
         foodList.food.map((item) => {
           console.log(prettyjson.render(item, jsonOptions) + '\n');
