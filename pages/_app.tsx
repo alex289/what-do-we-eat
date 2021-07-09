@@ -13,7 +13,7 @@ import Box from '@material-ui/core/Box';
 import Brightness4Icon from '@material-ui/icons/Brightness4';
 import Brightness7Icon from '@material-ui/icons/Brightness7';
 
-import { createMuiTheme } from '@material-ui/core/styles';
+import { createTheme } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 
@@ -24,12 +24,12 @@ export default function App({ Component, pageProps }: AppProps) {
       jssStyles?.parentElement?.removeChild(jssStyles);
     }
   }, []);
-  const darkTheme = createMuiTheme({
+  const darkTheme = createTheme({
     palette: {
       type: 'dark',
     },
   });
-  const lightTheme = createMuiTheme({
+  const lightTheme = createTheme({
     palette: {
       type: 'light',
     },
