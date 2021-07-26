@@ -58,6 +58,30 @@ const foodList = {
       deliverable: false,
       effort: 4,
     },
+    {
+      name: 'Käse Spätzle/Gnocchi',
+      size: '1-4 per person',
+      deliverable: false,
+      effort: 4,
+    },
+    {
+      name: 'Curry with rice',
+      size: '4 per person',
+      deliverable: false,
+      effort: 6,
+    },
+    {
+      name: 'Grillkäse/Ofenkäse',
+      size: '1-2 per person',
+      deliverable: false,
+      effort: 2,
+    },
+    {
+      name: 'Dip with baguette',
+      size: '4 persons',
+      deliverable: false,
+      effort: 4,
+    },
   ],
 };
 export default foodList;
