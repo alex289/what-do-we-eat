@@ -82,6 +82,7 @@ const foodList = {
       deliverable: false,
       effort: 4,
     },
+    { name: 'Lasagne', size: '4 per persons', deliverable: false, effort: 7 },
   ],
 };
 export default foodList;
