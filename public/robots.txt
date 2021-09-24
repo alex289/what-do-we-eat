@@ -1,2 +1,2 @@
 User-Agent: *
-Allow: /
+Sitemap: https://what-do-we-eat.vercel.app/sitemap.xml

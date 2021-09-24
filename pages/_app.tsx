@@ -1,6 +1,8 @@
 import type { AppProps } from 'next/app';
-import Head from 'next/head';
 import { useEffect } from 'react';
+
+import Head from 'next/head';
+import dynamic from 'next/dynamic';
 
 import useDarkMode from 'use-dark-mode';
 
@@ -10,8 +12,8 @@ import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import Box from '@material-ui/core/Box';
 
-import Brightness4Icon from '@material-ui/icons/Brightness4';
-import Brightness7Icon from '@material-ui/icons/Brightness7';
+const Brightness4Icon = dynamic(() => import('@material-ui/icons/Brightness4'));
+const Brightness7Icon = dynamic(() => import('@material-ui/icons/Brightness7'));
 
 import { createTheme } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/core/styles';
@@ -61,41 +63,6 @@ export default function App({ Component, pageProps }: AppProps) {
         </AppBar>
         <Component {...pageProps} />
       </ThemeProvider>
-      <style jsx global>{`
-        ::-webkit-scrollbar {
-          width: 3px;
-          height: 2px;
-        }
-        ::-webkit-scrollbar-button {
-          width: 0;
-          height: 0;
-        }
-        ::-webkit-scrollbar-thumb {
-          background: #fff;
-          border: 0 none #fff;
-          border-radius: 50px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-          background: #afafaf;
-        }
-        ::-webkit-scrollbar-thumb:active {
-          background: #707070;
-        }
-        ::-webkit-scrollbar-track {
-          background: #666;
-          border: 0 none #fff;
-          border-radius: 50px;
-        }
-        ::-webkit-scrollbar-track:hover {
-          background: #666;
-        }
-        ::-webkit-scrollbar-track:active {
-          background: #333;
-        }
-        ::-webkit-scrollbar-corner {
-          background: 0 0;
-        }
-      `}</style>
     </div>
   );
 }

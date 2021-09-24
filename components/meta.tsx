@@ -21,7 +21,7 @@ const Meta = () => (
       sizes="180x180"
       href="/static/icons/apple-touch-icon.png"
     />
-    <link rel="manifest" href="/static/manifest.json" />
+    <link rel="manifest" href="/manifest.json" />
     <link rel="shortcut icon" href="/static/icons/favicon.ico" />
 
     <meta property="og:type" content="website" />

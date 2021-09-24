@@ -1,6 +1,8 @@
 import { ReactNode } from 'react';
 
-import Container from '@material-ui/core/Container';
+import dynamic from 'next/dynamic';
+
+const Container = dynamic(() => import('@material-ui/core/Container'));
 
 import Meta from '@/components/meta';
 

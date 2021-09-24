@@ -1,13 +1,14 @@
 import { useState } from 'react';
+import dynamic from 'next/dynamic';
 
-import Box from '@material-ui/core/Box';
-import Button from '@material-ui/core/Button';
-import SvgIcon from '@material-ui/core/SvgIcon';
-import Shuffle from '@material-ui/icons/Shuffle';
+const Box = dynamic(() => import('@material-ui/core/Box'));
+const Button = dynamic(() => import('@material-ui/core/Button'));
+const SvgIcon = dynamic(() => import('@material-ui/core/SvgIcon'));
+const Shuffle = dynamic(() => import('@material-ui/icons/Shuffle'));
 
-import Food from '@/components/food';
-import Random from '@/components/random';
-import Layout from '@/components/layout';
+const Food = dynamic(() => import('@/components/food'));
+const Random = dynamic(() => import('@/components/random'));
+const Layout = dynamic(() => import('@/components/layout'));
 
 export default function Index() {
   const [clicked, setClicked] = useState(false);
