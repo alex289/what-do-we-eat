@@ -2,14 +2,15 @@
   "name": "what-do-we-eat",
   "version": "1.0.0",
   "description": "web app to tell you what to eat",
-  "main": "food.js",
+  "main": "cli/food.js",
   "scripts": {
+    "food": "node cli/food.js",
     "dev": "next dev",
     "start": "next start",
     "build": "next build",
     "export": "next export",
     "lint": "next lint",
-    "format": "prettier --write foodList.ts food.js pages/** components/**"
+    "format": "prettier --write foodList.ts cli/** pages/** components/**"
   },
   "repository": {
     "type": "git",
@@ -27,9 +28,7 @@
   },
   "homepage": "https://github.com/Alex289/what-do-we-eat#readme",
   "devDependencies": {
-    "@types/inquirer": "^8.1.2",
     "@types/node": "^16.9.6",
-    "@types/prettyjson": "^0.0.30",
     "@types/react": "^17.0.24",
     "@typescript-eslint/eslint-plugin": "^4.31.2",
     "eslint": "^7.32.0",

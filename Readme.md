@@ -6,4 +6,4 @@ Run `yarn dev` to start developing.
 
 Use the cli to add food to the List or make your own json list.
 
-Run `node food.js` to get to know how to use it
+Run `yarn food` or `node cli/food.js` to get to know how to use it
