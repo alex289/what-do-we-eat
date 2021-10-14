@@ -78,11 +78,13 @@ const foodList = {
     },
     {
       name: 'Dip with baguette',
-      size: '4 persons',
+      size: '4 people',
       deliverable: false,
       effort: 4,
     },
-    { name: 'Lasagne', size: '4 per persons', deliverable: false, effort: 7 },
+    { name: 'Lasagne', size: '4 per people', deliverable: false, effort: 7 },
+    { name: 'Kikko', size: 'all', deliverable: true, effort: 0 },
+    { name: 'Käsetoast', size: '4', deliverable: false, effort: 3 },
   ],
 };
 export default foodList;
