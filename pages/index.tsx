@@ -1,14 +1,8 @@
 import { useState } from 'react';
-import dynamic from 'next/dynamic';
 
-const Box = dynamic(() => import('@material-ui/core/Box'));
-const Button = dynamic(() => import('@material-ui/core/Button'));
-const SvgIcon = dynamic(() => import('@material-ui/core/SvgIcon'));
-const Shuffle = dynamic(() => import('@material-ui/icons/Shuffle'));
-
-const Food = dynamic(() => import('@/components/food'));
-const Random = dynamic(() => import('@/components/random'));
-const Layout = dynamic(() => import('@/components/layout'));
+import Layout from '@/components/layout';
+import Food from '@/components/food';
+import Random from '@/components/random';
 
 export default function Index() {
   const [clicked, setClicked] = useState(false);
@@ -22,25 +16,13 @@ export default function Index() {
 
   return (
     <Layout>
-      <Box m={2}>
-        <Button variant="contained" color="primary" onClick={handleClick}>
-          <SvgIcon>
-            <Shuffle></Shuffle>
-          </SvgIcon>
-          <div className="btnText">{btnTitle}</div>
-        </Button>
-      </Box>
+      <button
+        className="p-2 px-5 m-3 mb-4 bg-purple-600 text-gray-100 text-lg rounded-lg hover:ring-4 ring-purple-400"
+        onClick={handleClick}
+      >
+        {btnTitle}
+      </button>
       {!clicked ? <Food></Food> : <Random></Random>}
-      <style global jsx>{`
-        @media only screen and (max-width: 768px) {
-          .MuiCard-root {
-            height: 250px;
-          }
-        }
-        .btnText {
-          margin-left: 10px;
-        }
-      `}</style>
     </Layout>
   );
 }

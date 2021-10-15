@@ -1,29 +1,16 @@
-import dynamic from 'next/dynamic';
-
-const Grid = dynamic(() => import('@material-ui/core/Grid'));
-const Card = dynamic(() => import('@material-ui/core/Card'));
-const CardContent = dynamic(() => import('@material-ui/core/CardContent'));
-const Typography = dynamic(() => import('@material-ui/core/Typography'));
-
 import foodList from '@food';
 
 const Food = () => (
-  <Grid container spacing={3}>
+  <ul className="grid xl:grid-flow-row xl:grid-cols-5 gap-5 md:grid-flow-column px-2">
     {foodList.food.map((food, index) => (
-      <Grid key={index} item xs={6}>
-        <Card variant="outlined">
-          <CardContent>
-            <Typography variant="h5">{food.name}</Typography>
-            <Typography>Size: {food.size}</Typography>
-            <Typography>
-              Deliverable: {food.deliverable ? 'Yes' : 'No'}
-            </Typography>
-            <Typography>Effort: {food.effort}</Typography>
-          </CardContent>
-        </Card>
-      </Grid>
+      <li key={index} className="max-w-md py-6 px-8 shadow-lg rounded-lg">
+        <p className="text-lg font-semibold">{food.name}</p>
+        <p>Size: {food.size}</p>
+        <p>Deliverable: {food.deliverable ? 'Yes' : 'No'}</p>
+        <p>Effort: {food.effort}</p>
+      </li>
     ))}
-  </Grid>
+  </ul>
 );
 
 export default Food;

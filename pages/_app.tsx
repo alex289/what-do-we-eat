@@ -1,68 +1,13 @@
 import type { AppProps } from 'next/app';
-import { useEffect } from 'react';
 
-import Head from 'next/head';
-import dynamic from 'next/dynamic';
+import { ThemeProvider } from 'next-themes';
 
-import useDarkMode from 'use-dark-mode';
-
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/IconButton';
-import Box from '@material-ui/core/Box';
-
-const Brightness4Icon = dynamic(() => import('@material-ui/icons/Brightness4'));
-const Brightness7Icon = dynamic(() => import('@material-ui/icons/Brightness7'));
-
-import { createTheme } from '@material-ui/core/styles';
-import { ThemeProvider } from '@material-ui/core/styles';
-import CssBaseline from '@material-ui/core/CssBaseline';
+import '@/styles/global.css';
 
 export default function App({ Component, pageProps }: AppProps) {
-  useEffect(() => {
-    const jssStyles = document.querySelector('#jss-server-side');
-    if (jssStyles) {
-      jssStyles?.parentElement?.removeChild(jssStyles);
-    }
-  }, []);
-  const darkTheme = createTheme({
-    palette: {
-      type: 'dark',
-    },
-  });
-  const lightTheme = createTheme({
-    palette: {
-      type: 'light',
-    },
-  });
-  const { value: isDark, toggle: toggleDarkMode } = useDarkMode(true);
-  const themeConfig = isDark ? darkTheme : lightTheme;
   return (
-    <div>
-      <Head>
-        <meta name="theme-color" content={themeConfig.palette.primary.main} />
-      </Head>
-      <ThemeProvider theme={themeConfig}>
-        <CssBaseline></CssBaseline>
-        <AppBar position="static">
-          <Toolbar>
-            <Box display="flex" flexGrow={1}>
-              <Typography variant="h6">What do we eat?</Typography>
-            </Box>
-            <div onClick={toggleDarkMode}>
-              <IconButton aria-label="Light/Dark Mode">
-                {isDark ? (
-                  <Brightness7Icon htmlColor="#fff" />
-                ) : (
-                  <Brightness4Icon htmlColor="#fff" />
-                )}
-              </IconButton>
-            </div>
-          </Toolbar>
-        </AppBar>
-        <Component {...pageProps} />
-      </ThemeProvider>
-    </div>
+    <ThemeProvider attribute="class" defaultTheme="light">
+      <Component {...pageProps} />
+    </ThemeProvider>
   );
 }

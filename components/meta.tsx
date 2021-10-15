@@ -23,6 +23,13 @@ const Meta = () => (
     />
     <link rel="manifest" href="/manifest.json" />
     <link rel="shortcut icon" href="/static/icons/favicon.ico" />
+    <link
+      rel="preload"
+      href="static/fonts/inter-var-latin.woff2"
+      as="font"
+      type="font/woff2"
+      crossOrigin="anonymous"
+    />
 
     <meta property="og:type" content="website" />
     <meta property="og:title" content="What do we eat" />
