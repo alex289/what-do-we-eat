@@ -264,10 +264,10 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-16.9.6.tgz#040a64d7faf9e5d9e940357125f0963012e66f04"
   integrity sha512-YHUZhBOMTM3mjFkXVcK+WwAcYmyhe1wL4lfqNtzI0b3qAy7yuSetnM7QJazgE5PFmgVTNGiLOgRFfJMqW7XpSQ==
 
-"@types/node@^16.11.9":
-  version "16.11.9"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-16.11.9.tgz#879be3ad7af29f4c1a5c433421bf99fab7047185"
-  integrity sha512-MKmdASMf3LtPzwLyRrFjtFFZ48cMf8jmX5VRYrDQiJa8Ybu5VAmkqBWqKU8fdCwD8ysw4mQ9nrEHvzg6gunR7A==
+"@types/node@^16.11.10":
+  version "16.11.10"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-16.11.10.tgz#2e3ad0a680d96367103d3e670d41c2fed3da61ae"
+  integrity sha512-3aRnHa1KlOEEhJ6+CvyHKK5vE9BcLGjtUpwvqYLRvYNQKMfabu3BwfJaA/SLW8dxe28LsNDjtHwePTuzn3gmOA==
 
 "@types/parse-json@^4.0.0":
   version "4.0.0"
@@ -279,10 +279,10 @@
   resolved "https://registry.yarnpkg.com/@types/prop-types/-/prop-types-15.7.4.tgz#fcf7205c25dff795ee79af1e30da2c9790808f11"
   integrity sha512-rZ5drC/jWjrArrS8BR6SIr4cWpW09RNTYt9AMZo3Jwwif+iacXAqgVjm0B0Bv/S1jhDXKHqRVNCbACkJ89RAnQ==
 
-"@types/react@^17.0.36":
-  version "17.0.36"
-  resolved "https://registry.yarnpkg.com/@types/react/-/react-17.0.36.tgz#0d81e0e2419e6a8e9ba6af5e3a0608e70835d7d1"
-  integrity sha512-CUFUp01OdfbpN/76v4koqgcpcRGT3sYOq3U3N6q0ZVGcyeP40NUdVU+EWe3hs34RNaTefiYyBzOpxBBidCc5zw==
+"@types/react@^17.0.37":
+  version "17.0.37"
+  resolved "https://registry.yarnpkg.com/@types/react/-/react-17.0.37.tgz#6884d0aa402605935c397ae689deed115caad959"
+  integrity sha512-2FS1oTqBGcH/s0E+CjrCCR9+JMpsu9b69RTFO+40ua43ZqP5MmQ4iUde/dMjWR909KxZwmOQIFq6AV6NjEG5xg==
   dependencies:
     "@types/prop-types" "*"
     "@types/scheduler" "*"
@@ -3123,29 +3123,29 @@ postcss@^8.1.6, postcss@^8.2.1:
     picocolors "^0.2.1"
     source-map-js "^0.6.2"
 
-postcss@^8.3.11:
-  version "8.3.11"
-  resolved "https://registry.yarnpkg.com/postcss/-/postcss-8.3.11.tgz#c3beca7ea811cd5e1c4a3ec6d2e7599ef1f8f858"
-  integrity sha512-hCmlUAIlUiav8Xdqw3Io4LcpA1DOt7h3LSTAC4G6JGHFFaWzI6qvFt9oilvl8BmkbBRX1IhM90ZAmpk68zccQA==
+postcss@^8.4.4:
+  version "8.4.4"
+  resolved "https://registry.yarnpkg.com/postcss/-/postcss-8.4.4.tgz#d53d4ec6a75fd62557a66bb41978bf47ff0c2869"
+  integrity sha512-joU6fBsN6EIer28Lj6GDFoC/5yOZzLCfn0zHAn/MYXI7aPt4m4hK5KC5ovEZXy+lnCjmYIbQWngvju2ddyEr8Q==
   dependencies:
     nanoid "^3.1.30"
     picocolors "^1.0.0"
-    source-map-js "^0.6.2"
+    source-map-js "^1.0.1"
 
-preact@^10.5.15:
-  version "10.5.15"
-  resolved "https://registry.yarnpkg.com/preact/-/preact-10.5.15.tgz#6df94d8afecf3f9e10a742fd8c362ddab464225f"
-  integrity sha512-5chK29n6QcJc3m1lVrKQSQ+V7K1Gb8HeQY6FViQ5AxCAEGu3DaHffWNDkC9+miZgsLvbvU9rxbV1qinGHMHzqA==
+preact@^10.6.1:
+  version "10.6.1"
+  resolved "https://registry.yarnpkg.com/preact/-/preact-10.6.1.tgz#e14de611b65aea5e656249d19582c457fb0aa255"
+  integrity sha512-ydCg+ISIq70vqiThvNWStZWLRjR9U2awP/JAmGdWUKm9+Tyuy+MqVdAIyEByeIspAVtD4GWC/SJtxO8XD4knVA==
 
 prelude-ls@^1.2.1:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/prelude-ls/-/prelude-ls-1.2.1.tgz#debc6489d7a6e6b0e7611888cec880337d316396"
   integrity sha512-vkcDPrRZo1QZLbn5RLGPpg/WmIQ65qoWWhcGKf/b5eplkkarX0m9z8ppCat4mlOqUsWpyNuYgO3VRyrYHSzX5g==
 
-prettier@^2.4.1:
-  version "2.4.1"
-  resolved "https://registry.yarnpkg.com/prettier/-/prettier-2.4.1.tgz#671e11c89c14a4cfc876ce564106c4a6726c9f5c"
-  integrity sha512-9fbDAXSBcc6Bs1mZrDYb3XKzDLm4EXXL9sC1LqKP5rZkT6KRr/rf9amVUcODVXgguK/isJz0d0hP72WeaKWsvA==
+prettier@^2.5.0:
+  version "2.5.0"
+  resolved "https://registry.yarnpkg.com/prettier/-/prettier-2.5.0.tgz#a6370e2d4594e093270419d9cc47f7670488f893"
+  integrity sha512-FM/zAKgWTxj40rH03VxzIPdXmj39SwSjwG0heUcNFwI+EMZJnY93yAiKXM3dObIKAM5TA88werc8T/EwhB45eg==
 
 pretty-hrtime@^1.0.3:
   version "1.0.3"
@@ -3558,6 +3558,11 @@ source-map-js@^0.6.2:
   version "0.6.2"
   resolved "https://registry.yarnpkg.com/source-map-js/-/source-map-js-0.6.2.tgz#0bb5de631b41cfbda6cfba8bd05a80efdfd2385e"
   integrity sha512-/3GptzWzu0+0MBQFrDKzw/DvvMTUORvgY6k6jd/VS6iCR4RDTKWH6v6WPwQoUO8667uQEf9Oe38DxAYWY5F/Ug==
+
+source-map-js@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/source-map-js/-/source-map-js-1.0.1.tgz#a1741c131e3c77d048252adfa24e23b908670caf"
+  integrity sha512-4+TN2b3tqOCd/kaGRJ/sTYA0tR0mdXx26ipdolxcwtJVqEnqNYvlCAt1q3ypy4QMlYus+Zh34RNtYLoq2oQ4IA==
 
 source-map@0.7.3:
   version "0.7.3"
