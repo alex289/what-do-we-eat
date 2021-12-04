@@ -24,9 +24,10 @@ module.exports = function editCommand(foodList) {
             default: foodList.food[index].name,
           },
           {
-            type: 'input',
+            type: 'list',
             name: 'size',
             message: 'What new size does it has per people',
+            choices: ['1 person', '4 people', 'all'],
             default: foodList.food[index].size,
           },
           {

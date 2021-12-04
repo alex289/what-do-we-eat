@@ -11,9 +11,10 @@ module.exports = function addCommand(foodList) {
       message: "What's the name of the food",
     },
     {
-      type: 'input',
+      type: 'list',
       name: 'size',
       message: 'What size does it has per people',
+      choices: ['1 person', '4 people', 'all'],
     },
     {
       type: 'confirm',
