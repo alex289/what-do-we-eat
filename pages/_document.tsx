@@ -22,7 +22,7 @@ class MyDocument extends Document {
             content="black-translucent"
           />
         </Head>
-        <body className="bg-white dark:bg-black text-dark dark:text-white">
+        <body className="bg-gray-50 dark:bg-gray-900 text-dark dark:text-white">
           <Main />
           <NextScript />
         </body>

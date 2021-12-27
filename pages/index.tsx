@@ -1,5 +1,10 @@
 import { useState } from 'react';
 
+import useSWR from 'swr';
+
+import { ApiResponse } from '@/types/apiResponse';
+import fetcher from '@/lib/fetcher';
+
 import Layout from '@/components/layout';
 import Food from '@/components/food';
 import Random from '@/components/random';
@@ -17,6 +22,8 @@ export default function Index() {
     deliverable: '',
   });
 
+  const { data, error } = useSWR<ApiResponse>('/api/food', fetcher);
+
   function handleClick(e: React.MouseEvent) {
     e.preventDefault();
     clicked ? setClicked(false) : setClicked(true);
@@ -28,10 +35,17 @@ export default function Index() {
     setInputText(e.target.value);
   }
 
+  if (error) {
+    return <div className="m-10">Failed to load</div>;
+  }
+  if (!data) {
+    return <div className="m-10">Loading...</div>;
+  }
+
   return (
     <Layout>
       <button
-        className="p-2 px-5 m-3 mb-4 bg-purple-600 text-gray-100 text-lg rounded-lg hover:ring-4 ring-purple-400"
+        className="p-2 px-5 m-3 mb-4 text-lg text-gray-100 bg-purple-600 rounded-lg hover:ring-4 ring-purple-400"
         onClick={handleClick}
       >
         {btnTitle}
@@ -41,10 +55,10 @@ export default function Index() {
         onChange={handleInput}
         type="text"
         placeholder="Search for food..."
-        className="ml-4 p-2 shadow appearance-none border rounded leading-tight focus:outline-none focus:shadow-outline text-gray-700 dark:bg-black dark:text-gray-300"
+        className="p-2 ml-4 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline dark:bg-gray-900 dark:text-gray-300"
       ></input>
       {!clicked && inputText === '' && filter.effort === '' ? (
-        <Food></Food>
+        <Food foodList={data.data}></Food>
       ) : (
         ''
       )}
@@ -53,12 +67,21 @@ export default function Index() {
           size={filter.size}
           effort={filter.effort}
           deliverable={filter.deliverable}
+          foodList={data.data}
         ></Filter>
       ) : (
         ''
       )}
-      {clicked && inputText === '' ? <Random></Random> : ''}
-      {inputText !== '' ? <Search input={inputText}></Search> : ''}
+      {clicked && inputText === '' ? (
+        <Random foodList={data.data}></Random>
+      ) : (
+        ''
+      )}
+      {inputText !== '' ? (
+        <Search input={inputText} foodList={data.data}></Search>
+      ) : (
+        ''
+      )}
     </Layout>
   );
 }

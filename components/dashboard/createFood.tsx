@@ -1,39 +1,33 @@
 import { useState } from 'react';
+import axios from 'axios';
 
-type Filter = {
-  effort: string;
-  size: string;
-  deliverable: string;
-};
-
-export default function Dialog({
-  filterer,
-}: {
-  filterer: (filter: Filter) => void;
-}) {
+const CreateFood = () => {
   const [showModal, setShowModal] = useState(false);
+  const [name, setName] = useState('');
   const [deliverable, setDeliverable] = useState('true');
-  const [size, setSize] = useState('4 people');
-  const [effort, setEffort] = useState('5');
+  const [size, setSize] = useState('1 person');
+  const [effort, setEffort] = useState('0');
 
-  function saveFilter() {
-    filterer({
-      effort: effort,
+  async function saveFood() {
+    await axios.post('/api/food/create', {
+      name: name,
       size: size,
-      deliverable: deliverable,
+      deliverable: deliverable === 'true' ? true : false,
+      effort: Number(effort),
     });
 
     setShowModal(false);
+    window.location.reload();
   }
 
   return (
     <>
       <button
-        className="p-2 px-5 m-3 mb-4 text-lg text-gray-100 bg-purple-600 rounded-lg hover:ring-4 ring-purple-400"
+        className="p-2 px-5 m-3 mb-4 text-lg text-gray-100 bg-green-600 rounded-lg hover:ring-4 ring-green-400"
         type="button"
         onClick={() => setShowModal(true)}
       >
-        Filter food
+        Add food
       </button>
       {showModal ? (
         <>
@@ -43,7 +37,7 @@ export default function Dialog({
               <div className="relative flex flex-col w-full border-0 rounded-lg shadow-lg outline-none bg-gray-50 dark:bg-gray-900 focus:outline-none">
                 {/*header*/}
                 <div className="flex items-start justify-between p-5 mx-16 border-b border-solid rounded-t border-blueGray-200">
-                  <h3 className="mr-4 text-3xl font-semibold">Filter food</h3>
+                  <h3 className="mr-4 text-3xl font-semibold">Add food</h3>
                   <button
                     className="float-right p-1 ml-4 text-3xl font-semibold leading-none text-black bg-transparent border-0 outline-none focus:outline-none"
                     onClick={() => setShowModal(false)}
@@ -58,14 +52,24 @@ export default function Dialog({
                   <p className="my-4 text-lg leading-relaxed text-blueGray-500">
                     <label className="block max-w-lg mt-2 text-left">
                       <span className="text-gray-700 dark:text-gray-300">
+                        Name
+                      </span>
+                      <br />
+                      <input
+                        type="text"
+                        onChange={(e) => setName(e.target.value)}
+                        placeholder="Pizza"
+                        className="w-full p-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline dark:bg-gray-900 dark:text-gray-300"
+                      ></input>
+                    </label>
+                    <label className="block max-w-lg mt-2 text-left">
+                      <span className="text-gray-700 dark:text-gray-300">
                         Size
                       </span>
                       <select
                         className="block w-full mt-1 form-select"
                         onChange={(e) => setSize(e.target.value)}
-                        value={size}
                       >
-                        <option value="-">-</option>
                         <option value="1 person">1 person</option>
                         <option value="4 people">4 people</option>
                         <option value="all">all</option>
@@ -78,9 +82,7 @@ export default function Dialog({
                       <select
                         className="block w-full mt-1 form-select"
                         onChange={(e) => setDeliverable(e.target.value)}
-                        value={deliverable}
                       >
-                        <option value="-">-</option>
                         <option value="true">Yes</option>
                         <option value="false">No</option>
                       </select>
@@ -92,9 +94,7 @@ export default function Dialog({
                       <select
                         className="block w-full mt-1 form-select"
                         onChange={(e) => setEffort(e.target.value)}
-                        value={effort}
                       >
-                        <option value="-">-</option>
                         <option value="0">0</option>
                         <option value="1">1</option>
                         <option value="2">2</option>
@@ -114,17 +114,9 @@ export default function Dialog({
                 <button
                   className="p-2 px-5 m-3 mb-4 text-lg text-gray-100 bg-green-600 rounded-lg hover:ring-4 ring-green-400"
                   type="button"
-                  onClick={() => saveFilter()}
+                  onClick={() => saveFood()}
                 >
-                  Show selection
-                </button>
-
-                <button
-                  className="p-2 px-5 m-3 mb-4 text-lg text-gray-100 bg-red-600 rounded-lg hover:ring-4 ring-red-400"
-                  type="button"
-                  onClick={() => window.location.reload()}
-                >
-                  Remove filter
+                  Save food
                 </button>
               </div>
             </div>
@@ -134,4 +126,6 @@ export default function Dialog({
       ) : null}
     </>
   );
-}
+};
+
+export default CreateFood;
