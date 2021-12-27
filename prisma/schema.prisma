@@ -1,18 +1,18 @@
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
   previewFeatures = ["referentialIntegrity"]
 }
 
 datasource db {
-  provider = "mysql"
-  url      = env("DATABASE_URL")
+  provider             = "mysql"
+  url                  = env("DATABASE_URL")
   referentialIntegrity = "prisma"
 }
 
 model food {
-  id          Int      @id @default(autoincrement())
-  name        String   @db.VarChar(255)
-  size        String   @db.VarChar(255)
-  deliverable Boolean  @db.Bit(1)
-  effort      Int      @db.Int
+  id          Int     @id @default(autoincrement())
+  name        String  @db.VarChar(255)
+  size        String  @db.VarChar(255)
+  deliverable Boolean
+  effort      Int
 }
