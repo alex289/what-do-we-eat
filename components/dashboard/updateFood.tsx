@@ -1,5 +1,7 @@
 import { useState } from 'react';
+
 import axios from 'axios';
+
 import { Food } from '@/types/food';
 
 const UpdateFood = ({ food }: { food: Food }) => {

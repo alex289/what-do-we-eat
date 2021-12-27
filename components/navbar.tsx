@@ -1,4 +1,5 @@
 import Link from 'next/link';
+
 import { useTheme } from 'next-themes';
 
 const Navbar = () => {

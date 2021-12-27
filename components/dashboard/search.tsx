@@ -1,6 +1,8 @@
-import { Food } from '@/types/food';
 import axios from 'axios';
-import UpdateFood from './updateFood';
+
+import { Food } from '@/types/food';
+
+import UpdateFood from '@/components/dashboard/updateFood';
 
 const DashboardSearch = ({
   input,

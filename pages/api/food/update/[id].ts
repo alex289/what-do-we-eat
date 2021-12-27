@@ -1,5 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
+
 import prisma from '@/lib/prisma';
+
 import { ApiResponse } from '@/types/apiResponse';
 import { Food } from '@/types/food';
 
