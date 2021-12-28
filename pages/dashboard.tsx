@@ -21,10 +21,18 @@ export default function Index() {
   }
 
   if (error) {
-    return <div className="m-10">Failed to load</div>;
+    return (
+      <Layout>
+        <div className="m-10">Failed to load</div>
+      </Layout>
+    );
   }
   if (!data) {
-    return <div className="m-10">Loading...</div>;
+    return (
+      <Layout>
+        <div className="m-10">Loading...</div>
+      </Layout>
+    );
   }
 
   return (
