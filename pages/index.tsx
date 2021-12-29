@@ -1,16 +1,18 @@
 import { useState } from 'react';
 
+import dynamic from 'next/dynamic';
 import useSWR from 'swr';
 
 import { ApiResponse } from '@/types/apiResponse';
 import fetcher from '@/lib/fetcher';
 
 import Layout from '@/components/layout';
-import Food from '@/components/food';
-import Random from '@/components/random';
-import Search from '@/components/search';
-import Dialog from '@/components/dialog';
-import Filter from '@/components/filter';
+
+const Food = dynamic(() => import('@/components/food'));
+const Random = dynamic(() => import('@/components/random'));
+const Search = dynamic(() => import('@/components/search'));
+const Dialog = dynamic(() => import('@/components/dialog'));
+const Filter = dynamic(() => import('@/components/filter'));
 
 export default function Index() {
   const [clicked, setClicked] = useState(false);

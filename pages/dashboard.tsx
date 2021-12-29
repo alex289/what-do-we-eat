@@ -1,14 +1,16 @@
 import { useState } from 'react';
 
+import dynamic from 'next/dynamic';
 import useSWR from 'swr';
 
 import { ApiResponse } from '@/types/apiResponse';
 import fetcher from '@/lib/fetcher';
 
 import Layout from '@/components/layout';
-import DashboardFood from '@/components/dashboard/food';
-import DashboardSearch from '@/components/dashboard/search';
-import CreateFood from '@/components/dashboard/createFood';
+
+const DashboardFood = dynamic(() => import('@/components/dashboard/food'));
+const DashboardSearch = dynamic(() => import('@/components/dashboard/search'));
+const CreateFood = dynamic(() => import('@/components/dashboard/createFood'));
 
 export default function Index() {
   const [inputText, setInputText] = useState('');
