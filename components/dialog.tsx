@@ -4,6 +4,7 @@ type Filter = {
   effort: string;
   size: string;
   deliverable: string;
+  cheeseometer: string;
 };
 
 export default function Dialog({
@@ -15,12 +16,14 @@ export default function Dialog({
   const [deliverable, setDeliverable] = useState('true');
   const [size, setSize] = useState('4 people');
   const [effort, setEffort] = useState('5');
+  const [cheeseometer, setCheeseometer] = useState('0');
 
   function saveFilter() {
     filterer({
       effort: effort,
       size: size,
       deliverable: deliverable,
+      cheeseometer: cheeseometer,
     });
 
     setShowModal(false);
@@ -69,6 +72,24 @@ export default function Dialog({
                         <option value="1 person">1 person</option>
                         <option value="4 people">4 people</option>
                         <option value="all">all</option>
+                      </select>
+                    </label>
+                    <label className="block max-w-lg mt-2 text-left">
+                      <span className="text-gray-700 dark:text-gray-300">
+                        Cheeseometer
+                      </span>
+                      <select
+                        className="block w-full mt-1 form-select"
+                        onChange={(e) => setCheeseometer(e.target.value)}
+                        value={cheeseometer}
+                      >
+                        <option value="-">-</option>
+                        <option value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
                       </select>
                     </label>
                     <label className="block max-w-lg mt-2 text-left">

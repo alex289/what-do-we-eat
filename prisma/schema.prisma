@@ -10,9 +10,11 @@ datasource db {
 }
 
 model food {
-  id          Int     @id @default(autoincrement())
-  name        String  @db.VarChar(255)
-  size        String  @db.VarChar(255)
-  deliverable Boolean
-  effort      Int
+  id           Int     @id @default(autoincrement())
+  name         String  @db.VarChar(255)
+  image        String  @default("") @db.VarChar(1000)
+  size         String  @db.VarChar(255)
+  cheeseometer Int
+  deliverable  Boolean
+  effort       Int
 }

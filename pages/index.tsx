@@ -22,6 +22,7 @@ export default function Index() {
     effort: '',
     size: '',
     deliverable: '',
+    cheeseometer: '',
   });
 
   const { data, error } = useSWR<ApiResponse>('/api/food', fetcher);
@@ -77,6 +78,7 @@ export default function Index() {
           size={filter.size}
           effort={filter.effort}
           deliverable={filter.deliverable}
+          cheeseometer={filter.cheeseometer}
           foodList={data.data}
         ></Filter>
       ) : (

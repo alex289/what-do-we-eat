@@ -10,7 +10,7 @@ export default async function handle(
   res: NextApiResponse<ApiResponse | string>
 ) {
   const foodId = req.query.id;
-  const { name, size, deliverable, effort } = req.body;
+  const { name, image, cheeseometer, size, deliverable, effort } = req.body;
 
   if (req.method !== 'PUT') {
     return res.status(405).json('Only PUT method allowed');
@@ -36,7 +36,9 @@ export default async function handle(
     where: { id: Number(foodId) },
     data: {
       name: name,
+      image: image,
       size: size,
+      cheeseometer: cheeseometer,
       deliverable: deliverable,
       effort: effort,
     },

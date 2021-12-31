@@ -7,8 +7,12 @@ import { Food } from '@/types/food';
 const UpdateFood = ({ food }: { food: Food }) => {
   const [showModal, setShowModal] = useState(false);
   const [name, setName] = useState(food.name);
+  const [image, setImage] = useState(food.image);
   const [deliverable, setDeliverable] = useState(
     food.deliverable ? 'true' : 'false'
+  );
+  const [cheeseometer, setCheeseometer] = useState(
+    food.cheeseometer.toString()
   );
   const [size, setSize] = useState(food.size);
   const [effort, setEffort] = useState(food.effort.toString());
@@ -16,7 +20,9 @@ const UpdateFood = ({ food }: { food: Food }) => {
   async function saveFood() {
     await axios.put('/api/food/update/' + food.id, {
       name: name,
+      image: image,
       size: size,
+      cheeseometer: Number(cheeseometer),
       deliverable: deliverable === 'true' ? true : false,
       effort: Number(effort),
     });
@@ -54,8 +60,8 @@ const UpdateFood = ({ food }: { food: Food }) => {
                 </div>
                 {/*body*/}
                 <div className="relative flex-auto p-6">
-                  <p className="my-4 text-lg leading-relaxed text-blueGray-500">
-                    <label className="block max-w-lg mt-2 text-left">
+                  <p className="text-lg leading-relaxed text-blueGray-500">
+                    <label className="block max-w-lg text-left">
                       <span className="text-gray-700 dark:text-gray-300">
                         Name
                       </span>
@@ -64,7 +70,20 @@ const UpdateFood = ({ food }: { food: Food }) => {
                         type="text"
                         onChange={(e) => setName(e.target.value)}
                         value={name}
-                        placeholder="Pizza"
+                        placeholder="Enter name"
+                        className="w-full p-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline dark:bg-gray-900 dark:text-gray-300"
+                      ></input>
+                    </label>
+                    <label className="block max-w-lg text-left">
+                      <span className="text-gray-700 dark:text-gray-300">
+                        Image
+                      </span>
+                      <br />
+                      <input
+                        type="text"
+                        onChange={(e) => setImage(e.target.value)}
+                        value={image}
+                        placeholder="Enter image url"
                         className="w-full p-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline dark:bg-gray-900 dark:text-gray-300"
                       ></input>
                     </label>
@@ -80,6 +99,23 @@ const UpdateFood = ({ food }: { food: Food }) => {
                         <option value="1 person">1 person</option>
                         <option value="4 people">4 people</option>
                         <option value="all">all</option>
+                      </select>
+                    </label>
+                    <label className="block max-w-lg mt-2 text-left">
+                      <span className="text-gray-700 dark:text-gray-300">
+                        Cheeseometer
+                      </span>
+                      <select
+                        className="block w-full mt-1 form-select"
+                        onChange={(e) => setCheeseometer(e.target.value)}
+                        value={cheeseometer}
+                      >
+                        <option value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
                       </select>
                     </label>
                     <label className="block max-w-lg mt-2 text-left">

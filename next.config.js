@@ -13,4 +13,7 @@ module.exports = {
 
     return config;
   },
+  images: {
+    domains: ['i.pinimg.com'],
+  },
 };
