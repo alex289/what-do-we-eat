@@ -3,24 +3,29 @@ import { useState } from 'react';
 import dynamic from 'next/dynamic';
 import useSWR from 'swr';
 
-import { ApiResponse } from '@/types/apiResponse';
+import type { FilterConfig, FoodConfig } from '@/types/config';
+import type { ApiResponse } from '@/types/apiResponse';
+
 import fetcher from '@/lib/fetcher';
+import { handleFood } from '@/lib/filter';
 
 import Layout from '@/components/layout';
 
 const Food = dynamic(() => import('@/components/food'));
-const Random = dynamic(() => import('@/components/random'));
-const Search = dynamic(() => import('@/components/search'));
 const Dialog = dynamic(() => import('@/components/dialog'));
-const Filter = dynamic(() => import('@/components/filter'));
 
 export default function Index() {
   const [clicked, setClicked] = useState(false);
   const [btnTitle, setBtnTitle] = useState('Get random food');
-  const [inputText, setInputText] = useState('');
-  const [filter, setFilter] = useState({
-    effort: '',
+  const [foodConfig, setFoodConfig] = useState<FoodConfig>({
+    filter: false,
+    random: false,
+    search: false,
+    searchInput: '',
+  });
+  const [filter, setFilter] = useState<FilterConfig>({
     size: '',
+    effort: '',
     deliverable: '',
     cheeseometer: '',
   });
@@ -29,13 +34,26 @@ export default function Index() {
 
   function handleClick(e: React.MouseEvent) {
     e.preventDefault();
-    clicked ? setClicked(false) : setClicked(true);
-    clicked ? setBtnTitle('Get random food') : setBtnTitle('Get food list');
+    setClicked(clicked ? false : true);
+    setBtnTitle(clicked ? 'Get food list' : 'Get random food');
+
+    setFoodConfig({
+      filter: foodConfig.filter,
+      random: clicked,
+      search: foodConfig.search,
+      searchInput: foodConfig.searchInput,
+    });
   }
 
   function handleInput(e: React.ChangeEvent<HTMLInputElement>) {
     e.preventDefault();
-    setInputText(e.target.value);
+
+    setFoodConfig({
+      filter: foodConfig.filter,
+      random: foodConfig.random,
+      search: true,
+      searchInput: e.target.value,
+    });
   }
 
   if (error) {
@@ -61,39 +79,18 @@ export default function Index() {
       >
         {btnTitle}
       </button>
-      <Dialog filterer={setFilter}></Dialog>
+      <Dialog
+        filterer={setFilter}
+        config={foodConfig}
+        setConfig={setFoodConfig}
+      ></Dialog>
       <input
         onChange={handleInput}
         type="text"
         placeholder="Search for food..."
         className="p-2 ml-4 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline dark:bg-gray-900 dark:text-gray-300"
       ></input>
-      {!clicked && inputText === '' && filter.effort === '' ? (
-        <Food foodList={data.data}></Food>
-      ) : (
-        ''
-      )}
-      {!clicked && inputText === '' && filter.effort !== '' ? (
-        <Filter
-          size={filter.size}
-          effort={filter.effort}
-          deliverable={filter.deliverable}
-          cheeseometer={filter.cheeseometer}
-          foodList={data.data}
-        ></Filter>
-      ) : (
-        ''
-      )}
-      {clicked && inputText === '' ? (
-        <Random foodList={data.data}></Random>
-      ) : (
-        ''
-      )}
-      {inputText !== '' ? (
-        <Search input={inputText} foodList={data.data}></Search>
-      ) : (
-        ''
-      )}
+      <Food foodList={handleFood(data.data, foodConfig, filter)}></Food>
     </Layout>
   );
 }

@@ -2,7 +2,7 @@ import Image from 'next/image';
 
 import axios from 'axios';
 
-import { Food } from '@/types/food';
+import type { Food } from '@/types/food';
 
 import UpdateFood from '@/components/dashboard/updateFood';
 

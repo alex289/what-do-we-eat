@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import axios from 'axios';
 
-import { Food } from '@/types/food';
+import type { Food } from '@/types/food';
 
 const UpdateFood = ({ food }: { food: Food }) => {
   const [showModal, setShowModal] = useState(false);
@@ -40,7 +40,7 @@ const UpdateFood = ({ food }: { food: Food }) => {
       >
         Update
       </button>
-      {showModal ? (
+      {showModal && (
         <>
           <div className="fixed inset-0 z-50 flex items-center justify-center overflow-x-hidden overflow-y-auto outline-none focus:outline-none">
             <div className="relative w-auto max-w-3xl mx-auto my-6">
@@ -168,7 +168,7 @@ const UpdateFood = ({ food }: { food: Food }) => {
           </div>
           <div className="fixed inset-0 z-40 bg-gray-900 opacity-25"></div>
         </>
-      ) : null}
+      )}
     </>
   );
 };

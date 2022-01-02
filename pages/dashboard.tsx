@@ -3,16 +3,17 @@ import { useState } from 'react';
 import dynamic from 'next/dynamic';
 import useSWR from 'swr';
 
-import { ApiResponse } from '@/types/apiResponse';
+import type { ApiResponse } from '@/types/apiResponse';
+
 import fetcher from '@/lib/fetcher';
+import { searchFood } from '@/lib/filter';
 
 import Layout from '@/components/layout';
 
 const DashboardFood = dynamic(() => import('@/components/dashboard/food'));
-const DashboardSearch = dynamic(() => import('@/components/dashboard/search'));
 const CreateFood = dynamic(() => import('@/components/dashboard/createFood'));
 
-export default function Index() {
+export default function Dashboard() {
   const [inputText, setInputText] = useState('');
 
   const { data, error } = useSWR<ApiResponse>('/api/food', fetcher);
@@ -46,19 +47,11 @@ export default function Index() {
         placeholder="Search for food..."
         className="p-2 ml-4 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline dark:bg-gray-900 dark:text-gray-300"
       ></input>
-      {inputText === '' ? (
-        <DashboardFood foodList={data.data}></DashboardFood>
-      ) : (
-        ''
-      )}
-      {inputText !== '' ? (
-        <DashboardSearch
-          input={inputText}
-          foodList={data.data}
-        ></DashboardSearch>
-      ) : (
-        ''
-      )}
+      <DashboardFood
+        foodList={
+          inputText === '' ? data.data : searchFood(data.data, inputText)
+        }
+      ></DashboardFood>
     </Layout>
   );
 }

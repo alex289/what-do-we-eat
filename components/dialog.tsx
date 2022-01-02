@@ -1,16 +1,15 @@
 import { useState } from 'react';
 
-type Filter = {
-  effort: string;
-  size: string;
-  deliverable: string;
-  cheeseometer: string;
-};
+import type { FilterConfig, FoodConfig } from '@/types/config';
 
 export default function Dialog({
   filterer,
+  config,
+  setConfig,
 }: {
-  filterer: (filter: Filter) => void;
+  filterer: (filter: FilterConfig) => void;
+  config: FoodConfig;
+  setConfig: (config: FoodConfig) => void;
 }) {
   const [showModal, setShowModal] = useState(false);
   const [deliverable, setDeliverable] = useState('true');
@@ -26,6 +25,24 @@ export default function Dialog({
       cheeseometer: cheeseometer,
     });
 
+    setConfig({
+      filter: true,
+      random: config.random,
+      search: config.search,
+      searchInput: config.searchInput,
+    });
+
+    setShowModal(false);
+  }
+
+  function clearFilter() {
+    setConfig({
+      filter: false,
+      random: config.random,
+      search: config.search,
+      searchInput: config.searchInput,
+    });
+
     setShowModal(false);
   }
 
@@ -38,7 +55,7 @@ export default function Dialog({
       >
         Filter food
       </button>
-      {showModal ? (
+      {showModal && (
         <>
           <div className="fixed inset-0 z-50 flex items-center justify-center overflow-x-hidden overflow-y-auto outline-none focus:outline-none">
             <div className="relative w-auto max-w-3xl mx-auto my-6">
@@ -143,7 +160,7 @@ export default function Dialog({
                 <button
                   className="p-2 px-5 m-3 mb-4 text-lg text-gray-100 bg-red-600 rounded-lg hover:ring-4 ring-red-400"
                   type="button"
-                  onClick={() => window.location.reload()}
+                  onClick={() => clearFilter()}
                 >
                   Remove filter
                 </button>
@@ -152,7 +169,7 @@ export default function Dialog({
           </div>
           <div className="fixed inset-0 z-40 bg-gray-900 opacity-25"></div>
         </>
-      ) : null}
+      )}
     </>
   );
 }
