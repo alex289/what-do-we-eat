@@ -2,12 +2,15 @@ import type { FilterConfig, FoodConfig } from '@/types/config';
 import type { Food } from '@/types/food';
 
 export function randomFood(foodList: Food[]) {
-  return foodList[Math.floor(Math.random() * foodList.length)];
+  const food = foodList[Math.floor(Math.random() * foodList.length)];
+  return food === undefined ? [] : [food];
 }
 
 export function searchFood(foodList: Food[], input: string) {
   return foodList.filter((food) =>
-    food.name.toLowerCase().match(input.toLowerCase())
+    food.name
+      .toLowerCase()
+      .match(input.replace(/[|&;$%@"<>()+,?]/g, '').toLowerCase())
   );
 }
 
@@ -62,7 +65,7 @@ export function handleFood(
     currentFoodList = searchFood(currentFoodList, config.searchInput || '');
   }
   if (config.random) {
-    return [randomFood(currentFoodList)];
+    currentFoodList = randomFood(currentFoodList);
   }
 
   return currentFoodList;
