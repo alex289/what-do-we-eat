@@ -10,5 +10,6 @@ export default async function handle(
   res: NextApiResponse<ApiResponse>
 ) {
   const items = await prisma.food.findMany();
+  res.setHeader('Cache-Control', 's-maxage=60, stale-while-revalidate=3600');
   res.json({ status: 'success', data: items as unknown as Food[] });
 }

@@ -11,9 +11,10 @@ const Food = ({ foodList }: { foodList: Food[] }) => (
             src={
               food.image === '' ? '/static/images/placeholder.png' : food.image
             }
-            width={200}
-            height={150}
+            width={225}
+            height={175}
             alt={food.name}
+            quality={100}
           ></Image>
         </div>
         <p className="text-lg font-semibold">{food.name}</p>
