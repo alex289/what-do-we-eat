@@ -7,15 +7,15 @@ const Food = ({ foodList }: { foodList: Food[] }) => (
     {foodList.map((food, index) => (
       <li key={index} className="max-w-md px-8 py-6 rounded-lg shadow-lg">
         <div className="w-full mx-auto">
-          <Image
-            src={
-              food.image === '' ? '/static/images/placeholder.png' : food.image
-            }
-            width={225}
-            height={175}
-            alt={food.name}
-            quality={100}
-          ></Image>
+          {food.image.startsWith('https://i.pinimg.com/') && (
+            <Image
+              src={food.image}
+              width={225}
+              height={175}
+              alt={food.name}
+              quality={100}
+            ></Image>
+          )}
         </div>
         <p className="text-lg font-semibold">{food.name}</p>
         <p>Size: {food.size}</p>
