@@ -18,16 +18,14 @@ const DashboardFood = ({ foodList }: { foodList: Food[] }) => {
       {foodList.map((food, index) => (
         <li key={index} className="max-w-md px-8 py-6 rounded-lg shadow-lg">
           <div className="w-full mx-auto">
-            <Image
-              src={
-                food.image === ''
-                  ? '/static/images/placeholder.png'
-                  : food.image
-              }
-              width={200}
-              height={150}
-              alt={food.name}
-            ></Image>
+            {food.image.startsWith('https://i.pinimg.com/') && (
+              <Image
+                src={food.image}
+                width={200}
+                height={150}
+                alt={food.name}
+              ></Image>
+            )}
           </div>
           <p className="text-lg font-semibold">{food.name}</p>
           <p>Id: {food.id}</p>
