@@ -3,8 +3,10 @@ import { useState } from 'react';
 import dynamic from 'next/dynamic';
 import useSWR from 'swr';
 
+import type { GetStaticProps } from 'next';
 import type { ApiResponse } from '@/types/apiResponse';
 
+import prisma from '@/lib/prisma';
 import fetcher from '@/lib/fetcher';
 import { searchFood } from '@/lib/filter';
 
@@ -13,10 +15,16 @@ import Layout from '@/components/layout';
 const DashboardFood = dynamic(() => import('@/components/dashboard/food'));
 const CreateFood = dynamic(() => import('@/components/dashboard/createFood'));
 
-export default function Dashboard() {
+export default function Dashboard({
+  fallbackData,
+}: {
+  fallbackData: ApiResponse;
+}) {
   const [inputText, setInputText] = useState('');
 
-  const { data, error } = useSWR<ApiResponse>('/api/food', fetcher);
+  const { data, error } = useSWR<ApiResponse>('/api/food', fetcher, {
+    fallbackData,
+  });
 
   function handleInput(e: React.ChangeEvent<HTMLInputElement>) {
     e.preventDefault();
@@ -55,3 +63,15 @@ export default function Dashboard() {
     </Layout>
   );
 }
+
+export const getStaticProps: GetStaticProps = async () => {
+  const entries = await prisma.food.findMany();
+  const fallbackData: ApiResponse = { status: 'Success', data: entries };
+
+  return {
+    props: {
+      fallbackData,
+    },
+    revalidate: 60,
+  };
+};

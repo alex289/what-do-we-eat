@@ -1,5 +1,6 @@
 import Image from 'next/image';
 
+import { useSWRConfig } from 'swr';
 import axios from 'axios';
 
 import type { Food } from '@/types/food';
@@ -7,10 +8,12 @@ import type { Food } from '@/types/food';
 import UpdateFood from '@/components/dashboard/updateFood';
 
 const DashboardFood = ({ foodList }: { foodList: Food[] }) => {
+  const { mutate } = useSWRConfig();
+
   async function deleteFood(foodId: number) {
     await axios.delete('/api/food/delete/' + foodId);
 
-    window.location.reload();
+    mutate('/api/food');
   }
 
   return (

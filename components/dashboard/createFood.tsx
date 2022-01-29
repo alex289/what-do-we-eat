@@ -1,6 +1,7 @@
 import { useState } from 'react';
 
 import axios from 'axios';
+import { useSWRConfig } from 'swr';
 
 const CreateFood = () => {
   const [showModal, setShowModal] = useState(false);
@@ -10,6 +11,8 @@ const CreateFood = () => {
   const [cheeseometer, setCheeseometer] = useState('0');
   const [size, setSize] = useState('1 person');
   const [effort, setEffort] = useState('0');
+
+  const { mutate } = useSWRConfig();
 
   async function saveFood() {
     await axios.post('/api/food/create', {
@@ -21,8 +24,8 @@ const CreateFood = () => {
       effort: Number(effort),
     });
 
+    mutate('/api/food');
     setShowModal(false);
-    window.location.reload();
   }
 
   return (

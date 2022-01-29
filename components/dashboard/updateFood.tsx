@@ -1,6 +1,7 @@
 import { useState } from 'react';
 
 import axios from 'axios';
+import { useSWRConfig } from 'swr';
 
 import type { Food } from '@/types/food';
 
@@ -17,6 +18,8 @@ const UpdateFood = ({ food }: { food: Food }) => {
   const [size, setSize] = useState(food.size);
   const [effort, setEffort] = useState(food.effort.toString());
 
+  const { mutate } = useSWRConfig();
+
   async function saveFood() {
     await axios.put('/api/food/update/' + food.id, {
       name: name,
@@ -27,8 +30,8 @@ const UpdateFood = ({ food }: { food: Food }) => {
       effort: Number(effort),
     });
 
+    mutate('/api/food');
     setShowModal(false);
-    window.location.reload();
   }
 
   return (

@@ -3,9 +3,11 @@ import { useState } from 'react';
 import dynamic from 'next/dynamic';
 import useSWR from 'swr';
 
+import type { GetStaticProps } from 'next';
 import type { FilterConfig, FoodConfig } from '@/types/config';
 import type { ApiResponse } from '@/types/apiResponse';
 
+import prisma from '@/lib/prisma';
 import fetcher from '@/lib/fetcher';
 import { handleFood } from '@/lib/filter';
 
@@ -14,7 +16,7 @@ import Layout from '@/components/layout';
 const Food = dynamic(() => import('@/components/food'));
 const Dialog = dynamic(() => import('@/components/dialog'));
 
-export default function Index() {
+export default function Index({ fallbackData }: { fallbackData: ApiResponse }) {
   const [clicked, setClicked] = useState(false);
   const [btnTitle, setBtnTitle] = useState('Get random food');
   const [foodConfig, setFoodConfig] = useState<FoodConfig>({
@@ -30,7 +32,9 @@ export default function Index() {
     cheeseometer: '',
   });
 
-  const { data, error } = useSWR<ApiResponse>('/api/food', fetcher);
+  const { data, error } = useSWR<ApiResponse>('/api/food', fetcher, {
+    fallbackData,
+  });
 
   function handleClick(e: React.MouseEvent) {
     e.preventDefault();
@@ -94,3 +98,15 @@ export default function Index() {
     </Layout>
   );
 }
+
+export const getStaticProps: GetStaticProps = async () => {
+  const entries = await prisma.food.findMany();
+  const fallbackData: ApiResponse = { status: 'Success', data: entries };
+
+  return {
+    props: {
+      fallbackData,
+    },
+    revalidate: 60,
+  };
+};
