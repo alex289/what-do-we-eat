@@ -6,7 +6,7 @@ const Navbar = () => {
   const { theme, setTheme } = useTheme();
 
   return (
-    <nav className="top-0 z-50 flex items-center justify-between w-full max-w-4xl p-3 mx-auto my-0 text-gray-900 custom-nav md:p-0 bg-gray-50 md:my-8 dark:bg-gray-900 dark:text-gray-100">
+    <nav className="top-0 z-50 flex items-center justify-between w-full max-w-4xl p-3 mx-auto my-0 text-gray-900 custom-nav md:p-0 bg-gray-50 md:my-8 dark:bg-gray-800 dark:text-gray-100">
       <div>
         <h1 className="p-1 text-xl font-semibold text-gray-900 sm:p-4 dark:text-gray-100">
           <Link href="/">What do we eat?</Link>
@@ -16,7 +16,7 @@ const Navbar = () => {
         <button
           aria-label="Toggle Dark Mode"
           type="button"
-          className="w-10 h-10 p-3 mr-1 bg-gray-200 rounded-lg dark:bg-gray-800 md:mr-3 ring-gray-300 hover:ring-4"
+          className="w-10 h-10 p-3 mr-1 bg-gray-200 rounded-lg dark:bg-gray-700 md:mr-3 ring-gray-300 hover:ring-4"
           onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
         >
           <svg
