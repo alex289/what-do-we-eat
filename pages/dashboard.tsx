@@ -1,5 +1,6 @@
 import { useState } from 'react';
 
+import { signIn, useSession } from 'next-auth/react';
 import dynamic from 'next/dynamic';
 import useSWR from 'swr';
 
@@ -20,6 +21,13 @@ export default function Dashboard({
 }: {
   fallbackData: ApiResponse;
 }) {
+  const { data: session } = useSession({
+    required: true,
+    onUnauthenticated() {
+      signIn('google');
+    },
+  });
+
   const [inputText, setInputText] = useState('');
 
   const { data, error } = useSWR<ApiResponse>('/api/food', fetcher, {
@@ -29,6 +37,14 @@ export default function Dashboard({
   function handleInput(e: React.ChangeEvent<HTMLInputElement>) {
     e.preventDefault();
     setInputText(e.target.value);
+  }
+
+  if (session && session.user?.email !== process.env.NEXT_PUBLIC_ADMIN_EMAIL) {
+    return (
+      <Layout>
+        <div className="m-10">Unauthorized</div>
+      </Layout>
+    );
   }
 
   if (error) {

@@ -1,5 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 
+import { getSession } from 'next-auth/react';
 import prisma from '@/lib/prisma';
 
 import type { ApiResponse } from '@/types/apiResponse';
@@ -9,26 +10,17 @@ export default async function handle(
   req: NextApiRequest,
   res: NextApiResponse<ApiResponse | string>
 ) {
+  const session = await getSession({ req });
+
+  if (session && session.user?.email !== process.env.NEXT_PUBLIC_ADMIN_EMAIL) {
+    res.status(401).json('Failed. Not authenticated');
+    return;
+  }
+
   const { name, image, cheeseometer, size, deliverable, effort } = req.body;
 
   if (req.method !== 'POST') {
     return res.status(405).json('Only POST method allowed');
-  }
-
-  const basicAuth = req.headers.authorization;
-
-  if (!basicAuth) {
-    return res.status(401).json('Unauthorized');
-  }
-
-  const auth = basicAuth.split(' ')[1];
-  const [user, pwd] = Buffer.from(auth, 'base64').toString().split(':');
-
-  if (
-    user !== process.env.AUTH_ADMIN_USERNAME &&
-    pwd !== process.env.AUTH_ADMIN_PASSWORD
-  ) {
-    return res.status(401).json('Unauthorized');
   }
 
   const result = await prisma.food.create({
