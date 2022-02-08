@@ -21,7 +21,7 @@ export default function Dashboard({
 }: {
   fallbackData: ApiResponse;
 }) {
-  const { data: session } = useSession({
+  const { data: session, status } = useSession({
     required: true,
     onUnauthenticated() {
       signIn('google');
@@ -37,6 +37,10 @@ export default function Dashboard({
   function handleInput(e: React.ChangeEvent<HTMLInputElement>) {
     e.preventDefault();
     setInputText(e.target.value);
+  }
+
+  if (status === 'loading') {
+    return <Layout>Loading or not authenticated...</Layout>;
   }
 
   if (session && session.user?.email !== process.env.NEXT_PUBLIC_ADMIN_EMAIL) {
