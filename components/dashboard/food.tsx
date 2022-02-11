@@ -1,21 +1,12 @@
 import Image from 'next/image';
-
-import { useSWRConfig } from 'swr';
-import axios from 'axios';
+import dynamic from 'next/dynamic';
 
 import type { Food } from '@/types/food';
 
-import UpdateFood from '@/components/dashboard/updateFood';
+const UpdateFood = dynamic(() => import('@/components/dashboard/updateFood'));
+const DeleteFood = dynamic(() => import('@/components/dashboard/deleteFood'));
 
 const DashboardFood = ({ foodList }: { foodList: Food[] }) => {
-  const { mutate } = useSWRConfig();
-
-  async function deleteFood(foodId: number) {
-    await axios.delete('/api/food/delete/' + foodId);
-
-    mutate('/api/food');
-  }
-
   return (
     <ul className="px-2 mt-3 md:mt-0 grid xl:grid-flow-row xl:grid-cols-5 md:grid-cols-2 gap-6 md:grid-flow-column">
       {foodList.map((food, index) => (
@@ -38,13 +29,8 @@ const DashboardFood = ({ foodList }: { foodList: Food[] }) => {
               Deliverable: {food.deliverable ? 'Yes' : 'No'}
             </p>
             <p className="text-base">Effort: {food.effort}/10</p>
-            <UpdateFood food={food}></UpdateFood>
-            <button
-              onClick={() => deleteFood(food.id)}
-              className="p-3 mt-1 ml-2 text-gray-100 bg-red-600 rounded-lg hover:ring-4 ring-red-400"
-            >
-              Delete
-            </button>
+            <UpdateFood food={food} />
+            <DeleteFood food={food} />
           </div>
         </li>
       ))}

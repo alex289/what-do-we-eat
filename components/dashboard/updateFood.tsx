@@ -1,13 +1,14 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import axios from 'axios';
 import { useSWRConfig } from 'swr';
 
 import type { Food } from '@/types/food';
+import { toast } from 'react-toastify';
 
 const UpdateFood = ({ food }: { food: Food }) => {
   const [showModal, setShowModal] = useState(false);
-  const [name, setName] = useState(food.name);
+  const [name, setName] = useState('');
   const [image, setImage] = useState(food.image);
   const [deliverable, setDeliverable] = useState(
     food.deliverable ? 'true' : 'false'
@@ -20,8 +21,24 @@ const UpdateFood = ({ food }: { food: Food }) => {
 
   const { mutate } = useSWRConfig();
 
+  useEffect(() => {
+    setName(food.name);
+    setImage(food.image);
+    setDeliverable(food.deliverable ? 'true' : 'false');
+    setCheeseometer(food.cheeseometer.toString());
+    setSize(food.size);
+    setEffort(food.effort.toString());
+  }, [
+    food.name,
+    food.image,
+    food.deliverable,
+    food.cheeseometer,
+    food.size,
+    food.effort,
+  ]);
+
   async function saveFood() {
-    await axios.put('/api/food/update/' + food.id, {
+    const res = await axios.put('/api/food/update/' + food.id, {
       name: name,
       image: image,
       size: size,
@@ -30,8 +47,14 @@ const UpdateFood = ({ food }: { food: Food }) => {
       effort: Number(effort),
     });
 
+    if (res.status !== 200) {
+      toast.error(`Failed updating '${name}': ${res.statusText}`);
+      return;
+    }
+
     mutate('/api/food');
     setShowModal(false);
+    toast.success(`Updated '${name}'`);
   }
 
   return (
@@ -57,7 +80,20 @@ const UpdateFood = ({ food }: { food: Food }) => {
                     onClick={() => setShowModal(false)}
                   >
                     <span className="block w-6 h-6 text-2xl text-black outline-none dark:text-white hover:text-gray-800 focus:outline-none">
-                      ×
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="w-6 h-6"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M6 18L18 6M6 6l12 12"
+                        />
+                      </svg>
                     </span>
                   </button>
                 </div>
