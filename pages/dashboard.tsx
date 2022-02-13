@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { signIn, useSession } from 'next-auth/react';
 import dynamic from 'next/dynamic';
 import useSWR from 'swr';
-import { ToastContainer } from 'react-toastify';
+import { ToastContainer, Zoom } from 'react-toastify';
 
 import type { GetStaticProps } from 'next';
 import type { ApiResponse } from '@/types/apiResponse';
@@ -69,7 +69,12 @@ export default function Dashboard({
 
   return (
     <Layout>
-      <ToastContainer autoClose={2500} newestOnTop={true} theme="colored" />
+      <ToastContainer
+        transition={Zoom}
+        autoClose={2500}
+        newestOnTop={true}
+        theme="colored"
+      />
       <CreateFood></CreateFood>
       <input
         onChange={handleInput}

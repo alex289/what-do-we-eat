@@ -29,7 +29,7 @@ const Meta = () => {
       <meta name="description" content="Web app to tell you what to eat" />
       <meta name="format-detection" content="telephone=no" />
       <meta name="mobile-web-app-capable" content="yes" />
-      <meta name="msapplication-TileColor" content="#2B5797" />
+      <meta name="msapplication-TileColor" content="#c084fc" />
       <meta name="msapplication-tap-highlight" content="no" />
 
       <link
@@ -39,6 +39,18 @@ const Meta = () => {
       />
       <link rel="manifest" href="/manifest.json" />
       <link rel="shortcut icon" href="/static/icons/favicon.ico" />
+      <link
+        rel="icon"
+        type="image/png"
+        sizes="32x32"
+        href="/favicon-32x32.png"
+      />
+      <link
+        rel="icon"
+        type="image/png"
+        sizes="16x16"
+        href="/favicon-16x16.png"
+      />
       <link
         rel="preload"
         href="static/fonts/inter-var-latin.woff2"
