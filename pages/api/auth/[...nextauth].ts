@@ -3,6 +3,11 @@ import GoogleProvider from 'next-auth/providers/google';
 
 export default NextAuth({
   secret: process.env.NEXTAUTH_SECRET,
+  theme: {
+    colorScheme: 'auto',
+    brandColor: '#c084fc',
+    logo: 'https://what-do-we-eat.vercel.app/static/icons/favicon.ico',
+  },
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID as string,
