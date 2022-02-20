@@ -23,7 +23,7 @@ export default function App({
 }: AppProps) {
   return (
     <SessionProvider session={session}>
-      <ThemeProvider attribute="class" defaultTheme="light">
+      <ThemeProvider attribute="class">
         <Component {...pageProps} />
       </ThemeProvider>
     </SessionProvider>
