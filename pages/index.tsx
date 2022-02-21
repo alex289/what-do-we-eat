@@ -26,7 +26,6 @@ export default function Index({ fallbackData }: { fallbackData: ApiResponse }) {
     searchInput: '',
   });
   const [filter, setFilter] = useState<FilterConfig>({
-    size: '',
     effort: '',
     deliverable: '',
     cheeseometer: '',

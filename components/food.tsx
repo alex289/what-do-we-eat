@@ -21,7 +21,6 @@ const Food = ({ foodList }: { foodList: Food[] }) => (
         )}
         <div className="px-6 py-4">
           <p className="mb-1 text-xl font-bold">{food.name}</p>
-          <p className="text-base">Size: {food.size}</p>
           <p className="text-base">Cheeseometer: {food.cheeseometer}/5</p>
           <p className="text-base">
             Deliverable: {food.deliverable ? 'Yes' : 'No'}

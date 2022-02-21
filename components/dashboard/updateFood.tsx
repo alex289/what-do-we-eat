@@ -16,7 +16,6 @@ const UpdateFood = ({ food }: { food: Food }) => {
   const [cheeseometer, setCheeseometer] = useState(
     food.cheeseometer.toString()
   );
-  const [size, setSize] = useState(food.size);
   const [effort, setEffort] = useState(food.effort.toString());
 
   const { mutate } = useSWRConfig();
@@ -26,22 +25,13 @@ const UpdateFood = ({ food }: { food: Food }) => {
     setImage(food.image);
     setDeliverable(food.deliverable ? 'true' : 'false');
     setCheeseometer(food.cheeseometer.toString());
-    setSize(food.size);
     setEffort(food.effort.toString());
-  }, [
-    food.name,
-    food.image,
-    food.deliverable,
-    food.cheeseometer,
-    food.size,
-    food.effort,
-  ]);
+  }, [food.name, food.image, food.deliverable, food.cheeseometer, food.effort]);
 
   async function saveFood() {
     const res = await axios.put('/api/food/update/' + food.id, {
       name: name,
       image: image,
-      size: size,
       cheeseometer: Number(cheeseometer),
       deliverable: deliverable === 'true' ? true : false,
       effort: Number(effort),
@@ -125,20 +115,6 @@ const UpdateFood = ({ food }: { food: Food }) => {
                         placeholder="Enter image url"
                         className="w-full p-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline dark:bg-gray-800 dark:text-gray-300"
                       ></input>
-                    </label>
-                    <label className="block max-w-lg mt-2 text-left">
-                      <span className="text-gray-700 dark:text-gray-300">
-                        Size
-                      </span>
-                      <select
-                        className="block w-full mt-1 form-select"
-                        onChange={(e) => setSize(e.target.value)}
-                        value={size}
-                      >
-                        <option value="1 person">1 person</option>
-                        <option value="4 people">4 people</option>
-                        <option value="all">all</option>
-                      </select>
                     </label>
                     <label className="block max-w-lg mt-2 text-left">
                       <span className="text-gray-700 dark:text-gray-300">

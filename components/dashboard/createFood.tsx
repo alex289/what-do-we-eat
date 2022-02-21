@@ -10,7 +10,6 @@ const CreateFood = () => {
   const [image, setImage] = useState('');
   const [deliverable, setDeliverable] = useState('true');
   const [cheeseometer, setCheeseometer] = useState('0');
-  const [size, setSize] = useState('1 person');
   const [effort, setEffort] = useState('0');
 
   const { mutate } = useSWRConfig();
@@ -19,7 +18,6 @@ const CreateFood = () => {
     const res = await axios.post('/api/food/create', {
       name: name,
       image: image,
-      size: size,
       deliverable: deliverable === 'true' ? true : false,
       cheeseometer: Number(cheeseometer),
       effort: Number(effort),
@@ -101,19 +99,6 @@ const CreateFood = () => {
                         placeholder="Enter image url"
                         className="w-full p-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline dark:bg-gray-800 dark:text-gray-300"
                       ></input>
-                    </label>
-                    <label className="block max-w-lg mt-2 text-left">
-                      <span className="text-gray-700 dark:text-gray-300">
-                        Size
-                      </span>
-                      <select
-                        className="block w-full mt-1 form-select"
-                        onChange={(e) => setSize(e.target.value)}
-                      >
-                        <option value="1 person">1 person</option>
-                        <option value="4 people">4 people</option>
-                        <option value="all">all</option>
-                      </select>
                     </label>
                     <label className="block max-w-lg mt-2 text-left">
                       <span className="text-gray-700 dark:text-gray-300">

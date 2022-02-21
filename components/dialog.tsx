@@ -13,14 +13,12 @@ export default function Dialog({
 }) {
   const [showModal, setShowModal] = useState(false);
   const [deliverable, setDeliverable] = useState('true');
-  const [size, setSize] = useState('4 people');
   const [effort, setEffort] = useState('5');
   const [cheeseometer, setCheeseometer] = useState('0');
 
   function saveFilter() {
     filterer({
       effort: effort,
-      size: size,
       deliverable: deliverable,
       cheeseometer: cheeseometer,
     });
@@ -76,21 +74,6 @@ export default function Dialog({
                 {/*body*/}
                 <div className="relative flex-auto p-6">
                   <p className="my-4 text-lg leading-relaxed text-blueGray-500">
-                    <label className="block max-w-lg mt-2 text-left">
-                      <span className="text-gray-700 dark:text-gray-300">
-                        Size
-                      </span>
-                      <select
-                        className="block w-full mt-1 form-select"
-                        onChange={(e) => setSize(e.target.value)}
-                        value={size}
-                      >
-                        <option value="-">-</option>
-                        <option value="1 person">1 person</option>
-                        <option value="4 people">4 people</option>
-                        <option value="all">all</option>
-                      </select>
-                    </label>
                     <label className="block max-w-lg mt-2 text-left">
                       <span className="text-gray-700 dark:text-gray-300">
                         Cheeseometer
