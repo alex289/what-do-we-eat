@@ -2069,10 +2069,10 @@ next-auth@^4.2.1:
     preact-render-to-string "^5.1.19"
     uuid "^8.3.2"
 
-next-themes@^0.1.0:
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/next-themes/-/next-themes-0.1.0.tgz#b06e0a8a51d41882188f1b5c9ac05ec788ee174d"
-  integrity sha512-ZegYm66ruv/KFEIM28sMXcSOyqFjkc/5wM+vnPKAzIPzuIog/zUpgWZ9fwNoKrWkWygUxqJOZ8DItkARYSN//g==
+next-themes@^0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/next-themes/-/next-themes-0.1.1.tgz#122113a458bf1d1be5ffed66778ab924c106f82a"
+  integrity sha512-Iqxt6rhS/KfK/iHJ0tfFjTcdLEAI0AgwFuAFrMwLOPK5e+MI3I+fzyvBoS+VaOS+NldUiazurhgwYhrfV0VXsQ==
 
 next@12.1.0:
   version "12.1.0"

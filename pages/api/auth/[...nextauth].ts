@@ -21,4 +21,16 @@ export default NextAuth({
       },
     }),
   ],
+  callbacks: {
+    jwt: async ({ token, user }) => {
+      user && (token.user = user);
+      token.isAdmin = token.email === process.env.ADMIN_EMAIL;
+      return token;
+    },
+    session: async ({ session, token }) => {
+      session.user = token;
+      session.isAdmin = token.email === process.env.ADMIN_EMAIL;
+      return session;
+    },
+  },
 });

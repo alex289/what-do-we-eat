@@ -44,7 +44,7 @@ export default function Dashboard({
     return <Layout>Loading or not authenticated...</Layout>;
   }
 
-  if (session && session.user?.email !== process.env.NEXT_PUBLIC_ADMIN_EMAIL) {
+  if (session && !session.isAdmin) {
     return (
       <Layout>
         <div className="m-10">Unauthorized</div>

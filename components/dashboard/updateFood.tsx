@@ -71,7 +71,7 @@ const UpdateFood = ({ food }: { food: Food }) => {
           <div className="fixed inset-0 z-50 flex items-center justify-center overflow-x-hidden overflow-y-auto outline-none focus:outline-none">
             <div className="relative w-auto max-w-3xl mx-auto my-6">
               {/*content*/}
-              <div className="relative flex flex-col w-full border-0 rounded-lg shadow-lg outline-none bg-gray-50 dark:bg-gray-800 focus:outline-none">
+              <div className="relative flex flex-col w-full border-0 rounded-lg shadow-lg outline-none bg-gray-50 dark:bg-gray-700 focus:outline-none">
                 {/*header*/}
                 <div className="flex items-start justify-between p-5 mx-16 border-b border-solid rounded-t border-blueGray-200">
                   <h3 className="mr-4 text-3xl font-semibold">Update food</h3>

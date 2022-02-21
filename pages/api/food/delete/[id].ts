@@ -13,7 +13,7 @@ export default async function handle(
   const session = await getSession({ req });
   const foodId = req.query.id;
 
-  if (session && session.user?.email !== process.env.NEXT_PUBLIC_ADMIN_EMAIL) {
+  if (session && !session.isAdmin) {
     res.status(401).json('Failed. Not authenticated');
     return;
   }
