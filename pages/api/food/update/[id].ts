@@ -12,7 +12,8 @@ export default async function handle(
 ) {
   const session = await getSession({ req });
   const foodId = req.query.id;
-  const { name, image, cheeseometer, deliverable, effort } = req.body;
+  const { name, image, cheeseometer, deliverable, nutrition, effort } =
+    req.body;
 
   if (session && !session.isAdmin) {
     res.status(401).json('Failed. Not authenticated');
@@ -30,6 +31,7 @@ export default async function handle(
       image: image,
       cheeseometer: cheeseometer,
       deliverable: deliverable,
+      nutrition: nutrition,
       effort: effort,
     },
   });

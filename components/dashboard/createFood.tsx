@@ -9,6 +9,7 @@ const CreateFood = () => {
   const [name, setName] = useState('');
   const [image, setImage] = useState('');
   const [deliverable, setDeliverable] = useState('true');
+  const [nutrition, setNutrition] = useState('');
   const [cheeseometer, setCheeseometer] = useState('0');
   const [effort, setEffort] = useState('0');
 
@@ -19,6 +20,7 @@ const CreateFood = () => {
       name: name,
       image: image,
       deliverable: deliverable === 'true' ? true : false,
+      nutrition: nutrition,
       cheeseometer: Number(cheeseometer),
       effort: Number(effort),
     });
@@ -126,6 +128,19 @@ const CreateFood = () => {
                       >
                         <option value="true">Yes</option>
                         <option value="false">No</option>
+                      </select>
+                    </label>
+                    <label className="block max-w-lg mt-2 text-left">
+                      <span className="text-gray-700 dark:text-gray-300">
+                        Nutrition
+                      </span>
+                      <select
+                        className="block w-full mt-1 form-select"
+                        onChange={(e) => setNutrition(e.target.value)}
+                      >
+                        <option value=""></option>
+                        <option value="Veggie">Veggie</option>
+                        <option value="Vegan">Vegan</option>
                       </select>
                     </label>
                     <label className="block max-w-lg mt-2 text-left">

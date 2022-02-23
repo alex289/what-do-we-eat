@@ -26,9 +26,11 @@ const Food = ({ foodList }: { foodList: Food[] }) => (
             Deliverable: {food.deliverable ? 'Yes' : 'No'}
           </p>
           <p className="text-base">Effort: {food.effort}/10</p>
+          <p className="text-base">{food.nutrition}</p>
         </div>
       </li>
     ))}
+    {foodList.length === 0 && <li className="ml-4">No results</li>}
   </ul>
 );
 

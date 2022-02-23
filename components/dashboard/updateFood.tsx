@@ -13,6 +13,7 @@ const UpdateFood = ({ food }: { food: Food }) => {
   const [deliverable, setDeliverable] = useState(
     food.deliverable ? 'true' : 'false'
   );
+  const [nutrition, setNutrition] = useState(food.nutrition);
   const [cheeseometer, setCheeseometer] = useState(
     food.cheeseometer.toString()
   );
@@ -24,9 +25,17 @@ const UpdateFood = ({ food }: { food: Food }) => {
     setName(food.name);
     setImage(food.image);
     setDeliverable(food.deliverable ? 'true' : 'false');
+    setNutrition(food.nutrition);
     setCheeseometer(food.cheeseometer.toString());
     setEffort(food.effort.toString());
-  }, [food.name, food.image, food.deliverable, food.cheeseometer, food.effort]);
+  }, [
+    food.name,
+    food.image,
+    food.deliverable,
+    food.cheeseometer,
+    food.effort,
+    food.nutrition,
+  ]);
 
   async function saveFood() {
     const res = await axios.put('/api/food/update/' + food.id, {
@@ -34,6 +43,7 @@ const UpdateFood = ({ food }: { food: Food }) => {
       image: image,
       cheeseometer: Number(cheeseometer),
       deliverable: deliverable === 'true' ? true : false,
+      nutrition: nutrition,
       effort: Number(effort),
     });
 
@@ -144,6 +154,20 @@ const UpdateFood = ({ food }: { food: Food }) => {
                       >
                         <option value="true">Yes</option>
                         <option value="false">No</option>
+                      </select>
+                    </label>
+                    <label className="block max-w-lg mt-2 text-left">
+                      <span className="text-gray-700 dark:text-gray-300">
+                        Nutrition
+                      </span>
+                      <select
+                        className="block w-full mt-1 form-select"
+                        onChange={(e) => setNutrition(e.target.value)}
+                        value={nutrition ?? ''}
+                      >
+                        <option value=""></option>
+                        <option value="Veggie">Veggie</option>
+                        <option value="Vegan">Vegan</option>
                       </select>
                     </label>
                     <label className="block max-w-lg mt-2 text-left">

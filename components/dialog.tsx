@@ -15,12 +15,14 @@ export default function Dialog({
   const [deliverable, setDeliverable] = useState('true');
   const [effort, setEffort] = useState('5');
   const [cheeseometer, setCheeseometer] = useState('0');
+  const [nutrition, setNutrition] = useState('-');
 
   function saveFilter() {
     filterer({
       effort: effort,
       deliverable: deliverable,
       cheeseometer: cheeseometer,
+      nutrition: nutrition,
     });
 
     setConfig({
@@ -67,7 +69,20 @@ export default function Dialog({
                     onClick={() => setShowModal(false)}
                   >
                     <span className="block w-6 h-6 text-2xl text-black outline-none dark:text-white hover:text-gray-800 focus:outline-none">
-                      ×
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="w-6 h-6"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M6 18L18 6M6 6l12 12"
+                        />
+                      </svg>
                     </span>
                   </button>
                 </div>
@@ -104,6 +119,20 @@ export default function Dialog({
                         <option value="-">-</option>
                         <option value="true">Yes</option>
                         <option value="false">No</option>
+                      </select>
+                    </label>
+                    <label className="block max-w-lg mt-2 text-left">
+                      <span className="text-gray-700 dark:text-gray-300">
+                        Nutrition
+                      </span>
+                      <select
+                        className="block w-full mt-1 form-select"
+                        onChange={(e) => setNutrition(e.target.value)}
+                        value={nutrition}
+                      >
+                        <option value="-">-</option>
+                        <option value="Veggie">Veggie</option>
+                        <option value="Vegan">Vegan</option>
                       </select>
                     </label>
                     <label className="block max-w-lg mt-2 text-left">

@@ -19,6 +19,7 @@ export function filterFood(foodList: Food[], config: FilterConfig) {
   let filterEffort = config.effort;
   let filterDeliverable = config.deliverable;
   let filterCheeseometer = config.cheeseometer;
+  let filterNutrition: string | null = config.nutrition;
 
   const ignoreFilter = (food: Food) => {
     if (config.effort === '-') {
@@ -30,6 +31,10 @@ export function filterFood(foodList: Food[], config: FilterConfig) {
     if (config.cheeseometer === '-') {
       filterCheeseometer = food.cheeseometer.toString();
     }
+    if (config.nutrition === '-') {
+      filterNutrition =
+        typeof food.nutrition === 'string' ? food.nutrition : null;
+    }
   };
 
   foodList.map((food) => {
@@ -37,7 +42,8 @@ export function filterFood(foodList: Food[], config: FilterConfig) {
     if (
       food.effort === Number(filterEffort) &&
       food.deliverable === (filterDeliverable === 'true') &&
-      food.cheeseometer === Number(filterCheeseometer)
+      food.cheeseometer === Number(filterCheeseometer) &&
+      food.nutrition === filterNutrition
     ) {
       filteredList.push(food);
     }

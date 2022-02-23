@@ -4,5 +4,6 @@ export type Food = {
   image: string;
   cheeseometer: number;
   deliverable: boolean;
+  nutrition: string | null;
   effort: number;
 };

@@ -29,6 +29,7 @@ export default function Index({ fallbackData }: { fallbackData: ApiResponse }) {
     effort: '',
     deliverable: '',
     cheeseometer: '',
+    nutrition: '',
   });
 
   const { data, error } = useSWR<ApiResponse>('/api/food', fetcher, {
