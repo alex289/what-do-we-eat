@@ -36,13 +36,15 @@ const UpdateFood = ({ food }: { food: Food }) => {
     });
 
     if (res.status !== 200) {
-      toast.error(`Failed updating '${name}': ${res.statusText}`);
+      toast.error(
+        `Failed updating '${e.target.name.value}': ${res.statusText}`
+      );
       return;
     }
 
-    mutate('/api/food');
     setShowModal(false);
-    toast.success(`Updated '${name}'`);
+    toast.success(`Updated '${e.target.name.value}'`);
+    mutate('/api/food');
   }
 
   return (

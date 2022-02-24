@@ -21,9 +21,9 @@ const DeleteFood = ({ food }: { food: Food }) => {
       return;
     }
 
-    mutate('/api/food');
     setShowModal(false);
     toast.success(`Deleted '${food.name}'`);
+    mutate('/api/food');
   }
 
   return (
