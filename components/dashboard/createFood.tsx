@@ -1,28 +1,35 @@
-import { useState } from 'react';
+import { FormEvent, useState } from 'react';
 
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import { useSWRConfig } from 'swr';
 
+type FormData = {
+  target: {
+    name: { value: string };
+    image: { value: string };
+    deliverable: { value: string };
+    nutrition: { value: string };
+    cheeseometer: { value: string };
+    effort: { value: string };
+  };
+};
+
 const CreateFood = () => {
   const [showModal, setShowModal] = useState(false);
-  const [name, setName] = useState('');
-  const [image, setImage] = useState('');
-  const [deliverable, setDeliverable] = useState('true');
-  const [nutrition, setNutrition] = useState('');
-  const [cheeseometer, setCheeseometer] = useState('0');
-  const [effort, setEffort] = useState('0');
 
   const { mutate } = useSWRConfig();
 
-  async function saveFood() {
+  async function saveFood(e: FormEvent<HTMLFormElement> & FormData) {
+    e.preventDefault();
+
     const res = await axios.post('/api/food/create', {
-      name: name,
-      image: image,
-      deliverable: deliverable === 'true' ? true : false,
-      nutrition: nutrition,
-      cheeseometer: Number(cheeseometer),
-      effort: Number(effort),
+      name: e.target.name.value,
+      image: e.target.image.value,
+      deliverable: e.target.deliverable.value === 'true' ? true : false,
+      nutrition: e.target.nutrition.value,
+      cheeseometer: Number(e.target.cheeseometer.value),
+      effort: Number(e.target.effort.value),
     });
 
     if (res.status !== 200) {
@@ -55,6 +62,7 @@ const CreateFood = () => {
                   <h3 className="mr-4 text-3xl font-semibold">Add food</h3>
                   <button
                     className="float-right p-1 ml-4 text-3xl font-semibold leading-none text-black bg-transparent border-0 outline-none focus:outline-none"
+                    type="button"
                     onClick={() => setShowModal(false)}
                   >
                     <span className="block w-6 h-6 text-2xl text-black outline-none dark:text-white hover:text-gray-800 focus:outline-none">
@@ -76,7 +84,12 @@ const CreateFood = () => {
                   </button>
                 </div>
                 {/*body*/}
-                <div className="relative flex-auto p-6">
+                <form
+                  className="relative flex-auto px-6"
+                  onSubmit={(e) =>
+                    saveFood(e as FormEvent<HTMLFormElement> & FormData)
+                  }
+                >
                   <p className="text-lg leading-relaxed text-blueGray-500">
                     <label className="block max-w-lg text-left">
                       <span className="text-gray-700 dark:text-gray-300">
@@ -85,7 +98,9 @@ const CreateFood = () => {
                       <br />
                       <input
                         type="text"
-                        onChange={(e) => setName(e.target.value)}
+                        required
+                        name="name"
+                        maxLength={30}
                         placeholder="Enter name"
                         className="w-full p-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline dark:bg-gray-800 dark:text-gray-300"
                       ></input>
@@ -97,7 +112,7 @@ const CreateFood = () => {
                       <br />
                       <input
                         type="text"
-                        onChange={(e) => setImage(e.target.value)}
+                        name="image"
                         placeholder="Enter image url"
                         className="w-full p-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline dark:bg-gray-800 dark:text-gray-300"
                       ></input>
@@ -108,7 +123,7 @@ const CreateFood = () => {
                       </span>
                       <select
                         className="block w-full mt-1 form-select"
-                        onChange={(e) => setCheeseometer(e.target.value)}
+                        name="cheeseometer"
                       >
                         <option value="0">0</option>
                         <option value="1">1</option>
@@ -124,7 +139,7 @@ const CreateFood = () => {
                       </span>
                       <select
                         className="block w-full mt-1 form-select"
-                        onChange={(e) => setDeliverable(e.target.value)}
+                        name="deliverable"
                       >
                         <option value="true">Yes</option>
                         <option value="false">No</option>
@@ -136,9 +151,9 @@ const CreateFood = () => {
                       </span>
                       <select
                         className="block w-full mt-1 form-select"
-                        onChange={(e) => setNutrition(e.target.value)}
+                        name="nutrition"
                       >
-                        <option value=""></option>
+                        <option value="">-</option>
                         <option value="Veggie">Veggie</option>
                         <option value="Vegan">Vegan</option>
                       </select>
@@ -149,7 +164,7 @@ const CreateFood = () => {
                       </span>
                       <select
                         className="block w-full mt-1 form-select"
-                        onChange={(e) => setEffort(e.target.value)}
+                        name="effort"
                       >
                         <option value="0">0</option>
                         <option value="1">1</option>
@@ -165,19 +180,16 @@ const CreateFood = () => {
                       </select>
                     </label>
                   </p>
-                </div>
-                {/*footer*/}
-                <button
-                  className="p-2 px-5 m-3 mb-2 text-lg text-gray-100 bg-green-600 rounded-lg hover:ring-4 ring-green-400"
-                  type="button"
-                  onClick={() => saveFood()}
-                >
-                  Save food
-                </button>
+                  <button
+                    className="w-full p-2 px-5 mt-3 mb-2 text-lg text-gray-100 bg-green-600 rounded-lg hover:ring-4 ring-green-400"
+                    type="submit"
+                  >
+                    Save food
+                  </button>
+                </form>
               </div>
             </div>
           </div>
-          <div className="fixed inset-0 z-40 bg-gray-800 opacity-25"></div>
         </>
       ) : null}
     </>

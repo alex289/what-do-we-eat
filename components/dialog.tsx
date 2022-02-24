@@ -66,6 +66,7 @@ export default function Dialog({
                   <h3 className="mr-4 text-3xl font-semibold">Filter food</h3>
                   <button
                     className="float-right p-1 ml-4 text-3xl font-semibold leading-none text-black bg-transparent border-0 outline-none focus:outline-none"
+                    type="button"
                     onClick={() => setShowModal(false)}
                   >
                     <span className="block w-6 h-6 text-2xl text-black outline-none dark:text-white hover:text-gray-800 focus:outline-none">
@@ -179,7 +180,6 @@ export default function Dialog({
               </div>
             </div>
           </div>
-          <div className="fixed inset-0 z-40 bg-gray-800 opacity-25"></div>
         </>
       )}
     </>
