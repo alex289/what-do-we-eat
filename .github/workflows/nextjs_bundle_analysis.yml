@@ -37,6 +37,9 @@ jobs:
           path: .next/cache
           key: ${{ runner.os }}-build-${{ env.cache-name }}
 
+      - name: Generate prisma schema
+        run: yarn prisma generate
+
       - name: Build next.js app
         run: ./node_modules/.bin/next build
 
