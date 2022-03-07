@@ -31,8 +31,7 @@ const DeleteFood = ({ food }: { food: Food }) => {
       <button
         className="p-3 mt-1 mr-2 text-gray-100 bg-red-600 rounded-lg ring-red-400 hover:ring-4"
         type="button"
-        onClick={() => setShowModal(true)}
-      >
+        onClick={() => setShowModal(true)}>
         Delete
       </button>
       {showModal && (
@@ -47,8 +46,7 @@ const DeleteFood = ({ food }: { food: Food }) => {
             <button
               className="p-2 px-5 m-3 mb-4 text-lg text-gray-100 bg-red-600 rounded-lg ring-red-400 hover:ring-4"
               type="button"
-              onClick={() => deleteFood()}
-            >
+              onClick={() => deleteFood()}>
               Delete {food.name}
             </button>
           </FormLayout>

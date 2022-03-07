@@ -54,8 +54,7 @@ export default function Dialog({
       <button
         className="p-2 px-5 m-3 mb-4 text-lg text-gray-100 bg-purple-600 rounded-lg hover:ring-4 ring-purple-400"
         type="button"
-        onClick={() => setShowModal(true)}
-      >
+        onClick={() => setShowModal(true)}>
         Filter food
       </button>
       {showModal && (
@@ -72,8 +71,7 @@ export default function Dialog({
                 <select
                   className="block w-full mt-1 form-select"
                   onChange={(e) => setCheeseometer(e.target.value)}
-                  value={cheeseometer}
-                >
+                  value={cheeseometer}>
                   <option value="-">-</option>
                   <option value="0">0</option>
                   <option value="1">1</option>
@@ -91,8 +89,7 @@ export default function Dialog({
                 <select
                   className="block w-full mt-1 form-select"
                   onChange={(e) => setDeliverable(e.target.value)}
-                  value={deliverable}
-                >
+                  value={deliverable}>
                   <option value="-">-</option>
                   <option value="true">Yes</option>
                   <option value="false">No</option>
@@ -106,8 +103,7 @@ export default function Dialog({
                 <select
                   className="block w-full mt-1 form-select"
                   onChange={(e) => setNutrition(e.target.value)}
-                  value={nutrition}
-                >
+                  value={nutrition}>
                   <option value="-">-</option>
                   <option value="Veggie">Veggie</option>
                   <option value="Vegan">Vegan</option>
@@ -121,8 +117,7 @@ export default function Dialog({
                 <select
                   className="block w-full mt-1 form-select"
                   onChange={(e) => setEffort(e.target.value)}
-                  value={effort}
-                >
+                  value={effort}>
                   <option value="-">-</option>
                   <option value="0">0</option>
                   <option value="1">1</option>
@@ -141,16 +136,14 @@ export default function Dialog({
             <button
               className="p-2 px-5 m-2 mb-4 text-lg text-gray-100 bg-green-600 rounded-lg hover:ring-4 ring-green-400"
               type="button"
-              onClick={() => saveFilter()}
-            >
+              onClick={() => saveFilter()}>
               Show selection
             </button>
 
             <button
               className="p-2 px-5 m-2 mb-4 text-lg text-gray-100 bg-red-600 rounded-lg hover:ring-4 ring-red-400"
               type="button"
-              onClick={() => clearFilter()}
-            >
+              onClick={() => clearFilter()}>
               Remove filter
             </button>
           </FormLayout>

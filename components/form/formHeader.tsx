@@ -11,16 +11,14 @@ const FormHeader = ({
       <button
         className="float-right p-1 ml-4 text-3xl font-semibold leading-none text-black bg-transparent border-0 outline-none focus:outline-none"
         type="button"
-        onClick={() => exit(false)}
-      >
+        onClick={() => exit(false)}>
         <span className="block w-6 h-6 text-2xl text-black outline-none dark:text-white hover:text-gray-800 focus:outline-none">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="w-6 h-6"
             fill="none"
             viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
+            stroke="currentColor">
             <path
               strokeLinecap="round"
               strokeLinejoin="round"

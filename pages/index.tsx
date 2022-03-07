@@ -79,21 +79,18 @@ export default function Index({ fallbackData }: { fallbackData: ApiResponse }) {
     <Layout>
       <button
         className="p-2 px-5 m-3 mb-4 text-lg text-gray-100 bg-purple-600 rounded-lg hover:ring-4 ring-purple-400"
-        onClick={handleClick}
-      >
+        onClick={handleClick}>
         {btnTitle}
       </button>
       <Dialog
         filterer={setFilter}
         config={foodConfig}
-        setConfig={setFoodConfig}
-      ></Dialog>
+        setConfig={setFoodConfig}></Dialog>
       <input
         onChange={handleInput}
         type="text"
         placeholder="Search for food..."
-        className="p-2 ml-4 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline dark:bg-gray-800 dark:text-gray-300"
-      ></input>
+        className="p-2 ml-4 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline dark:bg-gray-800 dark:text-gray-300"></input>
       <Food foodList={handleFood(data.data, foodConfig, filter)}></Food>
     </Layout>
   );

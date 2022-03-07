@@ -52,8 +52,7 @@ const UpdateFood = ({ food }: { food: Food }) => {
       <button
         className="p-3 mt-1 mr-2 text-gray-100 bg-orange-600 rounded-lg hover:ring-4 ring-orange-400"
         type="button"
-        onClick={() => setShowModal(true)}
-      >
+        onClick={() => setShowModal(true)}>
         Update
       </button>
       {showModal && (
@@ -64,13 +63,11 @@ const UpdateFood = ({ food }: { food: Food }) => {
               className="relative flex-auto px-6"
               onSubmit={(e) =>
                 saveFood(e as FormEvent<HTMLFormElement> & FormData)
-              }
-            >
+              }>
               <div className="text-lg leading-relaxed">
                 <label
                   className="block max-w-lg text-left"
-                  htmlFor="update-name"
-                >
+                  htmlFor="update-name">
                   <span className="text-gray-700 dark:text-gray-300">Name</span>
                 </label>
                 <input
@@ -81,13 +78,11 @@ const UpdateFood = ({ food }: { food: Food }) => {
                   maxLength={30}
                   defaultValue={food.name}
                   placeholder="Enter name"
-                  className="w-full p-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline dark:bg-gray-800 dark:text-gray-300"
-                ></input>
+                  className="w-full p-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline dark:bg-gray-800 dark:text-gray-300"></input>
 
                 <label
                   className="block max-w-lg text-left"
-                  htmlFor="update-image"
-                >
+                  htmlFor="update-image">
                   <span className="text-gray-700 dark:text-gray-300">
                     Image
                   </span>
@@ -98,13 +93,11 @@ const UpdateFood = ({ food }: { food: Food }) => {
                   id="update-image"
                   defaultValue={food.image}
                   placeholder="Enter image url"
-                  className="w-full p-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline dark:bg-gray-800 dark:text-gray-300"
-                ></input>
+                  className="w-full p-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline dark:bg-gray-800 dark:text-gray-300"></input>
 
                 <label
                   className="block max-w-lg mt-2 text-left"
-                  htmlFor="update-cheeseometer"
-                >
+                  htmlFor="update-cheeseometer">
                   <span className="text-gray-700 dark:text-gray-300">
                     Cheeseometer
                   </span>
@@ -113,8 +106,7 @@ const UpdateFood = ({ food }: { food: Food }) => {
                   className="block w-full mt-1 form-select"
                   name="cheeseometer"
                   id="update-cheeseometer"
-                  defaultValue={food.cheeseometer}
-                >
+                  defaultValue={food.cheeseometer}>
                   <option value="0">0</option>
                   <option value="1">1</option>
                   <option value="2">2</option>
@@ -125,8 +117,7 @@ const UpdateFood = ({ food }: { food: Food }) => {
 
                 <label
                   className="block max-w-lg mt-2 text-left"
-                  htmlFor="update-deliverable"
-                >
+                  htmlFor="update-deliverable">
                   <span className="text-gray-700 dark:text-gray-300">
                     Deliverable
                   </span>
@@ -135,16 +126,14 @@ const UpdateFood = ({ food }: { food: Food }) => {
                   className="block w-full mt-1 form-select"
                   name="deliverable"
                   id="update-deliverable"
-                  defaultValue={food.deliverable ? 'true' : 'false'}
-                >
+                  defaultValue={food.deliverable ? 'true' : 'false'}>
                   <option value="true">Yes</option>
                   <option value="false">No</option>
                 </select>
 
                 <label
                   className="block max-w-lg mt-2 text-left"
-                  htmlFor="update-nutrition"
-                >
+                  htmlFor="update-nutrition">
                   <span className="text-gray-700 dark:text-gray-300">
                     Nutrition
                   </span>
@@ -153,8 +142,7 @@ const UpdateFood = ({ food }: { food: Food }) => {
                   className="block w-full mt-1 form-select"
                   name="nutrition"
                   id="update-nutrition"
-                  defaultValue={food.nutrition ?? ''}
-                >
+                  defaultValue={food.nutrition ?? ''}>
                   <option value=""></option>
                   <option value="Veggie">Veggie</option>
                   <option value="Vegan">Vegan</option>
@@ -162,8 +150,7 @@ const UpdateFood = ({ food }: { food: Food }) => {
 
                 <label
                   className="block max-w-lg mt-2 text-left"
-                  htmlFor="update-effort"
-                >
+                  htmlFor="update-effort">
                   <span className="text-gray-700 dark:text-gray-300">
                     Effort
                   </span>
@@ -172,8 +159,7 @@ const UpdateFood = ({ food }: { food: Food }) => {
                   className="block w-full mt-1 form-select"
                   name="effort"
                   id="update-effort"
-                  defaultValue={food.effort}
-                >
+                  defaultValue={food.effort}>
                   <option value="0">0</option>
                   <option value="1">1</option>
                   <option value="2">2</option>
@@ -189,8 +175,7 @@ const UpdateFood = ({ food }: { food: Food }) => {
               </div>
               <button
                 className="w-full p-2 px-5 mt-3 mb-4 text-lg text-gray-100 bg-green-600 rounded-lg hover:ring-4 ring-green-400"
-                type="submit"
-              >
+                type="submit">
                 Update food
               </button>
             </form>

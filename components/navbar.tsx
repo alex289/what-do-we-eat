@@ -28,16 +28,14 @@ const Navbar = () => {
                 <button
                   type="button"
                   className="inline-flex justify-center w-full px-4 py-2 text-sm font-medium"
-                  onClick={() => setShowDropdown(showDropdown ? false : true)}
-                >
+                  onClick={() => setShowDropdown(showDropdown ? false : true)}>
                   {session.user.name}
                   <svg
                     className="w-5 h-5 ml-2"
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 20 20"
                     fill="currentColor"
-                    aria-hidden="true"
-                  >
+                    aria-hidden="true">
                     <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
                   </svg>
                 </button>
@@ -58,8 +56,7 @@ const Navbar = () => {
                       className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-100"
                       onClick={() =>
                         signOut({ callbackUrl: `${window.location.origin}` })
-                      }
-                    >
+                      }>
                       Logout
                     </a>
                   </div>
@@ -71,8 +68,7 @@ const Navbar = () => {
         {!session?.user && (
           <button
             className="p-1 px-5 mr-4 text-lg text-gray-100 bg-purple-600 rounded-lg hover:ring-4 ring-purple-400"
-            onClick={() => signIn('google')}
-          >
+            onClick={() => signIn('google')}>
             Sign in
           </button>
         )}
@@ -82,15 +78,13 @@ const Navbar = () => {
             aria-label="Toggle Dark Mode"
             type="button"
             className="w-10 h-10 p-3 mr-1 bg-gray-200 rounded-lg dark:bg-gray-700 md:mr-3 ring-gray-300 hover:ring-4"
-            onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-          >
+            onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
               fill="currentColor"
               stroke="currentColor"
-              className="w-4 h-4 text-gray-800 dark:text-gray-200"
-            >
+              className="w-4 h-4 text-gray-800 dark:text-gray-200">
               {theme === 'dark' ? (
                 <path
                   strokeLinecap="round"

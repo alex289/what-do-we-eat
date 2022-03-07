@@ -12,8 +12,7 @@ const DashboardFood = ({ foodList }: { foodList: Food[] }) => {
       {foodList.map((food, index) => (
         <li
           key={index}
-          className="max-w-md mx-2 overflow-hidden rounded-lg shadow-lg"
-        >
+          className="max-w-md mx-2 overflow-hidden rounded-lg shadow-lg">
           {food.image.startsWith('https://i.pinimg.com/') && (
             <div className="relative w-full h-64 xl:h-48">
               <Image src={food.image} layout="fill" alt={food.name}></Image>
