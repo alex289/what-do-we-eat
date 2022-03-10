@@ -58,7 +58,7 @@ const UpdateFood = ({ food }: { food: Food }) => {
       {showModal && (
         <>
           <FormLayout>
-            <FormHeader title="Update food" exit={setShowModal} />
+            <FormHeader title="Edit food" exit={setShowModal} />
             <form
               className="relative flex-auto px-6"
               onSubmit={(e) =>
