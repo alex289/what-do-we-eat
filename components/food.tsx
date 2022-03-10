@@ -7,7 +7,7 @@ const Food = ({ foodList }: { foodList: Food[] }) => (
     {foodList.map((food, index) => (
       <li
         key={index}
-        className="max-w-md mx-2 overflow-hidden rounded-lg shadow-lg">
+        className="max-w-md mx-2 overflow-hidden border rounded-lg shadow-lg dark:border-gray-700">
         {food.image.startsWith('https://i.pinimg.com/') && (
           <div className="relative w-full h-64 xl:h-48">
             <Image

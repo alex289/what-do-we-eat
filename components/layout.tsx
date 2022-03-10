@@ -7,7 +7,7 @@ const Layout = ({ children }: { children: ReactNode }) => (
   <>
     <Meta></Meta>
     <Navbar></Navbar>
-    <div className="container mx-auto">{children}</div>
+    <div className="container mx-auto mb-6">{children}</div>
   </>
 );
 

@@ -66,7 +66,7 @@ const UpdateFood = ({ food }: { food: Food }) => {
               }>
               <div className="text-lg leading-relaxed">
                 <label
-                  className="block max-w-lg text-left"
+                  className="block max-w-lg mt-1 text-left"
                   htmlFor="update-name">
                   <span className="text-gray-700 dark:text-gray-300">Name</span>
                 </label>
@@ -78,10 +78,10 @@ const UpdateFood = ({ food }: { food: Food }) => {
                   maxLength={30}
                   defaultValue={food.name}
                   placeholder="Enter name"
-                  className="w-full p-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline dark:bg-gray-800 dark:text-gray-300"></input>
+                  className="w-full p-2 mt-1 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline dark:bg-gray-800 dark:text-gray-300"></input>
 
                 <label
-                  className="block max-w-lg text-left"
+                  className="block max-w-lg mt-2 text-left"
                   htmlFor="update-image">
                   <span className="text-gray-700 dark:text-gray-300">
                     Image
@@ -93,7 +93,7 @@ const UpdateFood = ({ food }: { food: Food }) => {
                   id="update-image"
                   defaultValue={food.image}
                   placeholder="Enter image url"
-                  className="w-full p-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline dark:bg-gray-800 dark:text-gray-300"></input>
+                  className="w-full p-2 mt-1 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline dark:bg-gray-800 dark:text-gray-300"></input>
 
                 <label
                   className="block max-w-lg mt-2 text-left"

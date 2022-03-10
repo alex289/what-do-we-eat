@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 
 const Navbar = () => {
   const { data: session } = useSession();
-  const { theme, setTheme } = useTheme();
+  const { resolvedTheme, setTheme } = useTheme();
 
   const [mounted, setMounted] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
@@ -73,19 +73,19 @@ const Navbar = () => {
           </button>
         )}
 
-        {mounted && theme && (
-          <button
-            aria-label="Toggle Dark Mode"
-            type="button"
-            className="w-10 h-10 p-3 mr-1 bg-gray-200 rounded-lg dark:bg-gray-700 md:mr-3 ring-gray-300 hover:ring-4"
-            onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}>
+        <button
+          aria-label="Toggle Dark Mode"
+          type="button"
+          className="w-10 h-10 p-3 mr-1 bg-gray-200 rounded-lg dark:bg-gray-700 md:mr-3 ring-gray-300 hover:ring-4"
+          onClick={() => setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')}>
+          {mounted && (
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
               fill="currentColor"
               stroke="currentColor"
               className="w-4 h-4 text-gray-800 dark:text-gray-200">
-              {theme === 'dark' ? (
+              {resolvedTheme === 'dark' ? (
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -101,8 +101,8 @@ const Navbar = () => {
                 />
               )}
             </svg>
-          </button>
-        )}
+          )}
+        </button>
       </div>
     </nav>
   );

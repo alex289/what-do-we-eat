@@ -38,12 +38,20 @@ export default function Index({ fallbackData }: { fallbackData: ApiResponse }) {
 
   function handleClick(e: React.MouseEvent) {
     e.preventDefault();
-    setClicked(clicked ? false : true);
-    setBtnTitle(clicked ? 'Get food list' : 'Get random food');
+
+    let isClicked = false;
+    if (clicked) {
+      setClicked(false);
+      isClicked = false;
+    } else {
+      setClicked(true);
+      isClicked = true;
+    }
+    setBtnTitle(isClicked ? 'Get food list' : 'Get random food');
 
     setFoodConfig({
       filter: foodConfig.filter,
-      random: clicked,
+      random: isClicked,
       search: foodConfig.search,
       searchInput: foodConfig.searchInput,
     });
@@ -78,6 +86,7 @@ export default function Index({ fallbackData }: { fallbackData: ApiResponse }) {
   return (
     <Layout>
       <button
+        type="button"
         className="p-2 px-5 m-3 mb-4 text-lg text-gray-100 bg-purple-600 rounded-lg hover:ring-4 ring-purple-400"
         onClick={handleClick}>
         {btnTitle}
