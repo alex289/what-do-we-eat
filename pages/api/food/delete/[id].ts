@@ -5,7 +5,6 @@ import prisma from '@/lib/prisma';
 
 import type { ApiResponse } from '@/types/apiResponse';
 import type { Food } from '@/types/food';
-import { log } from '@/lib/log';
 
 export default async function handle(
   req: NextApiRequest,
@@ -26,7 +25,5 @@ export default async function handle(
   const result = await prisma.food.delete({
     where: { id: Number(foodId) },
   });
-
-  log(`Deleted: ${result.name} (${foodId})`);
   res.json({ status: 'success', data: result as unknown as Food[] });
 }
