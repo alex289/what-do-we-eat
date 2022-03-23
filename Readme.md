@@ -1,3 +1,5 @@
+![cover](https://repository-images.githubusercontent.com/306412712/8823f78f-aacb-482e-b362-25a7e1b46001)
+
 # What do we eat?
 
 Web app to tell you what to eat
