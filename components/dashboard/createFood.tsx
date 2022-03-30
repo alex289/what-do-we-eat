@@ -66,7 +66,7 @@ const CreateFood = () => {
               }>
               <div className="text-lg leading-relaxed">
                 <label className="block max-w-lg mt-1 text-left" htmlFor="name">
-                  <span className="text-gray-700 dark:text-gray-300">Name</span>
+                  <span className="text-gray-700 dark:text-white">Name</span>
                 </label>
                 <input
                   type="text"
@@ -75,12 +75,12 @@ const CreateFood = () => {
                   id="name"
                   maxLength={30}
                   placeholder="Enter name"
-                  className="w-full p-2 mt-1 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline dark:bg-gray-800 dark:text-gray-300"></input>
+                  className="w-full p-2 mt-1 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline dark:bg-gray-800 dark:text-white"></input>
 
                 <label
                   className="block max-w-lg mt-2 text-left"
                   htmlFor="image">
-                  <span className="text-gray-700 dark:text-gray-300">
+                  <span className="text-gray-700 dark:text-white">
                     Image (Optional)
                   </span>
                 </label>
@@ -89,12 +89,12 @@ const CreateFood = () => {
                   name="image"
                   id="image"
                   placeholder="Enter image url"
-                  className="w-full p-2 mt-1 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline dark:bg-gray-800 dark:text-gray-300"></input>
+                  className="w-full p-2 mt-1 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline dark:bg-gray-800 dark:text-white"></input>
 
                 <label
                   className="block max-w-lg mt-2 text-left"
                   htmlFor="cheeseomenter">
-                  <span className="text-gray-700 dark:text-gray-300">
+                  <span className="text-gray-700 dark:text-white">
                     Cheeseometer
                   </span>
                 </label>
@@ -113,7 +113,7 @@ const CreateFood = () => {
                 <label
                   className="block max-w-lg mt-2 text-left"
                   htmlFor="deliverable">
-                  <span className="text-gray-700 dark:text-gray-300">
+                  <span className="text-gray-700 dark:text-white">
                     Deliverable
                   </span>
                 </label>
@@ -128,7 +128,7 @@ const CreateFood = () => {
                 <label
                   className="block max-w-lg mt-2 text-left"
                   htmlFor="nutrition">
-                  <span className="text-gray-700 dark:text-gray-300">
+                  <span className="text-gray-700 dark:text-white">
                     Nutrition
                   </span>
                 </label>
@@ -144,9 +144,7 @@ const CreateFood = () => {
                 <label
                   className="block max-w-lg mt-2 text-left"
                   htmlFor="effort">
-                  <span className="text-gray-700 dark:text-gray-300">
-                    Effort
-                  </span>
+                  <span className="text-gray-700 dark:text-white">Effort</span>
                 </label>
                 <select
                   className="block w-full mt-1 form-select"
@@ -166,7 +164,7 @@ const CreateFood = () => {
                 </select>
               </div>
               <button
-                className="w-full p-2 px-5 mt-3 mb-2 text-lg text-gray-100 bg-green-600 rounded-lg hover:ring-4 ring-green-400"
+                className="w-full p-2 px-5 mt-3 mb-4 text-lg text-gray-100 bg-green-600 rounded-lg hover:ring-4 ring-green-400"
                 type="submit">
                 Save food
               </button>

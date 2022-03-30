@@ -68,7 +68,7 @@ const UpdateFood = ({ food }: { food: Food }) => {
                 <label
                   className="block max-w-lg mt-1 text-left"
                   htmlFor="update-name">
-                  <span className="text-gray-700 dark:text-gray-300">Name</span>
+                  <span className="text-gray-700 dark:text-white">Name</span>
                 </label>
                 <input
                   type="text"
@@ -78,14 +78,12 @@ const UpdateFood = ({ food }: { food: Food }) => {
                   maxLength={30}
                   defaultValue={food.name}
                   placeholder="Enter name"
-                  className="w-full p-2 mt-1 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline dark:bg-gray-800 dark:text-gray-300"></input>
+                  className="w-full p-2 mt-1 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline dark:bg-gray-800 dark:text-white"></input>
 
                 <label
                   className="block max-w-lg mt-2 text-left"
                   htmlFor="update-image">
-                  <span className="text-gray-700 dark:text-gray-300">
-                    Image
-                  </span>
+                  <span className="text-gray-700 dark:text-white">Image</span>
                 </label>
                 <input
                   type="text"
@@ -93,12 +91,12 @@ const UpdateFood = ({ food }: { food: Food }) => {
                   id="update-image"
                   defaultValue={food.image}
                   placeholder="Enter image url"
-                  className="w-full p-2 mt-1 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline dark:bg-gray-800 dark:text-gray-300"></input>
+                  className="w-full p-2 mt-1 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline dark:bg-gray-800 dark:text-white"></input>
 
                 <label
                   className="block max-w-lg mt-2 text-left"
                   htmlFor="update-cheeseometer">
-                  <span className="text-gray-700 dark:text-gray-300">
+                  <span className="text-gray-700 dark:text-white">
                     Cheeseometer
                   </span>
                 </label>
@@ -118,7 +116,7 @@ const UpdateFood = ({ food }: { food: Food }) => {
                 <label
                   className="block max-w-lg mt-2 text-left"
                   htmlFor="update-deliverable">
-                  <span className="text-gray-700 dark:text-gray-300">
+                  <span className="text-gray-700 dark:text-white">
                     Deliverable
                   </span>
                 </label>
@@ -134,7 +132,7 @@ const UpdateFood = ({ food }: { food: Food }) => {
                 <label
                   className="block max-w-lg mt-2 text-left"
                   htmlFor="update-nutrition">
-                  <span className="text-gray-700 dark:text-gray-300">
+                  <span className="text-gray-700 dark:text-white">
                     Nutrition
                   </span>
                 </label>
@@ -151,9 +149,7 @@ const UpdateFood = ({ food }: { food: Food }) => {
                 <label
                   className="block max-w-lg mt-2 text-left"
                   htmlFor="update-effort">
-                  <span className="text-gray-700 dark:text-gray-300">
-                    Effort
-                  </span>
+                  <span className="text-gray-700 dark:text-white">Effort</span>
                 </label>
                 <select
                   className="block w-full mt-1 form-select"

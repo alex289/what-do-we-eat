@@ -5,6 +5,9 @@
 Web app to tell you what to eat
 
 - **Framework**: [Next.js](https://nextjs.org/)
+- **Database**: [PlanetScale](https://planetscale.com)
+- **ORM**: [Prisma](https://prisma.io/)
+- **Authentication**: [NextAuth.js](https://next-auth.js.org/)
 - **Deployment**: [Vercel](https://vercel.com)
 - **Styling**: [Tailwind CSS](https://tailwindcss.com/)
 - **Authentication**: [Next Auth](https://next-auth.js.org)
@@ -29,3 +32,7 @@ $ yarn dev
 ```
 
 Create a `.env` file  similar to [`.env.example`](https://github.com/Alex289/what-do-we-eat/blob/main/.env.example)
+
+## Cloning / Forking
+
+Please review the [license](https://github.com/Alex289/what-do-we-eat/blob/main/LICENSE) and remove all of my personal information (resume, blog posts, images, etc.).

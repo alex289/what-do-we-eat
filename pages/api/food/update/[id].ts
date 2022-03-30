@@ -24,6 +24,12 @@ export default async function handle(
     return res.status(405).json('Only PUT method allowed');
   }
 
+  const item = await prisma.food.findUnique({ where: { id: Number(foodId) } });
+
+  if (!item) {
+    return res.status(400).json('Food with id' + foodId + 'not found');
+  }
+
   const result = await prisma.food.update({
     where: { id: Number(foodId) },
     data: {
