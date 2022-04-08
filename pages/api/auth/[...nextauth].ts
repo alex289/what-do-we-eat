@@ -23,8 +23,10 @@ export default NextAuth({
   ],
   callbacks: {
     session: async ({ session, token }) => {
+      token.image = token.picture;
       session.user = token;
       session.isAdmin = token.email === process.env.ADMIN_EMAIL;
+
       return session;
     },
   },

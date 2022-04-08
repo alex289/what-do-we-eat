@@ -44,21 +44,23 @@ const Navbar = () => {
               {showDropdown && (
                 <div className="absolute right-0 w-56 mt-2 bg-gray-100 shadow-lg dark:bg-gray-700 origin-top-right rounded-md ring-1 ring-black ring-opacity-5 focus:outline-none">
                   <div className="py-1" role="none">
-                    {session.isAdmin && (
-                      <Link href="/dashboard">
-                        <a className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-100">
-                          Dashboard
-                        </a>
-                      </Link>
-                    )}
-                    <a
-                      href="#"
-                      className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-100"
-                      onClick={() =>
-                        signOut({ callbackUrl: `${window.location.origin}` })
-                      }>
-                      Logout
-                    </a>
+                    <>
+                      {session.isAdmin && (
+                        <Link href="/dashboard">
+                          <a className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-100">
+                            Dashboard
+                          </a>
+                        </Link>
+                      )}
+                      <a
+                        href="#"
+                        className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-100"
+                        onClick={() =>
+                          signOut({ callbackUrl: `${window.location.origin}` })
+                        }>
+                        Logout
+                      </a>
+                    </>
                   </div>
                 </div>
               )}
