@@ -29,7 +29,7 @@ const DeleteFood = ({ food }: { food: Food }) => {
   return (
     <>
       <button
-        className="p-3 mt-1 mr-2 text-white bg-red-600 rounded-lg ring-red-400 hover:ring-4"
+        className="mt-1 mr-2 text-white bg-red-600 btn hover:bg-red-700"
         type="button"
         onClick={() => setShowModal(true)}>
         Delete

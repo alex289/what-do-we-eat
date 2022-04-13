@@ -2,9 +2,6 @@ import { useState } from 'react';
 
 import type { FilterConfig, FoodConfig } from '@/types/config';
 
-import FormLayout from '@/components/form/formLayout';
-import FormHeader from '@/components/form/formHeader';
-
 export default function Dialog({
   filterer,
   config,
@@ -14,7 +11,6 @@ export default function Dialog({
   config: FoodConfig;
   setConfig: (config: FoodConfig) => void;
 }) {
-  const [showModal, setShowModal] = useState(false);
   const [deliverable, setDeliverable] = useState('true');
   const [effort, setEffort] = useState('5');
   const [cheeseometer, setCheeseometer] = useState('0');
@@ -34,8 +30,6 @@ export default function Dialog({
       search: config.search,
       searchInput: config.searchInput,
     });
-
-    setShowModal(false);
   }
 
   function clearFilter() {
@@ -45,111 +39,105 @@ export default function Dialog({
       search: config.search,
       searchInput: config.searchInput,
     });
-
-    setShowModal(false);
   }
 
   return (
     <>
-      <button
-        className="p-2 px-5 m-3 mb-4 text-lg text-gray-100 bg-purple-600 rounded-lg hover:ring-4 ring-purple-400"
-        type="button"
-        onClick={() => setShowModal(true)}>
+      <label
+        htmlFor="dialog"
+        className="mb-4 ml-3 normal-case btn btn-primary modal-button">
         Filter food
-      </button>
-      {showModal && (
-        <>
-          <FormLayout>
-            <FormHeader title="Filter food" exit={setShowModal} />
-            <div className="relative flex-auto p-6">
-              <div className="text-lg leading-relaxed">
-                <label className="block max-w-lg text-left">
-                  <span className="text-gray-700 dark:text-gray-300">
-                    Cheeseometer
-                  </span>
-                </label>
-                <select
-                  className="block w-full mt-1 form-select"
-                  onChange={(e) => setCheeseometer(e.target.value)}
-                  value={cheeseometer}>
-                  <option value="-">-</option>
-                  <option value="0">0</option>
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
-                </select>
+      </label>
+      <input type="checkbox" id="dialog" className="modal-toggle" />
+      <div className="modal">
+        <div className="relative w-auto bg-white modal-box dark:bg-gray-700">
+          <label
+            htmlFor="dialog"
+            className="absolute bg-white border-none hover:bg-white hover:dark:bg-gray-700 btn btn-sm btn-circle right-4 top-4 dark:bg-gray-700">
+            ✕
+          </label>
+          <h3 className="text-lg font-bold text-black dark:text-white">
+            Filter food
+          </h3>
+          <div className="flex flex-col">
+            <label className="my-2 mr-2 text-black dark:text-white">
+              Cheeseometer
+            </label>
+            <select
+              className="w-full max-w-xs text-black bg-gray-200 select dark:text-white dark:bg-gray-600"
+              onChange={(e) => setCheeseometer(e.target.value)}
+              value={cheeseometer}>
+              <option value="-">-</option>
+              <option value="0">0</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+            </select>
 
-                <label className="block max-w-lg mt-2 text-left">
-                  <span className="text-gray-700 dark:text-gray-300">
-                    Deliverable
-                  </span>
-                </label>
-                <select
-                  className="block w-full mt-1 form-select"
-                  onChange={(e) => setDeliverable(e.target.value)}
-                  value={deliverable}>
-                  <option value="-">-</option>
-                  <option value="true">Yes</option>
-                  <option value="false">No</option>
-                </select>
+            <label className="my-2 mr-2 text-black dark:text-white">
+              Deliverable
+            </label>
+            <select
+              className="w-full max-w-xs text-black bg-gray-200 select dark:text-white dark:bg-gray-600"
+              onChange={(e) => setDeliverable(e.target.value)}
+              value={deliverable}>
+              <option value="-">-</option>
+              <option value="true">Yes</option>
+              <option value="false">No</option>
+            </select>
 
-                <label className="block max-w-lg mt-2 text-left">
-                  <span className="text-gray-700 dark:text-gray-300">
-                    Nutrition
-                  </span>
-                </label>
-                <select
-                  className="block w-full mt-1 form-select"
-                  onChange={(e) => setNutrition(e.target.value)}
-                  value={nutrition}>
-                  <option value="-">-</option>
-                  <option value="Veggie">Veggie</option>
-                  <option value="Vegan">Vegan</option>
-                </select>
+            <label className="my-2 mr-2 text-black dark:text-white">
+              Nutrition
+            </label>
+            <select
+              className="w-full max-w-xs text-black bg-gray-200 select dark:text-white dark:bg-gray-600"
+              onChange={(e) => setNutrition(e.target.value)}
+              value={nutrition}>
+              <option value="-">-</option>
+              <option value="Veggie">Veggie</option>
+              <option value="Vegan">Vegan</option>
+            </select>
 
-                <label className="block max-w-lg mt-2 text-left">
-                  <span className="text-gray-700 dark:text-gray-300">
-                    Effort
-                  </span>
-                </label>
-                <select
-                  className="block w-full mt-1 form-select"
-                  onChange={(e) => setEffort(e.target.value)}
-                  value={effort}>
-                  <option value="-">-</option>
-                  <option value="0">0</option>
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
-                  <option value="6">6</option>
-                  <option value="7">7</option>
-                  <option value="8">8</option>
-                  <option value="9">9</option>
-                  <option value="10">10</option>
-                </select>
-              </div>
-            </div>
+            <label className="my-2 mr-2 text-black dark:text-white">
+              Effort
+            </label>
+            <select
+              className="w-full max-w-xs text-black bg-gray-200 select dark:text-white dark:bg-gray-600"
+              onChange={(e) => setEffort(e.target.value)}
+              value={effort}>
+              <option value="-">-</option>
+              <option value="0">0</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="10">10</option>
+            </select>
+
+            <div className='flex mx-auto mt-4'>
             <button
-              className="p-2 px-5 m-2 mb-4 text-lg text-gray-100 bg-green-600 rounded-lg hover:ring-4 ring-green-400"
+              className="px-6 mr-4 text-white bg-green-600 btn hover:bg-green-700"
               type="button"
               onClick={() => saveFilter()}>
-              Show selection
+              Apply filter
             </button>
-
             <button
-              className="p-2 px-5 m-2 mb-4 text-lg text-gray-100 bg-red-600 rounded-lg hover:ring-4 ring-red-400"
+              className="px-6 ml-4 text-white bg-red-600 btn hover:bg-red-700"
               type="button"
               onClick={() => clearFilter()}>
-              Remove filter
+              Clear filter
             </button>
-          </FormLayout>
-          <div className="fixed inset-0 z-40 bg-gray-800 opacity-25"></div>
-        </>
-      )}
+              </div>
+          </div>
+        </div>
+      </div>
     </>
   );
 }

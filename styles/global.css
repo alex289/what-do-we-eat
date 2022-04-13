@@ -88,14 +88,14 @@ html {
 }
 
 #nprogress .bar {
-  background: #bb86fc !important;
+  background: #6419E6 !important;
 }
 
 #nprogress .peg {
-  box-shadow: 0 0 10px #bb86fc, 0 0 5px #bb86fc !important;
+  box-shadow: 0 0 10px #6419E6, 0 0 5px #701dff !important;
 }
 
 #nprogress .spinner-icon {
-  border-top-color: #bb86fc !important;
-  border-left-color: #bb86fc !important;
+  border-top-color: #6419E6 !important;
+  border-left-color: #6419E6 !important;
 }

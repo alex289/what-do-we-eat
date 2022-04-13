@@ -50,7 +50,7 @@ const UpdateFood = ({ food }: { food: Food }) => {
   return (
     <>
       <button
-        className="p-3 mt-1 mr-2 text-white bg-orange-600 rounded-lg hover:ring-4 ring-orange-400"
+        className="mt-1 mr-2 text-white bg-orange-600 btn hover:bg-orange-700"
         type="button"
         onClick={() => setShowModal(true)}>
         Update

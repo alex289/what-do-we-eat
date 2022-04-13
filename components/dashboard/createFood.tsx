@@ -50,7 +50,7 @@ const CreateFood = () => {
   return (
     <>
       <button
-        className="p-2 px-5 m-3 mb-4 text-lg text-white bg-green-600 rounded-lg hover:ring-4 ring-green-400"
+        className="m-3 mb-4 text-white bg-green-600 btn hover:bg-green-700"
         type="button"
         onClick={() => setShowModal(true)}>
         Add food
