@@ -26,7 +26,9 @@ const Food = ({ foodList }: { foodList: Food[] }) => (
         </div>
       </li>
     ))}
-    {foodList.length === 0 && <li className="ml-4 text-black dark:text-white">No results</li>}
+    {foodList.length === 0 && (
+      <li className="ml-4 text-black dark:text-white">No results</li>
+    )}
   </ul>
 );
 

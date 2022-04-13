@@ -99,7 +99,7 @@ export default function Index({ fallbackData }: { fallbackData: ApiResponse }) {
         onChange={handleInput}
         type="text"
         placeholder="Search for food..."
-        className="ml-3 text-black bg-white input input-bordered dark:text-white input-primary dark:bg-gray-800"></input>
+        className="ml-3 text-black placeholder-black bg-white input input-bordered dark:text-white input-primary dark:bg-gray-800 dark:placeholder-white"></input>
       <Food foodList={handleFood(data.data, foodConfig, filter)}></Food>
     </Layout>
   );

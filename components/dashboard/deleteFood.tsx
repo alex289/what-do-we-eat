@@ -1,16 +1,10 @@
-import { useState } from 'react';
-
 import axios from 'axios';
 import { useSWRConfig } from 'swr';
 
 import type { Food } from '@/types/food';
 import { toast } from 'react-toastify';
 
-import FormLayout from '@/components/form/formLayout';
-import FormHeader from '@/components/form/formHeader';
-
 const DeleteFood = ({ food }: { food: Food }) => {
-  const [showModal, setShowModal] = useState(false);
   const { mutate } = useSWRConfig();
 
   async function deleteFood() {
@@ -21,38 +15,39 @@ const DeleteFood = ({ food }: { food: Food }) => {
       return;
     }
 
-    setShowModal(false);
     toast.success(`Deleted '${food.name}'`);
     mutate('/api/food');
   }
 
   return (
     <>
-      <button
-        className="mt-1 mr-2 text-white bg-red-600 btn hover:bg-red-700"
-        type="button"
-        onClick={() => setShowModal(true)}>
+      <label
+        htmlFor="deleteDialog"
+        className="mt-1 mr-2 text-white bg-red-600 border-none btn hover:bg-red-700 modal-button ring-red-400 hover:ring-4">
         Delete
-      </button>
-      {showModal && (
-        <>
-          <FormLayout>
-            <FormHeader title="Delete food" exit={setShowModal} />
-            <div className="relative flex-auto p-6">
-              <p className="text-lg leading-relaxed">
-                Are you sure you want to delete {`'${food.name}'`}?
-              </p>
-            </div>
-            <button
-              className="p-2 px-5 m-3 mb-4 text-lg text-gray-100 bg-red-600 rounded-lg ring-red-400 hover:ring-4"
-              type="button"
+      </label>
+      <input type="checkbox" id="deleteDialog" className="modal-toggle" />
+      <div className="modal">
+        <div className="relative w-auto bg-white modal-box dark:bg-gray-700">
+          <label
+            htmlFor="deleteDialog"
+            className="absolute bg-white border-none hover:bg-white hover:dark:bg-gray-700 btn btn-sm btn-circle right-4 top-4 dark:bg-gray-700">
+            ✕
+          </label>
+          <h3 className="text-lg font-bold">
+            Delete food
+          </h3>
+          <p className="mt-4 grid">
+          Are you sure you want to delete {`'${food.name}'`}?
+          <label
+              className="px-4 py-2 m-4 text-gray-100 bg-red-600 border-none rounded-lg hover:bg-red-700 btn ring-red-400 hover:ring-4"
+              htmlFor="deleteDialog"
               onClick={() => deleteFood()}>
               Delete {food.name}
-            </button>
-          </FormLayout>
-          <div className="fixed inset-0 z-40 bg-gray-800 opacity-25"></div>
-        </>
-      )}
+            </label>
+          </p>
+        </div>
+      </div>
     </>
   );
 };

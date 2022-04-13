@@ -1,11 +1,8 @@
-import { FormEvent, useState } from 'react';
+import { FormEvent } from 'react';
 
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import { useSWRConfig } from 'swr';
-
-import FormHeader from '@/components/form/formHeader';
-import FormLayout from '@/components/form/formLayout';
 
 type FormData = {
   target: {
@@ -19,8 +16,6 @@ type FormData = {
 };
 
 const CreateFood = () => {
-  const [showModal, setShowModal] = useState(false);
-
   const { mutate } = useSWRConfig();
 
   async function saveFood(e: FormEvent<HTMLFormElement> & FormData) {
@@ -42,31 +37,35 @@ const CreateFood = () => {
       return;
     }
 
-    setShowModal(false);
     toast.success(`Created '${e.target.name.value}'`);
     mutate('/api/food');
   }
 
   return (
     <>
-      <button
-        className="m-3 mb-4 text-white bg-green-600 btn hover:bg-green-700"
-        type="button"
-        onClick={() => setShowModal(true)}>
+      <label
+        className="px-5 m-3 mb-4 text-white bg-green-600 border-none btn hover:bg-green-700 modal-button ring-green-400 hover:ring-4"
+        htmlFor='createDialog'>
         Add food
-      </button>
-      {showModal && (
-        <>
-          <FormLayout>
-            <FormHeader title="Add food" exit={setShowModal} />
-            <form
-              className="relative flex-auto px-6"
+      </label>
+      <input type="checkbox" id="createDialog" className="modal-toggle" />
+      <div className="modal">
+        <div className="relative w-full max-w-xs bg-white modal-box dark:bg-gray-700">
+          <label
+            htmlFor="createDialog"
+            className="absolute bg-white border-none hover:bg-white hover:dark:bg-gray-700 btn btn-sm btn-circle right-4 top-4 dark:bg-gray-700">
+            ✕
+          </label>
+          <h3 className="text-lg font-bold text-black dark:text-white">
+            Create food
+          </h3>
+          <form
+              className="flex flex-col"
               onSubmit={(e) =>
                 saveFood(e as FormEvent<HTMLFormElement> & FormData)
               }>
-              <div className="text-lg leading-relaxed">
-                <label className="block max-w-lg mt-1 text-left" htmlFor="name">
-                  <span className="text-gray-700 dark:text-white">Name</span>
+                <label className="mt-2 mb-1 mr-2 text-black dark:text-white" htmlFor="name">
+                  Name
                 </label>
                 <input
                   type="text"
@@ -75,31 +74,27 @@ const CreateFood = () => {
                   id="name"
                   maxLength={30}
                   placeholder="Enter name"
-                  className="w-full p-2 mt-1 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline dark:bg-gray-800 dark:text-white"></input>
+                  className="w-full max-w-xs text-black placeholder-black bg-gray-200 dark:placeholder-white input dark:bg-gray-600 dark:text-white"></input>
 
                 <label
-                  className="block max-w-lg mt-2 text-left"
+                  className="my-1 mr-2 text-black dark:text-white"
                   htmlFor="image">
-                  <span className="text-gray-700 dark:text-white">
                     Image (Optional)
-                  </span>
                 </label>
                 <input
                   type="text"
                   name="image"
                   id="image"
                   placeholder="Enter image url"
-                  className="w-full p-2 mt-1 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline dark:bg-gray-800 dark:text-white"></input>
+                  className="w-full max-w-xs text-black placeholder-black bg-gray-200 dark:placeholder-white input dark:bg-gray-600 dark:text-white"></input>
 
                 <label
-                  className="block max-w-lg mt-2 text-left"
+                  className="my-1 mr-2 text-black dark:text-white"
                   htmlFor="cheeseomenter">
-                  <span className="text-gray-700 dark:text-white">
                     Cheeseometer
-                  </span>
                 </label>
                 <select
-                  className="block w-full mt-1 form-select"
+                  className="w-full max-w-xs text-black bg-gray-200 select dark:text-white dark:bg-gray-600"
                   name="cheeseometer"
                   id="cheeseometer">
                   <option value="0">0</option>
@@ -111,14 +106,12 @@ const CreateFood = () => {
                 </select>
 
                 <label
-                  className="block max-w-lg mt-2 text-left"
+                  className="my-1 mr-2 text-black dark:text-white"
                   htmlFor="deliverable">
-                  <span className="text-gray-700 dark:text-white">
                     Deliverable
-                  </span>
                 </label>
                 <select
-                  className="block w-full mt-1 form-select"
+                  className="w-full max-w-xs text-black bg-gray-200 select dark:text-white dark:bg-gray-600"
                   name="deliverable"
                   id="deliverable">
                   <option value="true">Yes</option>
@@ -126,14 +119,12 @@ const CreateFood = () => {
                 </select>
 
                 <label
-                  className="block max-w-lg mt-2 text-left"
+                  className="my-1 mr-2 text-black dark:text-white"
                   htmlFor="nutrition">
-                  <span className="text-gray-700 dark:text-white">
                     Nutrition
-                  </span>
                 </label>
                 <select
-                  className="block w-full mt-1 form-select"
+                  className="w-full max-w-xs text-black bg-gray-200 select dark:text-white dark:bg-gray-600"
                   name="nutrition"
                   id="nutrition">
                   <option value="">-</option>
@@ -142,12 +133,12 @@ const CreateFood = () => {
                 </select>
 
                 <label
-                  className="block max-w-lg mt-2 text-left"
+                  className="my-1 mr-2 text-black dark:text-white"
                   htmlFor="effort">
-                  <span className="text-gray-700 dark:text-white">Effort</span>
+                  Effort
                 </label>
                 <select
-                  className="block w-full mt-1 form-select"
+                  className="w-full max-w-xs text-black bg-gray-200 select dark:text-white dark:bg-gray-600"
                   name="effort"
                   id="effort">
                   <option value="0">0</option>
@@ -162,17 +153,14 @@ const CreateFood = () => {
                   <option value="9">9</option>
                   <option value="10">10</option>
                 </select>
-              </div>
-              <button
-                className="w-full p-2 px-5 mt-3 mb-4 text-lg text-gray-100 bg-green-600 rounded-lg hover:ring-4 ring-green-400"
+                <button
+                className="mt-5 text-lg text-gray-100 bg-green-600 border-none rounded-lg ring-green-400 hover:ring-4 hover:bg-green-700 btn"
                 type="submit">
                 Save food
               </button>
             </form>
-          </FormLayout>
-          <div className="fixed inset-0 z-40 bg-gray-800 opacity-25"></div>
-        </>
-      )}
+        </div>
+      </div>
     </>
   );
 };

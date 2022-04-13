@@ -121,20 +121,20 @@ export default function Dialog({
               <option value="10">10</option>
             </select>
 
-            <div className='flex mx-auto mt-4'>
-            <button
-              className="px-6 mr-4 text-white bg-green-600 btn hover:bg-green-700"
-              type="button"
-              onClick={() => saveFilter()}>
-              Apply filter
-            </button>
-            <button
-              className="px-6 ml-4 text-white bg-red-600 btn hover:bg-red-700"
-              type="button"
-              onClick={() => clearFilter()}>
-              Clear filter
-            </button>
-              </div>
+            <div className="flex mx-auto mt-4">
+              <label
+                className="px-6 mr-4 text-white bg-green-600 border-none btn hover:bg-green-700 ring-green-400 hover:ring-4"
+                htmlFor="dialog"
+                onClick={() => saveFilter()}>
+                Apply filter
+              </label>
+              <label
+                className="px-6 ml-4 text-white bg-red-600 border-none btn hover:bg-red-700 ring-red-400 hover:ring-4"
+                htmlFor="dialog"
+                onClick={() => clearFilter()}>
+                Clear filter
+              </label>
+            </div>
           </div>
         </div>
       </div>
