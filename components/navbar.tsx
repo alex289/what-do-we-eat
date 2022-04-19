@@ -54,14 +54,14 @@ const Navbar = () => {
 
         {!session?.user && (
           <button
-            className="normal-case btn btn-primary"
+            className="ml-1 normal-case btn btn-primary"
             onClick={() => signIn('google')}>
             Sign in
           </button>
         )}
 
         {session?.user && (
-          <div className="dropdown dropdown-end sm:mr-4">
+          <div className="ml-1 dropdown dropdown-end sm:mr-4">
             <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
               <div className="w-10">
                 {session.user.image && (
