@@ -1,4 +1,4 @@
-// eslint-disable-next-line @typescript-eslint/no-var-requires
+/* eslint-disable @typescript-eslint/no-var-requires */
 const { fontFamily } = require('tailwindcss/defaultTheme');
 
 module.exports = {
@@ -24,12 +24,16 @@ module.exports = {
         },
       },
       fontFamily: {
-        sans: ['Inter', ...fontFamily.sans],
+        sans: ['IBM Plex Sans', ...fontFamily.sans],
       },
     },
   },
   variants: {
     typography: ['dark'],
   },
-  plugins: [require('@tailwindcss/typography')],
+  daisyui: {
+    themes: ["dark"],
+    logs: false
+  },
+  plugins: [require('@tailwindcss/typography'), require('daisyui')],
 };

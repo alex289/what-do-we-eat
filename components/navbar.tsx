@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 
 import { signIn, signOut, useSession } from 'next-auth/react';
 import { useTheme } from 'next-themes';
@@ -9,72 +10,17 @@ const Navbar = () => {
   const { resolvedTheme, setTheme } = useTheme();
 
   const [mounted, setMounted] = useState(false);
-  const [showDropdown, setShowDropdown] = useState(false);
 
   useEffect(() => setMounted(true), []);
 
   return (
-    <nav className="z-50 flex items-center justify-between w-full max-w-4xl p-3 mx-auto my-0 text-gray-900 custom-nav md:p-0 bg-gray-50 md:my-8 dark:bg-gray-800 dark:text-gray-100">
-      <div>
-        <h1 className="p-1 text-xl font-semibold text-gray-900 sm:p-4 dark:text-gray-100">
+    <nav className="text-gray-900 navbar bg-gray-50 md:my-4 dark:bg-gray-800 dark:text-gray-100">
+      <div className="flex-1">
+        <h1 className="text-xl text-gray-900 normal-case btn btn-ghost dark:text-gray-100 sm:ml-4">
           <Link href="/">What do we eat?</Link>
         </h1>
       </div>
-      <div className="flex ">
-        {session?.user && (
-          <div className="md:pr-4">
-            <div className="relative inline-block text-left">
-              <div>
-                <button
-                  type="button"
-                  className="inline-flex justify-center w-full px-4 py-2 text-sm font-medium"
-                  onClick={() => setShowDropdown(showDropdown ? false : true)}>
-                  {session.user.name}
-                  <svg
-                    className="w-5 h-5 ml-2"
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                    aria-hidden="true">
-                    <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
-                  </svg>
-                </button>
-              </div>
-
-              {showDropdown && (
-                <div className="absolute right-0 w-56 mt-2 bg-gray-100 shadow-lg dark:bg-gray-700 origin-top-right rounded-md ring-1 ring-black ring-opacity-5 focus:outline-none">
-                  <div className="py-1" role="none">
-                    <>
-                      {session.isAdmin && (
-                        <Link href="/dashboard">
-                          <a className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-100">
-                            Dashboard
-                          </a>
-                        </Link>
-                      )}
-                      <a
-                        href="#"
-                        className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-100"
-                        onClick={() =>
-                          signOut({ callbackUrl: `${window.location.origin}` })
-                        }>
-                        Logout
-                      </a>
-                    </>
-                  </div>
-                </div>
-              )}
-            </div>
-          </div>
-        )}
-        {!session?.user && (
-          <button
-            className="p-1 px-5 mr-4 text-lg text-gray-100 bg-purple-600 rounded-lg hover:ring-4 ring-purple-400"
-            onClick={() => signIn('google')}>
-            Sign in
-          </button>
-        )}
-
+      <div className="flex-none">
         <button
           aria-label="Toggle Dark Mode"
           type="button"
@@ -105,6 +51,48 @@ const Navbar = () => {
             </svg>
           )}
         </button>
+
+        {!session?.user && (
+          <button
+            className="ml-1 normal-case btn btn-primary"
+            onClick={() => signIn('google')}>
+            Sign in
+          </button>
+        )}
+
+        {session?.user && (
+          <div className="ml-1 dropdown dropdown-end sm:mr-4">
+            <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
+              <div className="w-10">
+                {session.user.image && (
+                  <Image
+                    alt="profile picture"
+                    src={session.user.image}
+                    layout="fill"
+                    className="rounded-full"
+                  />
+                )}
+              </div>
+            </label>
+            <ul
+              tabIndex={0}
+              className="p-2 mt-3 bg-white shadow menu menu-compact dropdown-content dark:bg-gray-700 rounded-box w-52">
+              <li>
+                <div className="justify-between">{session.user.name}</div>
+              </li>
+              <>
+                {session.isAdmin && (
+                  <li>
+                    <Link href="/dashboard">Dashboard</Link>
+                  </li>
+                )}
+              </>
+              <li>
+                <div onClick={() => signOut()}>Logout</div>
+              </li>
+            </ul>
+          </div>
+        )}
       </div>
     </nav>
   );
