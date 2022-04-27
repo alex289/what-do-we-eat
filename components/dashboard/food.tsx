@@ -1,12 +1,11 @@
 import Image from 'next/image';
 import dynamic from 'next/dynamic';
-
-import type { Food } from '@/types/food';
+import type { food } from '@prisma/client';
 
 const UpdateFood = dynamic(() => import('@/components/dashboard/updateFood'));
 const DeleteFood = dynamic(() => import('@/components/dashboard/deleteFood'));
 
-const DashboardFood = ({ foodList }: { foodList: Food[] }) => {
+const DashboardFood = ({ foodList }: { foodList: food[] }) => {
   return (
     <ul className="px-2 mt-3 md:mt-0 grid xl:grid-flow-row xl:grid-cols-5 md:grid-cols-2 gap-6 md:grid-flow-column">
       {foodList.map((food, index) => (
