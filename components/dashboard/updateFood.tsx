@@ -3,8 +3,8 @@ import { FormEvent } from 'react';
 import axios from 'axios';
 import { useSWRConfig } from 'swr';
 
-import type { Food } from '@/types/food';
 import { toast } from 'react-toastify';
+import type { food } from '@prisma/client';
 
 type FormData = {
   target: {
@@ -17,7 +17,7 @@ type FormData = {
   };
 };
 
-const UpdateFood = ({ food }: { food: Food }) => {
+const UpdateFood = ({ food }: { food: food }) => {
   const { mutate } = useSWRConfig();
 
   async function saveFood(e: FormEvent<HTMLFormElement> & FormData) {

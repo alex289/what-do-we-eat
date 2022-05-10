@@ -1,12 +1,12 @@
 import type { FilterConfig, FoodConfig } from '@/types/config';
-import type { Food } from '@/types/food';
+import type { food } from '@prisma/client';
 
-export function randomFood(foodList: Food[]) {
+export function randomFood(foodList: food[]) {
   const food = foodList[Math.floor(Math.random() * foodList.length)];
   return food === undefined ? [] : [food];
 }
 
-export function searchFood(foodList: Food[], input: string) {
+export function searchFood(foodList: food[], input: string) {
   return foodList.filter((food) =>
     food.name
       .toLowerCase()
@@ -14,14 +14,14 @@ export function searchFood(foodList: Food[], input: string) {
   );
 }
 
-export function filterFood(foodList: Food[], config: FilterConfig) {
-  const filteredList: Food[] = [];
+export function filterFood(foodList: food[], config: FilterConfig) {
+  const filteredList: food[] = [];
   let filterEffort = config.effort;
   let filterDeliverable = config.deliverable;
   let filterCheeseometer = config.cheeseometer;
   let filterNutrition: string | null = config.nutrition;
 
-  const ignoreFilter = (food: Food) => {
+  const ignoreFilter = (food: food) => {
     if (config.effort === '-') {
       filterEffort = food.effort.toString();
     }
@@ -53,7 +53,7 @@ export function filterFood(foodList: Food[], config: FilterConfig) {
 }
 
 export function handleFood(
-  foodList: Food[],
+  foodList: food[],
   config: FoodConfig,
   filterConfig: FilterConfig
 ) {

@@ -4,7 +4,6 @@ import { getSession } from 'next-auth/react';
 import prisma from '@/lib/prisma';
 
 import type { ApiResponse } from '@/types/apiResponse';
-import type { Food } from '@/types/food';
 
 export default async function handle(
   req: NextApiRequest,
@@ -34,5 +33,5 @@ export default async function handle(
       effort: effort,
     },
   });
-  res.json({ status: 'success', data: result as unknown as Food[] });
+  res.json({ status: 'success', data: [result] });
 }

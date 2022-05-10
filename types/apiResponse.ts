@@ -1,6 +1,6 @@
-import { Food } from './food';
+import { food } from '@prisma/client';
 
 export type ApiResponse = {
   status: string;
-  data: Food[];
+  data: food[];
 };

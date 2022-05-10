@@ -1,8 +1,7 @@
 import Image from 'next/image';
+import type { food } from '@prisma/client';
 
-import { Food } from '@/types/food';
-
-const Food = ({ foodList }: { foodList: Food[] }) => (
+const Food = ({ foodList }: { foodList: food[] }) => (
   <ul className="px-2 mt-3 md:mt-0 grid xl:grid-flow-row xl:grid-cols-5 md:grid-cols-2 gap-6 md:grid-flow-column">
     {foodList.map((food, index) => (
       <li key={index} className="border shadow-xl card dark:border-gray-700">

@@ -1,10 +1,9 @@
 import axios from 'axios';
 import { useSWRConfig } from 'swr';
-
-import type { Food } from '@/types/food';
 import { toast } from 'react-toastify';
+import type { food } from '@prisma/client';
 
-const DeleteFood = ({ food }: { food: Food }) => {
+const DeleteFood = ({ food }: { food: food }) => {
   const { mutate } = useSWRConfig();
 
   async function deleteFood() {
