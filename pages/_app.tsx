@@ -5,6 +5,8 @@ import { SessionProvider } from 'next-auth/react';
 import { ThemeProvider } from 'next-themes';
 import NProgress from 'nprogress';
 
+import Analytics from '@/components/Analytics';
+
 import '@/styles/global.css';
 import 'nprogress/nprogress.css';
 import 'react-toastify/dist/ReactToastify.css';
@@ -24,6 +26,7 @@ export default function App({
   return (
     <SessionProvider session={session}>
       <ThemeProvider attribute="class">
+        <Analytics />
         <Component {...pageProps} />
       </ThemeProvider>
     </SessionProvider>
