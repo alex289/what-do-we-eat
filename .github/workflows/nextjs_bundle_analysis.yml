@@ -31,7 +31,7 @@ jobs:
         run: pnpm i
 
       - name: Generate prisma client
-        run: pnpm prisma generate
+        run: pnpm exec prisma generate
 
       - name: Restore next build
         uses: actions/cache@v2
