@@ -1,6 +1,9 @@
 import Image from 'next/image';
 import type { food } from '@prisma/client';
 
+import CheckMark from '@/components/icons/CheckMark';
+import CrossMark from '@/components/icons/CrossMark';
+
 const Food = ({ foodList }: { foodList: food[] }) => (
   <ul className="px-2 mt-3 md:mt-0 grid xl:grid-flow-row xl:grid-cols-5 md:grid-cols-2 gap-6 md:grid-flow-column">
     {foodList.map((food, index) => (
@@ -14,14 +17,79 @@ const Food = ({ foodList }: { foodList: food[] }) => (
               quality={100}></Image>
           )}
         </figure>
-        <div className="text-black card-body dark:text-white">
+        <div className="px-5 text-black card-body dark:text-white">
           <p className="card-title">{food.name}</p>
-          <p className="text-base">Cheeseometer: {food.cheeseometer}/5</p>
-          <p className="text-base">
-            Deliverable: {food.deliverable ? 'Yes' : 'No'}
+          <div className="flex text-base">
+            Cheeseometer:
+            <div className="rating align-right">
+              <input
+                type="radio"
+                name={'rating-2-' + food.id}
+                className="rating-hidden"
+                readOnly
+                disabled
+                checked={food.cheeseometer === 0}
+              />
+              <input
+                type="radio"
+                name={'rating-2-' + food.id}
+                readOnly
+                disabled
+                checked={food.cheeseometer === 1}
+                className="bg-orange-400 mask mask-star-2"
+              />
+              <input
+                type="radio"
+                name={'rating-2-' + food.id}
+                readOnly
+                disabled
+                checked={food.cheeseometer === 2}
+                className="bg-orange-400 mask mask-star-2"
+              />
+              <input
+                type="radio"
+                name={'rating-2-' + food.id}
+                readOnly
+                disabled
+                checked={food.cheeseometer === 3}
+                className="bg-orange-400 mask mask-star-2"
+              />
+              <input
+                type="radio"
+                name={'rating-2-' + food.id}
+                readOnly
+                disabled
+                checked={food.cheeseometer === 4}
+                className="bg-orange-400 mask mask-star-2"
+              />
+              <input
+                type="radio"
+                name={'rating-2-' + food.id}
+                readOnly
+                disabled
+                checked={food.cheeseometer === 5}
+                className="bg-orange-400 mask mask-star-2"
+              />
+            </div>
+          </div>
+          <p className="flex text-base">
+            Deliverable:{' '}
+            <span className="ml-2">
+              {food.deliverable ? <CheckMark /> : <CrossMark />}
+            </span>
           </p>
-          <p className="text-base">Effort: {food.effort}/10</p>
-          <p className="text-base">{food.nutrition}</p>
+          <p className="text-base">
+            Effort:{' '}
+            <span className="text-base stat-value">{food.effort}/10</span>
+          </p>
+          {food.nutrition && (
+            <p className="text-base">
+              <span className="p-3 badge badge-xl badge-success">
+                {food.nutrition}
+              </span>
+            </p>
+          )}
+          {!food.nutrition && <span className="invisible badge"></span>}
         </div>
       </li>
     ))}
