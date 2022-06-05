@@ -96,3 +96,9 @@ html {
   border-top-color: #6419E6 !important;
   border-left-color: #6419E6 !important;
 }
+
+.heart-icon{
+  fill:#ed1b24;
+  fill-rule:evenodd;
+  margin-top: 1em;
+}

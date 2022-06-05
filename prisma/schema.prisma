@@ -10,11 +10,16 @@ datasource db {
 }
 
 model food {
-  id           Int     @id @unique @default(autoincrement())
-  name         String  @db.VarChar(255)
-  image        String  @default("") @db.VarChar(1000)
+  id           Int        @id @unique @default(autoincrement())
+  name         String     @db.VarChar(255)
+  image        String     @default("") @db.VarChar(1000)
   cheeseometer Int
   deliverable  Boolean
   nutrition    String?
   effort       Int
+}
+
+model favorite {
+  id     Int    @id
+  user   String
 }
