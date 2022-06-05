@@ -25,13 +25,13 @@ jobs:
       id: cache-nodemodules
       uses: actions/cache@v2
       env:
-        cache-name: cache-node-modules-v2
+        cache-name: cache-node-modules
       with:
         path: node_modules
-        key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}
+        key: ${{ runner.os }}-build-v2-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}
         restore-keys: |
-          ${{ runner.os }}-build-${{ env.cache-name }}-
-          ${{ runner.os }}-build-
+          ${{ runner.os }}-build-v2-${{ env.cache-name }}-
+          ${{ runner.os }}-build-v2
           ${{ runner.os }}-
 
     - name: Cache next build
