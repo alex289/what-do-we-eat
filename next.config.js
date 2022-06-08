@@ -1,17 +1,21 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
+const withPWA = require('next-pwa');
+const runtimeCaching = require('next-pwa/cache');
+
 /** @type {import('next').NextConfig} */
-const nextConfig = {
+const nextConfig = withPWA({
   reactStrictMode: true,
   swcMinify: true,
   experimental: {
     legacyBrowsers: false,
-    browsersListForSwc: true
+    browsersListForSwc: true,
   },
   async headers() {
     return [
       {
         source: '/:path*',
-        headers: securityHeaders
-      }
+        headers: securityHeaders,
+      },
     ];
   },
   webpack: (config, { dev, isServer }) => {
@@ -29,7 +33,13 @@ const nextConfig = {
   images: {
     domains: ['i.pinimg.com', 'lh3.googleusercontent.com'],
   },
-};
+  pwa: {
+    dest: 'public',
+    runtimeCaching,
+    mode: 'production',
+    disable: process.env.NODE_ENV !== 'production',
+  },
+});
 
 const ContentSecurityPolicy = `
   default-src 'self';
