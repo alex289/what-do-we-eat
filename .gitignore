@@ -2,3 +2,5 @@ node_modules
 dist
 .next
 .env*.local
+sw.js
+workbox-*.js
