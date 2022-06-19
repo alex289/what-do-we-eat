@@ -18,7 +18,8 @@ const Favorite = ({ foodId, favorite }: Props) => {
   const { mutate } = useSWRConfig();
 
   function isFavorite() {
-    return favorite?.find((x) => x.user === session?.user?.email) !== undefined
+    return favouriteCount > (favorite?.length ?? 0) ||
+      favorite?.find((x) => x.user === session?.user?.email) !== undefined
       ? true
       : false;
   }
@@ -35,7 +36,7 @@ const Favorite = ({ foodId, favorite }: Props) => {
     }
   }
 
-  async function Delete() {
+  async function Remove() {
     const res = await axios.delete('/api/food/favorite/' + foodId);
 
     if (res.status === 200) {
@@ -53,7 +54,7 @@ const Favorite = ({ foodId, favorite }: Props) => {
 
   return (
     <span className="flex ml-auto">
-      <button onClick={() => (isFavorite() ? Delete() : Add())}>
+      <button onClick={() => (isFavorite() ? Remove() : Add())}>
         <HeartIcon />
       </button>{' '}
       <span className={`ml-2 ${isFavorite() ? 'text-red-500' : ''}`}>
