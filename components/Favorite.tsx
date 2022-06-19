@@ -5,6 +5,7 @@ import { toast } from 'react-toastify';
 import { useSWRConfig } from 'swr';
 
 import HeartIcon from '@/components/icons/HeartIcon';
+import { useState } from 'react';
 
 type Props = {
   foodId: number;
@@ -12,6 +13,7 @@ type Props = {
 };
 
 const Favorite = ({ foodId, favorite }: Props) => {
+  const [favouriteCount, setFavoriteCount] = useState(favorite?.length ?? 0);
   const { data: session } = useSession();
   const { mutate } = useSWRConfig();
 
@@ -25,6 +27,7 @@ const Favorite = ({ foodId, favorite }: Props) => {
     const res = await axios.post('/api/food/favorite/' + foodId);
 
     if (res.status === 200) {
+      setFavoriteCount(favouriteCount + 1);
       mutate('/api/food/favorite');
       toast.success('Added to favorites');
     } else {
@@ -36,6 +39,7 @@ const Favorite = ({ foodId, favorite }: Props) => {
     const res = await axios.delete('/api/food/favorite/' + foodId);
 
     if (res.status === 200) {
+      setFavoriteCount(favouriteCount - 1);
       mutate('/api/food/favorite');
       toast.success('Removed from favorites');
     } else {
@@ -53,7 +57,7 @@ const Favorite = ({ foodId, favorite }: Props) => {
         <HeartIcon />
       </button>{' '}
       <span className={`ml-2 ${isFavorite() ? 'text-red-500' : ''}`}>
-        {favorite?.length ?? 0}
+        {favouriteCount}
       </span>
     </span>
   );
