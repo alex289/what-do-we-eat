@@ -2,6 +2,9 @@ import Image from 'next/image';
 import dynamic from 'next/dynamic';
 import type { food } from '@prisma/client';
 
+import CheckMark from '@/components/icons/CheckMark';
+import CrossMark from '@/components/icons/CrossMark';
+
 const UpdateFood = dynamic(() => import('@/components/dashboard/updateFood'));
 const DeleteFood = dynamic(() => import('@/components/dashboard/deleteFood'));
 
@@ -23,11 +26,24 @@ const DashboardFood = ({ foodList }: { foodList: food[] }) => {
             <p className="card-title">{food.name}</p>
             <p className="text-base">Id: {food.id}</p>
             <p className="text-base">Cheeseometer: {food.cheeseometer}/5</p>
-            <p className="text-base">
-              Deliverable: {food.deliverable ? 'Yes' : 'No'}
+            <p className="flex text-base">
+              Deliverable:{' '}
+              <span className="ml-2">
+                {food.deliverable ? <CheckMark /> : <CrossMark />}
+              </span>
             </p>
-            <p className="text-base">Effort: {food.effort}/10</p>
-            <p className="text-base">{food.nutrition}</p>
+            <p className="text-base">
+              Effort:{' '}
+              <span className="text-base stat-value">{food.effort}/10</span>
+            </p>
+            {food.nutrition && (
+              <p className="text-base">
+                <span className="p-3 badge badge-xl badge-success">
+                  {food.nutrition}
+                </span>
+              </p>
+            )}
+            {!food.nutrition && <span className="invisible badge"></span>}
             <UpdateFood food={food} />
             <DeleteFood food={food} />
           </div>

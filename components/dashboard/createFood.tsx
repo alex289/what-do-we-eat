@@ -39,6 +39,9 @@ const CreateFood = () => {
 
     toast.success(`Created '${e.target.name.value}'`);
     mutate('/api/food');
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (document.querySelector('#createDialog') as any).checked = false;
   }
 
   return (

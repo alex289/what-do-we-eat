@@ -41,6 +41,9 @@ const UpdateFood = ({ food }: { food: food }) => {
 
     toast.success(`Updated '${e.target.name.value}'`);
     mutate('/api/food');
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (document.querySelector(`#update${food.name}Dialog`) as any).checked =
+      false;
   }
 
   return (

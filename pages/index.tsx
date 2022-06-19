@@ -78,7 +78,7 @@ export default function Index({ fallbackData }: { fallbackData: ApiResponse }) {
   if (!data) {
     return (
       <Layout>
-        <div className="m-10">Loading...</div>
+        <progress className="w-full progress progress-primary"></progress>
       </Layout>
     );
   }
