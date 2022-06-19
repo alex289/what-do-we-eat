@@ -80,11 +80,13 @@ const Navbar = () => {
               <li>
                 <div className="justify-between">{session.user.name}</div>
               </li>
-              {session.isAdmin && (
-                <li>
-                  <Link href="/dashboard">Dashboard</Link>
-                </li>
-              )}
+              <>
+                {session.isAdmin && (
+                  <li>
+                    <Link href="/dashboard">Dashboard</Link>
+                  </li>
+                )}
+              </>
               <li>
                 <div onClick={() => signOut()}>Logout</div>
               </li>
