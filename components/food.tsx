@@ -1,10 +1,16 @@
 import Image from 'next/image';
-import type { food } from '@prisma/client';
+import type { favorite, food } from '@prisma/client';
 
+import Favorite from '@/components/Favorite';
 import CheckMark from '@/components/icons/CheckMark';
 import CrossMark from '@/components/icons/CrossMark';
 
-const Food = ({ foodList }: { foodList: food[] }) => (
+type Props = {
+  foodList: food[];
+  favorite: favorite[] | undefined;
+};
+
+const Food = ({ foodList, favorite }: Props) => (
   <ul className="px-2 mt-3 md:mt-0 grid xl:grid-flow-row xl:grid-cols-5 md:grid-cols-2 gap-6 md:grid-flow-column">
     {foodList.map((food, index) => (
       <li key={index} className="border shadow-xl card dark:border-gray-700">
@@ -18,7 +24,13 @@ const Food = ({ foodList }: { foodList: food[] }) => (
           )}
         </figure>
         <div className="px-5 text-black card-body dark:text-white">
-          <p className="card-title">{food.name}</p>
+          <p className="card-title">
+            {food.name}{' '}
+            <Favorite
+              foodId={food.id}
+              favorite={favorite?.filter((x) => x.id === food.id)}
+            />
+          </p>
           <div className="flex text-base">
             Cheeseometer:
             <div className="rating align-right">

@@ -50,7 +50,6 @@ jobs:
           ${{ runner.os }}-pnpm-store-
 
     - name: Install dependencies
-      if: steps.cache-nodemodules.outputs.cache-hit != 'true'
       run: pnpm i --frozen-lockfile
 
     - name: Generate prisma schema
