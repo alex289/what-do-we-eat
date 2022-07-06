@@ -18,3 +18,8 @@ model food {
   nutrition    String?
   effort       Int
 }
+
+model favorite {
+  id   Int    @id
+  user String
+}
