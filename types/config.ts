@@ -9,5 +9,5 @@ export type FilterConfig = {
   effort: string;
   deliverable: string;
   cheeseometer: string;
-  nutrition: string;
+  tags: string;
 };

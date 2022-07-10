@@ -14,14 +14,14 @@ export default function Dialog({
   const [deliverable, setDeliverable] = useState('true');
   const [effort, setEffort] = useState('5');
   const [cheeseometer, setCheeseometer] = useState('0');
-  const [nutrition, setNutrition] = useState('-');
+  const [tags, setTags] = useState('-');
 
   function saveFilter() {
     filterer({
       effort: effort,
       deliverable: deliverable,
       cheeseometer: cheeseometer,
-      nutrition: nutrition,
+      tags: tags,
     });
 
     setConfig({
@@ -88,13 +88,11 @@ export default function Dialog({
               <option value="false">No</option>
             </select>
 
-            <label className="my-2 mr-2 text-black dark:text-white">
-              Nutrition
-            </label>
+            <label className="my-2 mr-2 text-black dark:text-white">Tags</label>
             <select
               className="w-full max-w-xs text-black bg-gray-200 select dark:text-white dark:bg-gray-600"
-              onChange={(e) => setNutrition(e.target.value)}
-              value={nutrition}>
+              onChange={(e) => setTags(e.target.value)}
+              value={tags}>
               <option value="-">-</option>
               <option value="Veggie">Veggie</option>
               <option value="Vegan">Vegan</option>

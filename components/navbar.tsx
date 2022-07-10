@@ -98,7 +98,7 @@ const Navbar = () => {
                   href="https://github.com/alex289/what-do-we-eat"
                   target="_blank"
                   rel="noopener noreferrer">
-                  Github
+                  GitHub
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     className="w-4 h-4 ml-[-0.5em]"

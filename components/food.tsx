@@ -97,14 +97,17 @@ const Food = ({ foodList, favorite }: Props) => (
               Effort:{' '}
               <span className="text-base stat-value">{food.effort}/10</span>
             </p>
-            {food.nutrition && (
-              <p className="text-base">
-                <span className="p-3 badge badge-xl badge-success">
-                  {food.nutrition}
-                </span>
-              </p>
-            )}
-            {!food.nutrition && <span className="invisible badge"></span>}
+            <div className="grid grid-flow-col grid-cols-3">
+              {food.tags &&
+                food.tags.split(',').map((tag) => (
+                  <p className="text-base" key={tag.trim()}>
+                    <span className="p-3 badge badge-xl badge-success">
+                      {tag.trim()}
+                    </span>
+                  </p>
+                ))}
+            </div>
+            {!food.tags && <span className="invisible badge"></span>}
           </div>
         </li>
       ))}

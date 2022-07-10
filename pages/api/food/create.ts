@@ -16,8 +16,7 @@ export default async function handle(
     return;
   }
 
-  const { name, image, cheeseometer, deliverable, nutrition, effort } =
-    req.body;
+  const { name, image, cheeseometer, deliverable, tags, effort } = req.body;
 
   if (req.method !== 'POST') {
     return res.status(405).json('Only POST method allowed');
@@ -29,7 +28,7 @@ export default async function handle(
       image: image,
       cheeseometer: cheeseometer,
       deliverable: deliverable,
-      nutrition: nutrition,
+      tags: tags,
       effort: effort,
     },
   });

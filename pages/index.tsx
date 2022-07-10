@@ -39,7 +39,7 @@ export default function Index({ fallbackData, fallbackFavoritesData }: Props) {
     effort: '',
     deliverable: '',
     cheeseometer: '',
-    nutrition: '',
+    tags: '',
   });
 
   const { data, error } = useSWR<ApiResponse>('/api/food', fetcher, {

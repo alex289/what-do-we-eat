@@ -9,7 +9,7 @@ type FormData = {
     name: { value: string };
     image: { value: string };
     deliverable: { value: string };
-    nutrition: { value: string };
+    tags: { value: string };
     cheeseometer: { value: string };
     effort: { value: string };
   };
@@ -25,7 +25,7 @@ const CreateFood = () => {
       name: e.target.name.value,
       image: e.target.image.value,
       deliverable: e.target.deliverable.value === 'true' ? true : false,
-      nutrition: e.target.nutrition.value,
+      tags: e.target.tags.value,
       cheeseometer: Number(e.target.cheeseometer.value),
       effort: Number(e.target.effort.value),
     });
@@ -125,17 +125,17 @@ const CreateFood = () => {
 
             <label
               className="my-1 mr-2 text-black dark:text-white"
-              htmlFor="nutrition">
-              Nutrition
+              htmlFor="tags">
+              Tags
             </label>
-            <select
-              className="w-full max-w-xs text-black bg-gray-200 select dark:text-white dark:bg-gray-600"
-              name="nutrition"
-              id="nutrition">
-              <option value="">-</option>
-              <option value="Veggie">Veggie</option>
-              <option value="Vegan">Vegan</option>
-            </select>
+            <input
+              type="text"
+              required
+              name="tags"
+              id="tags"
+              maxLength={30}
+              placeholder="Enter tags"
+              className="w-full max-w-xs text-black placeholder-black bg-gray-200 dark:placeholder-white input dark:bg-gray-600 dark:text-white"></input>
 
             <label
               className="my-1 mr-2 text-black dark:text-white"

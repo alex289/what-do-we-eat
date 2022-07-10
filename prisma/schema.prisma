@@ -15,7 +15,7 @@ model food {
   image        String  @default("") @db.VarChar(1000)
   cheeseometer Int
   deliverable  Boolean
-  nutrition    String?
+  tags         String?
   effort       Int
 }
 

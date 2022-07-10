@@ -19,7 +19,7 @@ export function filterFood(foodList: food[], config: FilterConfig) {
   let filterEffort = config.effort;
   let filterDeliverable = config.deliverable;
   let filterCheeseometer = config.cheeseometer;
-  let filterNutrition: string | null = config.nutrition;
+  let filterTags: string | null = config.tags;
 
   const ignoreFilter = (food: food) => {
     if (config.effort === '-') {
@@ -31,19 +31,22 @@ export function filterFood(foodList: food[], config: FilterConfig) {
     if (config.cheeseometer === '-') {
       filterCheeseometer = food.cheeseometer.toString();
     }
-    if (config.nutrition === '-') {
-      filterNutrition =
-        typeof food.nutrition === 'string' ? food.nutrition : null;
+    if (config.tags === '-') {
+      filterTags = typeof food.tags === 'string' ? food.tags : null;
     }
   };
 
   foodList.map((food) => {
     ignoreFilter(food);
+    if (food.name === 'Pizza') {
+      console.log(food.tags, filterTags);
+      console.log(food.tags?.includes(filterTags || ''));
+    }
     if (
       food.effort === Number(filterEffort) &&
       food.deliverable === (filterDeliverable === 'true') &&
       food.cheeseometer === Number(filterCheeseometer) &&
-      food.nutrition === filterNutrition
+      (food.tags || '-').includes(filterTags || '-')
     ) {
       filteredList.push(food);
     }
