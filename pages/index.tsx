@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 
 import dynamic from 'next/dynamic';
 import useSWR from 'swr';
@@ -80,6 +80,11 @@ export default function Index({ fallbackData, fallbackFavoritesData }: Props) {
     });
   }
 
+  const memoizedFoodList = useMemo(
+    () => handleFood(data?.data || [], foodConfig, filter),
+    [data, foodConfig, filter]
+  );
+
   if (error) {
     return (
       <Layout>
@@ -118,9 +123,7 @@ export default function Index({ fallbackData, fallbackFavoritesData }: Props) {
         type="text"
         placeholder="Search for food..."
         className="ml-3 text-black placeholder-black bg-white input input-bordered dark:text-white input-primary dark:bg-gray-800 dark:placeholder-white"></input>
-      <Food
-        foodList={handleFood(data.data, foodConfig, filter)}
-        favorite={favoriteData?.data}></Food>
+      <Food foodList={memoizedFoodList} favorite={favoriteData?.data}></Food>
     </Layout>
   );
 }
