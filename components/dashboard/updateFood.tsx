@@ -144,7 +144,7 @@ const UpdateFood = ({ food }: { food: food }) => {
               name="tags"
               id="tags"
               maxLength={30}
-              defaultValue={food.tags}
+              defaultValue={food.tags || ''}
               placeholder="Enter name"
               className="w-full max-w-xs text-black placeholder-black bg-gray-200 dark:placeholder-white input dark:bg-gray-600 dark:text-white"></input>
 
