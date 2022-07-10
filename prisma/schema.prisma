@@ -23,3 +23,9 @@ model favorite {
   id   Int    @id
   user String
 }
+
+model analytics {
+  id     Int     @id @unique @default(autoincrement())
+  name   String  @db.VarChar(255)
+  picked Boolean
+}

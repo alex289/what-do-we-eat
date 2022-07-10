@@ -6,7 +6,7 @@ export default NextAuth({
   theme: {
     colorScheme: 'auto',
     brandColor: '#c084fc',
-    logo: 'https://what-do-we-eat.vercel.app/static/icons/favicon.ico',
+    logo: 'https://what-do-we-eat.vercel.app/favicon.ico',
   },
   providers: [
     GoogleProvider({

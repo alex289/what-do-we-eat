@@ -2,7 +2,7 @@ import { useMemo, useState } from 'react';
 
 import dynamic from 'next/dynamic';
 import useSWR from 'swr';
-import { ToastContainer, Zoom } from 'react-toastify';
+import { toast, ToastContainer, Zoom } from 'react-toastify';
 
 import type { GetStaticProps } from 'next';
 import type { favorite } from '@prisma/client';
@@ -14,6 +14,8 @@ import fetcher from '@/lib/fetcher';
 import { handleFood } from '@/lib/filter';
 
 import Layout from '@/components/layout';
+import { useSession } from 'next-auth/react';
+import axios from 'axios';
 
 const Food = dynamic(() => import('@/components/food'));
 const Dialog = dynamic(() => import('@/components/dialog'));
@@ -24,6 +26,7 @@ type Props = {
 };
 
 export default function Index({ fallbackData, fallbackFavoritesData }: Props) {
+  const { data: session } = useSession();
   const [clicked, setClicked] = useState(false);
   const [btnTitle, setBtnTitle] = useState('Get random food');
   const [foodConfig, setFoodConfig] = useState<FoodConfig>({
@@ -80,6 +83,24 @@ export default function Index({ fallbackData, fallbackFavoritesData }: Props) {
     });
   }
 
+  async function submitAnalytics(picked: boolean) {
+    const res = await axios.post('/api/analytics/create', {
+      name: memoizedFoodList[0].name,
+      picked,
+    });
+
+    if (res.status !== 200) {
+      toast.error(
+        `Failed saving choice '${picked ? 'Good one' : 'Bad one'}': ${
+          res.statusText
+        }`
+      );
+      return;
+    }
+
+    toast.success(`Submitted choice '${picked ? 'Good one' : 'Bad one'}'`);
+  }
+
   const memoizedFoodList = useMemo(
     () => handleFood(data?.data || [], foodConfig, filter),
     [data, foodConfig, filter]
@@ -123,6 +144,20 @@ export default function Index({ fallbackData, fallbackFavoritesData }: Props) {
         type="text"
         placeholder="Search for food..."
         className="ml-3 text-black placeholder-black bg-white input input-bordered dark:text-white input-primary dark:bg-gray-800 dark:placeholder-white"></input>
+      {foodConfig.random && session && (
+        <div className="p-2 mb-2 ml-1">
+          <button
+            onClick={() => submitAnalytics(true)}
+            className="mr-1 text-white normal-case bg-green-600 border-none btn hover:bg-green-700 ring-green-400 hover:ring-4">
+            Good choice
+          </button>
+          <button
+            onClick={() => submitAnalytics(false)}
+            className="ml-1 mr-1 text-white normal-case bg-red-600 border-none btn hover:bg-red-700 ring-red-400 hover:ring-4">
+            Bad choice
+          </button>
+        </div>
+      )}
       <Food foodList={memoizedFoodList} favorite={favoriteData?.data}></Food>
     </Layout>
   );
