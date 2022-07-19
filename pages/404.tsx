@@ -6,8 +6,8 @@ export default function NotFound() {
   return (
     <Layout>
       <div className="flex flex-col justify-center px-8">
-        <div className="flex flex-col items-start justify-center max-w-2xl mx-auto mb-16">
-          <h1 className="mb-4 text-3xl font-bold tracking-tight text-black md:text-5xl dark:text-white">
+        <div className="mx-auto mb-16 flex max-w-2xl flex-col items-start justify-center">
+          <h1 className="mb-4 text-3xl font-bold tracking-tight text-black dark:text-white md:text-5xl">
             404 – Page not found
           </h1>
           <p className="mb-8 text-gray-600 dark:text-gray-400">
@@ -17,7 +17,7 @@ export default function NotFound() {
             you double check that URL?
           </p>
           <Link href="/">
-            <a className="w-64 p-1 py-3 mx-auto font-bold text-center text-black bg-gray-200 border-none btn sm:p-4 dark:bg-gray-700 hover:dark:bg-gray-600 hover:bg-[#c9c9c9] rounded-md dark:text-white">
+            <a className="btn mx-auto w-64 rounded-md border-none bg-gray-200 p-1 py-3 text-center font-bold text-black hover:bg-[#c9c9c9] dark:bg-gray-700 dark:text-white hover:dark:bg-gray-600 sm:p-4">
               Return home
             </a>
           </Link>

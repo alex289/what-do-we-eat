@@ -22,7 +22,7 @@ const DeleteFood = ({ food }: { food: food }) => {
     <>
       <label
         htmlFor={`delete${food.name}Dialog`}
-        className="mt-1 mr-2 text-white bg-red-600 border-none btn hover:bg-red-700 modal-button ring-red-400 hover:ring-4">
+        className="modal-button btn mt-1 mr-2 border-none bg-red-600 text-white ring-red-400 hover:bg-red-700 hover:ring-4">
         Delete
       </label>
       <input
@@ -31,17 +31,17 @@ const DeleteFood = ({ food }: { food: food }) => {
         className="modal-toggle"
       />
       <div className="modal">
-        <div className="relative w-auto bg-white modal-box dark:bg-gray-700">
+        <div className="modal-box relative w-auto bg-white dark:bg-gray-700">
           <label
             htmlFor={`delete${food.name}Dialog`}
-            className="absolute bg-white border-none hover:bg-white hover:dark:bg-gray-700 btn btn-sm btn-circle right-4 top-4 dark:bg-gray-700">
+            className="btn btn-circle btn-sm absolute right-4 top-4 border-none bg-white hover:bg-white dark:bg-gray-700 hover:dark:bg-gray-700">
             ✕
           </label>
           <h3 className="text-lg font-bold">Delete food</h3>
           <p className="mt-4 grid">
             Are you sure you want to delete {`'${food.name}'`}?
             <label
-              className="px-4 py-2 m-4 text-gray-100 bg-red-600 border-none rounded-lg hover:bg-red-700 btn ring-red-400 hover:ring-4"
+              className="btn m-4 rounded-lg border-none bg-red-600 px-4 py-2 text-gray-100 ring-red-400 hover:bg-red-700 hover:ring-4"
               htmlFor={`delete${food.name}Dialog`}
               onClick={() => deleteFood()}>
               Delete {food.name}

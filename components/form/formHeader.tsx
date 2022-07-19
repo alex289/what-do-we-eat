@@ -6,16 +6,16 @@ const FormHeader = ({
   exit: (arg: boolean) => void;
 }) => {
   return (
-    <div className="flex items-start justify-between p-5 mx-16 border-b border-solid rounded-t border-blueGray-200">
+    <div className="border-blueGray-200 mx-16 flex items-start justify-between rounded-t border-b border-solid p-5">
       <h3 className="mr-4 text-3xl font-semibold">{title}</h3>
       <button
-        className="float-right p-1 ml-4 text-3xl font-semibold leading-none text-black bg-transparent border-0 outline-none focus:outline-none"
+        className="float-right ml-4 border-0 bg-transparent p-1 text-3xl font-semibold leading-none text-black outline-none focus:outline-none"
         type="button"
         onClick={() => exit(false)}>
-        <span className="block w-6 h-6 text-2xl text-black outline-none dark:text-white hover:text-gray-800 focus:outline-none">
+        <span className="block h-6 w-6 text-2xl text-black outline-none hover:text-gray-800 focus:outline-none dark:text-white">
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            className="w-6 h-6"
+            className="h-6 w-6"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor">

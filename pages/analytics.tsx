@@ -116,7 +116,7 @@ export default function AnalyticsPage({
   return (
     <Layout>
       <Suspense>
-        <div className="relative w-full px-8 h-[40em] chart-container">
+        <div className="chart-container relative h-[40em] w-full px-8">
           <Bar options={options} data={memoizedData} />
         </div>
       </Suspense>

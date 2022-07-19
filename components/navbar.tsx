@@ -14,9 +14,9 @@ const Navbar = () => {
   useEffect(() => setMounted(true), []);
 
   return (
-    <nav className="text-gray-900 navbar bg-gray-50 md:my-4 dark:bg-gray-800 dark:text-gray-100">
+    <nav className="navbar bg-gray-50 text-gray-900 dark:bg-gray-800 dark:text-gray-100 md:my-4">
       <div className="flex-1">
-        <h1 className="text-xl text-gray-900 normal-case btn btn-ghost dark:text-gray-100 sm:ml-4">
+        <h1 className="btn btn-ghost text-xl normal-case text-gray-900 dark:text-gray-100 sm:ml-4">
           <Link href="/">What do we eat?</Link>
         </h1>
       </div>
@@ -24,7 +24,7 @@ const Navbar = () => {
         <button
           aria-label="Toggle Dark Mode"
           type="button"
-          className="w-10 h-10 p-3 mr-1 bg-gray-200 rounded-lg dark:bg-gray-700 md:mr-3 ring-gray-300 hover:ring-4"
+          className="mr-1 h-10 w-10 rounded-lg bg-gray-200 p-3 ring-gray-300 hover:ring-4 dark:bg-gray-700 md:mr-3"
           onClick={() => setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')}>
           {mounted && (
             <svg
@@ -32,7 +32,7 @@ const Navbar = () => {
               viewBox="0 0 24 24"
               fill="currentColor"
               stroke="currentColor"
-              className="w-4 h-4 text-gray-800 dark:text-gray-200">
+              className="h-4 w-4 text-gray-800 dark:text-gray-200">
               {resolvedTheme === 'dark' ? (
                 <path
                   strokeLinecap="round"
@@ -54,15 +54,15 @@ const Navbar = () => {
 
         {!session?.user && (
           <button
-            className="ml-1 normal-case btn btn-primary"
+            className="btn btn-primary ml-1 normal-case"
             onClick={() => signIn('google')}>
             Sign in
           </button>
         )}
 
         {session?.user && (
-          <div className="ml-1 dropdown dropdown-end sm:mr-4">
-            <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
+          <div className="dropdown dropdown-end ml-1 sm:mr-4">
+            <label tabIndex={0} className="avatar btn btn-ghost btn-circle">
               <div className="w-10">
                 {session.user.image && (
                   <Image
@@ -76,7 +76,7 @@ const Navbar = () => {
             </label>
             <ul
               tabIndex={0}
-              className="p-2 mt-3 bg-white shadow menu menu-compact dropdown-content dark:bg-gray-700 rounded-box w-52">
+              className="dropdown-content menu rounded-box menu-compact mt-3 w-52 bg-white p-2 shadow dark:bg-gray-700">
               <li>
                 <div className="justify-between">{session.user.name}</div>
               </li>
@@ -101,7 +101,7 @@ const Navbar = () => {
                   GitHub
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    className="w-4 h-4 ml-[-0.5em]"
+                    className="ml-[-0.5em] h-4 w-4"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"

@@ -12,12 +12,12 @@ const DeleteFood = dynamic(() => import('@/components/dashboard/deleteFood'));
 const DashboardFood = ({ foodList }: { foodList: food[] }) => {
   return (
     <Suspense fallback={null}>
-      <ul className="px-2 mt-3 md:mt-0 grid xl:grid-flow-row xl:grid-cols-5 md:grid-cols-2 gap-6 md:grid-flow-column">
+      <ul className="md:grid-flow-column mt-3 grid gap-6 px-2 md:mt-0 md:grid-cols-2 xl:grid-flow-row xl:grid-cols-5">
         {foodList.map((food, index) => (
           <li
             key={index}
-            className="border shadow-xl card dark:border-gray-700">
-            <figure className="relative w-full h-64 xl:h-48">
+            className="card border shadow-xl dark:border-gray-700">
+            <figure className="relative h-64 w-full xl:h-48">
               {food.image.startsWith('https://i.pinimg.com/') && (
                 <Image
                   src={food.image}
@@ -26,7 +26,7 @@ const DashboardFood = ({ foodList }: { foodList: food[] }) => {
                   quality={100}></Image>
               )}
             </figure>
-            <div className="text-black card-body dark:text-white">
+            <div className="card-body text-black dark:text-white">
               <p className="card-title">{food.name}</p>
               <p className="text-base">Id: {food.id}</p>
               <p className="text-base">Cheeseometer: {food.cheeseometer}/5</p>
@@ -38,19 +38,19 @@ const DashboardFood = ({ foodList }: { foodList: food[] }) => {
               </p>
               <p className="text-base">
                 Effort:{' '}
-                <span className="text-base stat-value">{food.effort}/10</span>
+                <span className="stat-value text-base">{food.effort}/10</span>
               </p>
               <div className="grid grid-flow-col grid-cols-3">
                 {food.tags &&
                   food.tags.split(',').map((tag) => (
                     <p className="text-base" key={tag.trim()}>
-                      <span className="p-3 badge badge-xl badge-success">
+                      <span className="badge-xl badge badge-success p-3">
                         {tag.trim()}
                       </span>
                     </p>
                   ))}
               </div>
-              {!food.tags && <span className="invisible badge"></span>}
+              {!food.tags && <span className="badge invisible"></span>}
               <UpdateFood food={food} />
               <DeleteFood food={food} />
             </div>

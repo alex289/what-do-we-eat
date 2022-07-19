@@ -45,15 +45,15 @@ export default function Dialog({
     <>
       <label
         htmlFor="dialog"
-        className="mb-4 ml-3 normal-case btn btn-primary modal-button">
+        className="modal-button btn btn-primary mb-4 ml-3 normal-case">
         Filter food
       </label>
       <input type="checkbox" id="dialog" className="modal-toggle" />
       <div className="modal">
-        <div className="relative w-auto bg-white modal-box dark:bg-gray-700">
+        <div className="modal-box relative w-auto bg-white dark:bg-gray-700">
           <label
             htmlFor="dialog"
-            className="absolute bg-white border-none hover:bg-white hover:dark:bg-gray-700 btn btn-sm btn-circle right-4 top-4 dark:bg-gray-700">
+            className="btn btn-circle btn-sm absolute right-4 top-4 border-none bg-white hover:bg-white dark:bg-gray-700 hover:dark:bg-gray-700">
             ✕
           </label>
           <h3 className="text-lg font-bold text-black dark:text-white">
@@ -64,7 +64,7 @@ export default function Dialog({
               Cheeseometer
             </label>
             <select
-              className="w-full max-w-xs text-black bg-gray-200 select dark:text-white dark:bg-gray-600"
+              className="select w-full max-w-xs bg-gray-200 text-black dark:bg-gray-600 dark:text-white"
               onChange={(e) => setCheeseometer(e.target.value)}
               value={cheeseometer}>
               <option value="-">-</option>
@@ -80,7 +80,7 @@ export default function Dialog({
               Deliverable
             </label>
             <select
-              className="w-full max-w-xs text-black bg-gray-200 select dark:text-white dark:bg-gray-600"
+              className="select w-full max-w-xs bg-gray-200 text-black dark:bg-gray-600 dark:text-white"
               onChange={(e) => setDeliverable(e.target.value)}
               value={deliverable}>
               <option value="-">-</option>
@@ -90,7 +90,7 @@ export default function Dialog({
 
             <label className="my-2 mr-2 text-black dark:text-white">Tags</label>
             <select
-              className="w-full max-w-xs text-black bg-gray-200 select dark:text-white dark:bg-gray-600"
+              className="select w-full max-w-xs bg-gray-200 text-black dark:bg-gray-600 dark:text-white"
               onChange={(e) => setTags(e.target.value)}
               value={tags}>
               <option value="-">-</option>
@@ -102,7 +102,7 @@ export default function Dialog({
               Effort
             </label>
             <select
-              className="w-full max-w-xs text-black bg-gray-200 select dark:text-white dark:bg-gray-600"
+              className="select w-full max-w-xs bg-gray-200 text-black dark:bg-gray-600 dark:text-white"
               onChange={(e) => setEffort(e.target.value)}
               value={effort}>
               <option value="-">-</option>
@@ -119,15 +119,15 @@ export default function Dialog({
               <option value="10">10</option>
             </select>
 
-            <div className="flex mx-auto mt-4">
+            <div className="mx-auto mt-4 flex">
               <label
-                className="px-6 mr-4 text-white bg-green-600 border-none btn hover:bg-green-700 ring-green-400 hover:ring-4"
+                className="btn mr-4 border-none bg-green-600 px-6 text-white ring-green-400 hover:bg-green-700 hover:ring-4"
                 htmlFor="dialog"
                 onClick={() => saveFilter()}>
                 Apply filter
               </label>
               <label
-                className="px-6 ml-4 text-white bg-red-600 border-none btn hover:bg-red-700 ring-red-400 hover:ring-4"
+                className="btn ml-4 border-none bg-red-600 px-6 text-white ring-red-400 hover:bg-red-700 hover:ring-4"
                 htmlFor="dialog"
                 onClick={() => clearFilter()}>
                 Clear filter

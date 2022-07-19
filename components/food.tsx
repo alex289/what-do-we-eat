@@ -14,10 +14,10 @@ type Props = {
 
 const Food = ({ foodList, favorite }: Props) => (
   <Suspense fallback={null}>
-    <ul className="px-2 mt-3 md:mt-0 grid xl:grid-flow-row xl:grid-cols-5 md:grid-cols-2 gap-6 md:grid-flow-column">
+    <ul className="md:grid-flow-column mt-3 grid gap-6 px-2 md:mt-0 md:grid-cols-2 xl:grid-flow-row xl:grid-cols-5">
       {foodList.map((food, index) => (
-        <li key={index} className="border shadow-xl card dark:border-gray-700">
-          <figure className="relative w-full h-64 xl:h-48">
+        <li key={index} className="card border shadow-xl dark:border-gray-700">
+          <figure className="relative h-64 w-full xl:h-48">
             {food.image.startsWith('https://i.pinimg.com/') && (
               <Image
                 src={food.image}
@@ -26,7 +26,7 @@ const Food = ({ foodList, favorite }: Props) => (
                 quality={100}></Image>
             )}
           </figure>
-          <div className="px-5 text-black card-body dark:text-white">
+          <div className="card-body px-5 text-black dark:text-white">
             <p className="card-title">
               {food.name}{' '}
               <Favorite
@@ -36,7 +36,7 @@ const Food = ({ foodList, favorite }: Props) => (
             </p>
             <div className="flex text-base">
               Cheeseometer:
-              <div className="rating align-right">
+              <div className="align-right rating">
                 <input
                   type="radio"
                   name={'rating-2-' + food.id}
@@ -51,7 +51,7 @@ const Food = ({ foodList, favorite }: Props) => (
                   readOnly
                   disabled
                   checked={food.cheeseometer === 1}
-                  className="bg-orange-400 mask mask-star-2"
+                  className="mask mask-star-2 bg-orange-400"
                 />
                 <input
                   type="radio"
@@ -59,7 +59,7 @@ const Food = ({ foodList, favorite }: Props) => (
                   readOnly
                   disabled
                   checked={food.cheeseometer === 2}
-                  className="bg-orange-400 mask mask-star-2"
+                  className="mask mask-star-2 bg-orange-400"
                 />
                 <input
                   type="radio"
@@ -67,7 +67,7 @@ const Food = ({ foodList, favorite }: Props) => (
                   readOnly
                   disabled
                   checked={food.cheeseometer === 3}
-                  className="bg-orange-400 mask mask-star-2"
+                  className="mask mask-star-2 bg-orange-400"
                 />
                 <input
                   type="radio"
@@ -75,7 +75,7 @@ const Food = ({ foodList, favorite }: Props) => (
                   readOnly
                   disabled
                   checked={food.cheeseometer === 4}
-                  className="bg-orange-400 mask mask-star-2"
+                  className="mask mask-star-2 bg-orange-400"
                 />
                 <input
                   type="radio"
@@ -83,7 +83,7 @@ const Food = ({ foodList, favorite }: Props) => (
                   readOnly
                   disabled
                   checked={food.cheeseometer === 5}
-                  className="bg-orange-400 mask mask-star-2"
+                  className="mask mask-star-2 bg-orange-400"
                 />
               </div>
             </div>
@@ -95,19 +95,19 @@ const Food = ({ foodList, favorite }: Props) => (
             </p>
             <p className="text-base">
               Effort:{' '}
-              <span className="text-base stat-value">{food.effort}/10</span>
+              <span className="stat-value text-base">{food.effort}/10</span>
             </p>
             <div className="grid grid-flow-col grid-cols-3">
               {food.tags &&
                 food.tags.split(',').map((tag) => (
                   <p className="text-base" key={tag.trim()}>
-                    <span className="p-3 badge badge-xl badge-success">
+                    <span className="badge-xl badge badge-success p-3">
                       {tag.trim()}
                     </span>
                   </p>
                 ))}
             </div>
-            {!food.tags && <span className="invisible badge"></span>}
+            {!food.tags && <span className="badge invisible"></span>}
           </div>
         </li>
       ))}

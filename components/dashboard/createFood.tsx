@@ -47,16 +47,16 @@ const CreateFood = () => {
   return (
     <>
       <label
-        className="px-5 m-3 mb-4 text-white bg-green-600 border-none btn hover:bg-green-700 modal-button ring-green-400 hover:ring-4"
+        className="modal-button btn m-3 mb-4 border-none bg-green-600 px-5 text-white ring-green-400 hover:bg-green-700 hover:ring-4"
         htmlFor="createDialog">
         Add food
       </label>
       <input type="checkbox" id="createDialog" className="modal-toggle" />
       <div className="modal">
-        <div className="relative w-full max-w-xs bg-white modal-box dark:bg-gray-700">
+        <div className="modal-box relative w-full max-w-xs bg-white dark:bg-gray-700">
           <label
             htmlFor="createDialog"
-            className="absolute bg-white border-none hover:bg-white hover:dark:bg-gray-700 btn btn-sm btn-circle right-4 top-4 dark:bg-gray-700">
+            className="btn btn-circle btn-sm absolute right-4 top-4 border-none bg-white hover:bg-white dark:bg-gray-700 hover:dark:bg-gray-700">
             ✕
           </label>
           <h3 className="text-lg font-bold text-black dark:text-white">
@@ -79,7 +79,7 @@ const CreateFood = () => {
               id="name"
               maxLength={30}
               placeholder="Enter name"
-              className="w-full max-w-xs text-black placeholder-black bg-gray-200 dark:placeholder-white input dark:bg-gray-600 dark:text-white"></input>
+              className="input w-full max-w-xs bg-gray-200 text-black placeholder-black dark:bg-gray-600 dark:text-white dark:placeholder-white"></input>
 
             <label
               className="my-1 mr-2 text-black dark:text-white"
@@ -91,7 +91,7 @@ const CreateFood = () => {
               name="image"
               id="image"
               placeholder="Enter image url"
-              className="w-full max-w-xs text-black placeholder-black bg-gray-200 dark:placeholder-white input dark:bg-gray-600 dark:text-white"></input>
+              className="input w-full max-w-xs bg-gray-200 text-black placeholder-black dark:bg-gray-600 dark:text-white dark:placeholder-white"></input>
 
             <label
               className="my-1 mr-2 text-black dark:text-white"
@@ -99,7 +99,7 @@ const CreateFood = () => {
               Cheeseometer
             </label>
             <select
-              className="w-full max-w-xs text-black bg-gray-200 select dark:text-white dark:bg-gray-600"
+              className="select w-full max-w-xs bg-gray-200 text-black dark:bg-gray-600 dark:text-white"
               name="cheeseometer"
               id="cheeseometer">
               <option value="0">0</option>
@@ -116,7 +116,7 @@ const CreateFood = () => {
               Deliverable
             </label>
             <select
-              className="w-full max-w-xs text-black bg-gray-200 select dark:text-white dark:bg-gray-600"
+              className="select w-full max-w-xs bg-gray-200 text-black dark:bg-gray-600 dark:text-white"
               name="deliverable"
               id="deliverable">
               <option value="true">Yes</option>
@@ -135,7 +135,7 @@ const CreateFood = () => {
               id="tags"
               maxLength={30}
               placeholder="Enter tags"
-              className="w-full max-w-xs text-black placeholder-black bg-gray-200 dark:placeholder-white input dark:bg-gray-600 dark:text-white"></input>
+              className="input w-full max-w-xs bg-gray-200 text-black placeholder-black dark:bg-gray-600 dark:text-white dark:placeholder-white"></input>
 
             <label
               className="my-1 mr-2 text-black dark:text-white"
@@ -143,7 +143,7 @@ const CreateFood = () => {
               Effort
             </label>
             <select
-              className="w-full max-w-xs text-black bg-gray-200 select dark:text-white dark:bg-gray-600"
+              className="select w-full max-w-xs bg-gray-200 text-black dark:bg-gray-600 dark:text-white"
               name="effort"
               id="effort">
               <option value="0">0</option>
@@ -159,7 +159,7 @@ const CreateFood = () => {
               <option value="10">10</option>
             </select>
             <button
-              className="mt-5 text-lg text-gray-100 bg-green-600 border-none rounded-lg ring-green-400 hover:ring-4 hover:bg-green-700 btn"
+              className="btn mt-5 rounded-lg border-none bg-green-600 text-lg text-gray-100 ring-green-400 hover:bg-green-700 hover:ring-4"
               type="submit">
               Save food
             </button>

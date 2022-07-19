@@ -53,7 +53,7 @@ const Favorite = ({ foodId, favorite }: Props) => {
   }
 
   return (
-    <span className="flex ml-auto">
+    <span className="ml-auto flex">
       <button onClick={() => (isFavorite() ? Remove() : Add())}>
         <HeartIcon />
       </button>{' '}

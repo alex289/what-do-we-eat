@@ -116,7 +116,7 @@ export default function Index({ fallbackData, fallbackFavoritesData }: Props) {
   if (!data) {
     return (
       <Layout>
-        <progress className="w-full progress progress-primary"></progress>
+        <progress className="progress progress-primary w-full"></progress>
       </Layout>
     );
   }
@@ -131,7 +131,7 @@ export default function Index({ fallbackData, fallbackFavoritesData }: Props) {
       />
       <button
         type="button"
-        className="ml-3 normal-case btn btn-primary"
+        className="btn btn-primary ml-3 normal-case"
         onClick={handleClick}>
         {btnTitle}
       </button>
@@ -143,17 +143,17 @@ export default function Index({ fallbackData, fallbackFavoritesData }: Props) {
         onChange={handleInput}
         type="text"
         placeholder="Search for food..."
-        className="ml-3 text-black placeholder-black bg-white input input-bordered dark:text-white input-primary dark:bg-gray-800 dark:placeholder-white"></input>
+        className="input input-bordered input-primary ml-3 bg-white text-black placeholder-black dark:bg-gray-800 dark:text-white dark:placeholder-white"></input>
       {foodConfig.random && session && (
-        <div className="p-2 mb-2 ml-1">
+        <div className="mb-2 ml-1 p-2">
           <button
             onClick={() => submitAnalytics(true)}
-            className="mr-1 text-white normal-case bg-green-600 border-none btn hover:bg-green-700 ring-green-400 hover:ring-4">
+            className="btn mr-1 border-none bg-green-600 normal-case text-white ring-green-400 hover:bg-green-700 hover:ring-4">
             Good choice
           </button>
           <button
             onClick={() => submitAnalytics(false)}
-            className="ml-1 mr-1 text-white normal-case bg-red-600 border-none btn hover:bg-red-700 ring-red-400 hover:ring-4">
+            className="btn ml-1 mr-1 border-none bg-red-600 normal-case text-white ring-red-400 hover:bg-red-700 hover:ring-4">
             Bad choice
           </button>
         </div>

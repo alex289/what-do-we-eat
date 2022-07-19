@@ -80,7 +80,7 @@ export default function Dashboard({
         onChange={handleInput}
         type="text"
         placeholder="Search for food..."
-        className="ml-3 text-black placeholder-black bg-white input input-bordered dark:text-white input-primary dark:bg-gray-800 dark:placeholder-white"></input>
+        className="input input-bordered input-primary ml-3 bg-white text-black placeholder-black dark:bg-gray-800 dark:text-white dark:placeholder-white"></input>
       <DashboardFood
         foodList={
           inputText === '' ? data.data : searchFood(data.data, inputText)
