@@ -17,10 +17,27 @@ export default async function handle(
     return;
   }
 
-  const { name, picked } = req.body;
+  let { name, picked } = req.body;
 
   if (req.method !== 'POST') {
     return res.status(405).json('Only POST method allowed');
+  }
+
+  try {
+    name = String(name);
+    picked = Boolean(picked);
+  } catch (e) {
+    return res.status(400).json('Failed. Invalid request');
+  }
+
+  const existingFood = await prisma.food.findFirst({
+    where: {
+      name,
+    },
+  });
+
+  if (!existingFood) {
+    return res.status(400).json('Failed. Food does not exist');
   }
 
   const result = await prisma.analytics.create({

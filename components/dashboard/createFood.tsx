@@ -130,7 +130,6 @@ const CreateFood = () => {
             </label>
             <input
               type="text"
-              required
               name="tags"
               id="tags"
               maxLength={30}
