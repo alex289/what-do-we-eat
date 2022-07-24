@@ -1,15 +1,16 @@
-import type { NextApiRequest, NextApiResponse } from 'next';
+import { unstable_getServerSession } from 'next-auth/next';
 
-import { getSession } from 'next-auth/react';
 import prisma from '@/lib/prisma';
+import { authOptions } from 'pages/api/auth/[...nextauth]';
 
+import type { NextApiRequest, NextApiResponse } from 'next';
 import type { ApiResponse } from '@/types/apiResponse';
 
 export default async function handle(
   req: NextApiRequest,
   res: NextApiResponse<ApiResponse | string>
 ) {
-  const session = await getSession({ req });
+  const session = await unstable_getServerSession(req, res, authOptions);
   const foodId = req.query.id;
   const { name, image, cheeseometer, deliverable, tags, effort } = req.body;
 

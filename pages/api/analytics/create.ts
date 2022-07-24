@@ -1,16 +1,17 @@
-import type { NextApiRequest, NextApiResponse } from 'next';
+import { unstable_getServerSession } from 'next-auth/next';
 
-import { getSession } from 'next-auth/react';
 import prisma from '@/lib/prisma';
+import { authOptions } from '../auth/[...nextauth]';
 
+import type { NextApiRequest, NextApiResponse } from 'next';
+import type { analytics } from '@prisma/client';
 import type { ApiResponse } from '@/types/apiResponse';
-import { analytics } from '@prisma/client';
 
 export default async function handle(
   req: NextApiRequest,
   res: NextApiResponse<ApiResponse<analytics> | string>
 ) {
-  const session = await getSession({ req });
+  const session = await unstable_getServerSession(req, res, authOptions);
 
   if (!session) {
     res.status(401).json('Failed. Not authenticated');

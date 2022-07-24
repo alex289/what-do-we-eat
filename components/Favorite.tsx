@@ -1,11 +1,13 @@
+import { useMemo, useState } from 'react';
+
 import { useSession } from 'next-auth/react';
-import { favorite } from '@prisma/client';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import { useSWRConfig } from 'swr';
 
 import HeartIcon from '@/components/icons/HeartIcon';
-import { useState } from 'react';
+
+import type { favorite } from '@prisma/client';
 
 type Props = {
   foodId: number;
@@ -17,12 +19,12 @@ const Favorite = ({ foodId, favorite }: Props) => {
   const { data: session } = useSession();
   const { mutate } = useSWRConfig();
 
-  function isFavorite() {
+  const isFavorite = useMemo(() => {
     return favouriteCount > (favorite?.length ?? 0) ||
       favorite?.find((x) => x.user === session?.user?.email) !== undefined
       ? true
       : false;
-  }
+  }, [favorite, favouriteCount, session]);
 
   async function Add() {
     const res = await axios.post('/api/food/favorite/' + foodId);
@@ -54,10 +56,10 @@ const Favorite = ({ foodId, favorite }: Props) => {
 
   return (
     <span className="ml-auto flex">
-      <button onClick={() => (isFavorite() ? Remove() : Add())}>
+      <button onClick={() => (isFavorite ? Remove() : Add())}>
         <HeartIcon />
       </button>{' '}
-      <span className={`ml-2 ${isFavorite() ? 'text-red-500' : ''}`}>
+      <span className={`ml-2 ${isFavorite ? 'text-red-500' : ''}`}>
         {favouriteCount}
       </span>
     </span>
