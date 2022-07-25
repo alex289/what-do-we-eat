@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import Image from 'next/image';
+import Image from 'next/future/image';
 
 import { signIn, signOut, useSession } from 'next-auth/react';
 import { useTheme } from 'next-themes';
@@ -68,8 +68,9 @@ const Navbar = () => {
                   <Image
                     alt="profile picture"
                     src={session.user.image}
-                    layout="fill"
-                    className="rounded-full"
+                    width={564}
+                    height={564}
+                    className="absolute inset-0 h-10 w-10 rounded-full"
                   />
                 )}
               </div>

@@ -1,5 +1,5 @@
 import { Suspense } from 'react';
-import Image from 'next/image';
+import Image from 'next/future/image';
 
 import type { favorite, food } from '@prisma/client';
 
@@ -21,9 +21,11 @@ const Food = ({ foodList, favorite }: Props) => (
             {food.image.startsWith('https://i.pinimg.com/') && (
               <Image
                 src={food.image}
-                layout="fill"
                 alt={food.name}
-                quality={100}></Image>
+                width={564}
+                height={564}
+                quality={100}
+                className="absolute inset-0 h-64 w-full xl:h-48"></Image>
             )}
           </figure>
           <div className="card-body px-5 text-black dark:text-white">

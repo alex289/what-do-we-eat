@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import Image from 'next/future/image';
 import dynamic from 'next/dynamic';
 import type { food } from '@prisma/client';
 
@@ -21,9 +21,11 @@ const DashboardFood = ({ foodList }: { foodList: food[] }) => {
               {food.image.startsWith('https://i.pinimg.com/') && (
                 <Image
                   src={food.image}
-                  layout="fill"
                   alt={food.name}
-                  quality={100}></Image>
+                  width={564}
+                  height={564}
+                  quality={100}
+                  className="absolute inset-0 h-64 w-full xl:h-48"></Image>
               )}
             </figure>
             <div className="card-body text-black dark:text-white">
