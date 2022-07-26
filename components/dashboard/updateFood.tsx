@@ -1,4 +1,4 @@
-import { FormEvent } from 'react';
+import { FormEvent, useRef } from 'react';
 
 import axios from 'axios';
 import { useSWRConfig } from 'swr';
@@ -19,6 +19,7 @@ type FormData = {
 
 const UpdateFood = ({ food }: { food: food }) => {
   const { mutate } = useSWRConfig();
+  const buttonRef = useRef<HTMLInputElement>(null);
 
   async function saveFood(e: FormEvent<HTMLFormElement> & FormData) {
     e.preventDefault();
@@ -41,9 +42,9 @@ const UpdateFood = ({ food }: { food: food }) => {
 
     toast.success(`Updated '${e.target.name.value}'`);
     mutate('/api/food');
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    (document.querySelector(`#update${food.name}Dialog`) as any).checked =
-      false;
+    if (buttonRef.current) {
+      buttonRef.current.checked = false;
+    }
   }
 
   return (
@@ -56,6 +57,7 @@ const UpdateFood = ({ food }: { food: food }) => {
       <input
         type="checkbox"
         id={`update${food.name}Dialog`}
+        ref={buttonRef}
         className="modal-toggle"
       />
       <div className="modal">
@@ -140,7 +142,6 @@ const UpdateFood = ({ food }: { food: food }) => {
             </label>
             <input
               type="text"
-              required
               name="tags"
               id="tags"
               maxLength={30}

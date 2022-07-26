@@ -23,18 +23,6 @@ export default async function handle(
     return res.status(405).json({ message: 'Only PUT method allowed' });
   }
 
-  if (
-    !foodId ||
-    !name ||
-    !image ||
-    !cheeseometer ||
-    !deliverable ||
-    !tags ||
-    !effort
-  ) {
-    return res.status(400).json({ message: 'Invalid Request' });
-  }
-
   const item = await prisma.food.findUnique({ where: { id: Number(foodId) } });
 
   if (!item) {

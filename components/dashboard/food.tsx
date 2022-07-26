@@ -18,7 +18,7 @@ const DashboardFood = ({ foodList }: { foodList: food[] }) => {
             key={index}
             className="card border shadow-xl dark:border-gray-700">
             <figure className="relative h-64 w-full xl:h-48">
-              {food.image.startsWith('https://i.pinimg.com/') && (
+              {food.image && (
                 <Image
                   src={food.image}
                   alt={food.name}

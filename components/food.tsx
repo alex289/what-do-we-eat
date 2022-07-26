@@ -18,19 +18,29 @@ const Food = ({ foodList, favorite }: Props) => (
       {foodList.map((food, index) => (
         <li key={index} className="card border shadow-xl dark:border-gray-700">
           <figure className="relative h-64 w-full xl:h-48">
-            {food.image.startsWith('https://i.pinimg.com/') && (
+            {food.image && (
               <Image
                 src={food.image}
                 alt={food.name}
                 width={564}
                 height={564}
-                quality={100}
-                className="absolute inset-0 h-64 w-full xl:h-48"></Image>
+                loading="lazy"
+                className="absolute inset-0 h-64 w-full xl:h-48"
+              />
             )}
           </figure>
           <div className="card-body px-5 text-black dark:text-white">
             <p className="card-title">
-              {food.name}{' '}
+              <a
+                className="hover:underline"
+                href={`https://www.chefkoch.de/rs/s0/${food.name.replaceAll(
+                  ' ',
+                  '+'
+                )}/Rezepte.html`}
+                target="_blank"
+                rel="noreferrer noopener">
+                {food.name}
+              </a>
               <Favorite
                 foodId={food.id}
                 favorite={favorite?.filter((x) => x.id === food.id)}
