@@ -33,8 +33,8 @@ const Food = ({ foodList, favorite }: Props) => (
             <p className="card-title">
               <a
                 className="hover:underline"
-                href={`https://www.chefkoch.de/rs/s0/${food.name.replaceAll(
-                  ' ',
+                href={`https://www.chefkoch.de/rs/s0/${food.name.replace(
+                  / /g,
                   '+'
                 )}/Rezepte.html`}
                 target="_blank"

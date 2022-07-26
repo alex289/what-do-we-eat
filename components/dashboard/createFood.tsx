@@ -1,4 +1,4 @@
-import { FormEvent } from 'react';
+import { FormEvent, useRef } from 'react';
 
 import axios from 'axios';
 import { toast } from 'react-toastify';
@@ -17,6 +17,7 @@ type FormData = {
 
 const CreateFood = () => {
   const { mutate } = useSWRConfig();
+  const buttonRef = useRef<HTMLInputElement>(null);
 
   async function saveFood(e: FormEvent<HTMLFormElement> & FormData) {
     e.preventDefault();
@@ -40,8 +41,9 @@ const CreateFood = () => {
     toast.success(`Created '${e.target.name.value}'`);
     mutate('/api/food');
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    (document.querySelector('#createDialog') as any).checked = false;
+    if (buttonRef.current) {
+      buttonRef.current.checked = false;
+    }
   }
 
   return (
@@ -51,7 +53,12 @@ const CreateFood = () => {
         htmlFor="createDialog">
         Add food
       </label>
-      <input type="checkbox" id="createDialog" className="modal-toggle" />
+      <input
+        type="checkbox"
+        id="createDialog"
+        ref={buttonRef}
+        className="modal-toggle"
+      />
       <div className="modal">
         <div className="modal-box relative w-full max-w-xs bg-white dark:bg-gray-700">
           <label
