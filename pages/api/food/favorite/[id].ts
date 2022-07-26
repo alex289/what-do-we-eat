@@ -9,24 +9,32 @@ import type { ApiResponse } from '@/types/apiResponse';
 
 export default async function handle(
   req: NextApiRequest,
-  res: NextApiResponse<ApiResponse<favorite> | string>
+  res: NextApiResponse<ApiResponse<favorite> | { message: string }>
 ) {
   const session = await unstable_getServerSession(req, res, authOptions);
   const foodId = req.query.id;
 
   if (!session || !session.user?.email) {
-    res.status(401).json('Failed. Not authenticated');
+    res.status(401).json({ message: 'Failed. Not authenticated' });
     return;
   }
 
   if (req.method !== 'POST' && req.method !== 'DELETE') {
-    return res.status(405).json('Only POST or DELETE method allowed');
+    return res
+      .status(405)
+      .json({ message: 'Only POST or DELETE method allowed' });
+  }
+
+  if (!foodId) {
+    return res.status(400).json({ message: 'No food id provided' });
   }
 
   const item = await prisma.food.findUnique({ where: { id: Number(foodId) } });
 
   if (!item) {
-    return res.status(400).json(`Food with id ${foodId} not found`);
+    return res
+      .status(400)
+      .json({ message: `Food with id ${foodId} not found` });
   }
 
   if (req.method === 'DELETE') {
@@ -36,7 +44,7 @@ export default async function handle(
         user: session.user.email,
       },
     });
-    res.json('Success');
+    res.json({ message: 'Success' });
     return;
   }
 

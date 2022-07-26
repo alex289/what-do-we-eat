@@ -8,19 +8,23 @@ import type { ApiResponse } from '@/types/apiResponse';
 
 export default async function handle(
   req: NextApiRequest,
-  res: NextApiResponse<ApiResponse | string>
+  res: NextApiResponse<ApiResponse | { message: string }>
 ) {
   const session = await unstable_getServerSession(req, res, authOptions);
 
   const foodId = req.query.id;
 
   if (session && !session.isAdmin) {
-    res.status(401).json('Failed. Not authenticated');
+    res.status(401).json({ message: 'Failed. Not authenticated' });
     return;
   }
 
   if (req.method !== 'DELETE') {
-    return res.status(405).json('Only DELETE method allowed');
+    return res.status(405).json({ message: 'Only DELETE method allowed' });
+  }
+
+  if (!foodId) {
+    return res.status(400).json({ message: 'No food id provided' });
   }
 
   const result = await prisma.food.delete({

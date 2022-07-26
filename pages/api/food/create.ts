@@ -8,19 +8,19 @@ import type { ApiResponse } from '@/types/apiResponse';
 
 export default async function handle(
   req: NextApiRequest,
-  res: NextApiResponse<ApiResponse | string>
+  res: NextApiResponse<ApiResponse | { message: string }>
 ) {
   const session = await unstable_getServerSession(req, res, authOptions);
 
   if (session && !session.isAdmin) {
-    res.status(401).json('Failed. Not authenticated');
+    res.status(401).json({ message: 'Failed. Not authenticated' });
     return;
   }
 
   const { name, image, cheeseometer, deliverable, tags, effort } = req.body;
 
   if (req.method !== 'POST') {
-    return res.status(405).json('Only POST method allowed');
+    return res.status(405).json({ message: 'Only POST method allowed' });
   }
 
   const result = await prisma.food.create({

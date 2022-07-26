@@ -9,8 +9,12 @@ import type { ApiResponse } from '@/types/apiResponse';
 
 export default async function handle(
   req: NextApiRequest,
-  res: NextApiResponse<ApiResponse<favorite[]>>
+  res: NextApiResponse<ApiResponse<favorite[]> | { message: string }>
 ) {
+  if (req.method !== 'GET') {
+    return res.status(405).json({ message: 'Only GET method allowed' });
+  }
+
   const session = await unstable_getServerSession(req, res, authOptions);
 
   const onlySelfEmail = (user: string) => {
