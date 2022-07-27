@@ -15,14 +15,8 @@ class MyDocument extends Document {
   render() {
     return (
       <Html lang="en">
-        <Head>
-          <meta httpEquiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-          <meta
-            name="apple-mobile-web-app-status-bar-style"
-            content="black-translucent"
-          />
-        </Head>
-        <body className="text-dark bg-gray-50 dark:bg-gray-800 dark:text-white">
+        <Head />
+        <body className="bg-gray-50 text-black dark:bg-gray-800 dark:text-white">
           <Main />
           <NextScript />
         </body>

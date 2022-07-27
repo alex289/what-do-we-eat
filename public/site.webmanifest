@@ -1,6 +1,13 @@
 {
     "name": "What do we eat",
+    "description": "Web app to tell you what to eat",
+    "start_url": "/",
+    "background_color": "#fff",
+    "theme_color": "#c084fc",
     "short_name": "wdwe",
+    "display": "standalone",
+    "orientation": "portrait",
+    "dir": "ltr",
     "icons": [
       {
         "src": "/static/icons/android-chrome-192x192.png",
@@ -18,10 +25,5 @@
         "type": "image/png",
         "purpose": "maskable"
       }
-    ],
-    "theme_color": "#c084fc",
-    "background_color": "#f9fafb",
-    "start_url": "/",
-    "display": "standalone",
-    "orientation": "portrait"
+    ]
   }

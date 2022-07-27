@@ -13,6 +13,8 @@ const Meta = () => {
   return (
     <Head>
       <title>What do we eat?</title>
+      <meta name="title" content="What do we eat?" />
+      <meta charSet="utf-8" />
       <meta
         name="viewport"
         content="minimum-scale=1, initial-scale=1, width=device-width"
@@ -25,19 +27,19 @@ const Meta = () => {
       )}
       <meta name="application-name" content="What do we eat" />
       <meta name="apple-mobile-web-app-capable" content="yes" />
-      <meta name="apple-mobile-web-app-title" content="What do we eat" />
       <meta name="description" content="Web app to tell you what to eat" />
-      <meta name="format-detection" content="telephone=no" />
       <meta name="mobile-web-app-capable" content="yes" />
-      <meta name="msapplication-TileColor" content="#c084fc" />
-      <meta name="msapplication-tap-highlight" content="no" />
-
+      <meta
+        name="apple-mobile-web-app-status-bar-style"
+        content="black-translucent"
+      />
+      <meta name="HandheldFriendly" content="true" />
       <link
         rel="apple-touch-icon"
         sizes="180x180"
         href="/static/icons/apple-touch-icon.png"
       />
-      <link rel="manifest" href="/manifest.json" />
+      <link rel="manifest" href="/site.webmanifest" />
       <link rel="shortcut icon" href="/favicon.ico" />
       <link
         rel="icon"
@@ -66,6 +68,8 @@ const Meta = () => {
         content="Web app to tell you what to eat"
       />
       <meta property="og:site_name" content="What do we eat" />
+      <meta property="og:url" content="https://what-do-we-eat.vercel.app" />
+      <link rel="canonical" href="https://what-do-we-eat.vercel.app" />
     </Head>
   );
 };
