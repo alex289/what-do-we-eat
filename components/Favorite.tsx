@@ -56,7 +56,9 @@ const Favorite = ({ foodId, favorite }: Props) => {
 
   return (
     <span className="ml-auto flex">
-      <button onClick={() => (isFavorite ? Remove() : Add())}>
+      <button
+        onClick={() => (isFavorite ? Remove() : Add())}
+        aria-label="Favorites">
         <HeartIcon />
       </button>{' '}
       <span className={`ml-2 ${isFavorite ? 'text-red-500' : ''}`}>

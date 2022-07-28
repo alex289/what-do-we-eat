@@ -55,6 +55,7 @@ const Food = ({ foodList, favorite }: Props) => (
                   className="rating-hidden"
                   readOnly
                   disabled
+                  aria-label="0 star"
                   checked={food.cheeseometer === 0}
                 />
                 <input
@@ -62,6 +63,7 @@ const Food = ({ foodList, favorite }: Props) => (
                   name={'rating-2-' + food.id}
                   readOnly
                   disabled
+                  aria-label="1 star"
                   checked={food.cheeseometer === 1}
                   className="mask mask-star-2 bg-orange-400"
                 />
@@ -70,6 +72,7 @@ const Food = ({ foodList, favorite }: Props) => (
                   name={'rating-2-' + food.id}
                   readOnly
                   disabled
+                  aria-label="2 star"
                   checked={food.cheeseometer === 2}
                   className="mask mask-star-2 bg-orange-400"
                 />
@@ -78,6 +81,7 @@ const Food = ({ foodList, favorite }: Props) => (
                   name={'rating-2-' + food.id}
                   readOnly
                   disabled
+                  aria-label="3 star"
                   checked={food.cheeseometer === 3}
                   className="mask mask-star-2 bg-orange-400"
                 />
@@ -86,6 +90,7 @@ const Food = ({ foodList, favorite }: Props) => (
                   name={'rating-2-' + food.id}
                   readOnly
                   disabled
+                  aria-label="4 star"
                   checked={food.cheeseometer === 4}
                   className="mask mask-star-2 bg-orange-400"
                 />
@@ -94,6 +99,7 @@ const Food = ({ foodList, favorite }: Props) => (
                   name={'rating-2-' + food.id}
                   readOnly
                   disabled
+                  aria-label="5 star"
                   checked={food.cheeseometer === 5}
                   className="mask mask-star-2 bg-orange-400"
                 />
