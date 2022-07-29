@@ -9,7 +9,7 @@ import type { favorite } from '@prisma/client';
 import type { FilterConfig, FoodConfig } from '@/types/config';
 import type { ApiResponse } from '@/types/apiResponse';
 
-import prisma from '@/lib/prisma';
+import { prisma } from '@/lib/prisma';
 import fetcher from '@/lib/fetcher';
 import { handleFood } from '@/lib/filter';
 

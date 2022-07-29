@@ -13,7 +13,7 @@ type Props = {
 };
 
 const Food = ({ foodList, favorite }: Props) => (
-  <Suspense fallback={null}>
+  <Suspense>
     <ul className="md:grid-flow-column mt-3 grid gap-6 px-2 md:mt-0 md:grid-cols-2 xl:grid-flow-row xl:grid-cols-5">
       {foodList.map((food, index) => (
         <li key={index} className="card border shadow-xl dark:border-gray-700">

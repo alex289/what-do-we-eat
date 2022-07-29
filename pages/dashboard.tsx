@@ -8,7 +8,7 @@ import { ToastContainer, Zoom } from 'react-toastify';
 import type { GetStaticProps } from 'next';
 import type { ApiResponse } from '@/types/apiResponse';
 
-import prisma from '@/lib/prisma';
+import { prisma } from '@/lib/prisma';
 import fetcher from '@/lib/fetcher';
 import { searchFood } from '@/lib/filter';
 

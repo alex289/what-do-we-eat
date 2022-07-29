@@ -11,7 +11,7 @@ import {
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
 import useSWR from 'swr';
-import prisma from '@/lib/prisma';
+import { prisma } from '@/lib/prisma';
 
 import fetcher from '@/lib/fetcher';
 
