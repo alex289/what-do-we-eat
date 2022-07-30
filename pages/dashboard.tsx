@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { Suspense, useState } from 'react';
 
 import { signIn, useSession } from 'next-auth/react';
 import dynamic from 'next/dynamic';
@@ -62,7 +62,7 @@ export default function Dashboard({
   if (!data) {
     return (
       <Layout>
-        <div className="m-10">Loading...</div>
+        <progress className="progress progress-primary w-full"></progress>
       </Layout>
     );
   }
@@ -81,10 +81,15 @@ export default function Dashboard({
         type="text"
         placeholder="Search for food..."
         className="input input-bordered input-primary ml-3 bg-white text-black placeholder-black dark:bg-gray-800 dark:text-white dark:placeholder-white"></input>
-      <DashboardFood
-        foodList={
-          inputText === '' ? data.data : searchFood(data.data, inputText)
-        }></DashboardFood>
+      <Suspense
+        fallback={
+          <progress className="progress progress-primary w-full"></progress>
+        }>
+        <DashboardFood
+          foodList={
+            inputText === '' ? data.data : searchFood(data.data, inputText)
+          }></DashboardFood>
+      </Suspense>
     </Layout>
   );
 }
