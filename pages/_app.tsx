@@ -12,6 +12,7 @@ import 'nprogress/nprogress.css';
 import 'react-toastify/dist/ReactToastify.css';
 
 Router.events.on('routeChangeStart', (_url, { shallow }) => {
+  NProgress.configure({ showSpinner: false });
   if (!shallow) {
     NProgress.start();
   }

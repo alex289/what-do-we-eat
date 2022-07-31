@@ -23,7 +23,7 @@ const Navbar = () => {
       <div className="flex-none">
         {mounted && (
           <label
-            className="swap-rotate swap mr-1 h-10 w-10 rounded-lg bg-gray-200 p-3 ring-gray-300 hover:ring-4 dark:bg-gray-700 md:mr-3"
+            className="swap swap-rotate mr-1 h-10 w-10 rounded-lg bg-gray-200 p-3 ring-gray-300 hover:ring-4 dark:bg-gray-700 md:mr-3"
             htmlFor="themeIcon">
             <input
               type="checkbox"
@@ -59,7 +59,7 @@ const Navbar = () => {
         )}
 
         {session?.user && (
-          <div className="dropdown-end dropdown ml-1 sm:mr-4">
+          <div className="dropdown dropdown-end ml-1 sm:mr-4">
             <label tabIndex={0} className="avatar btn btn-ghost btn-circle">
               <div className="w-10">
                 {session.user.image && (

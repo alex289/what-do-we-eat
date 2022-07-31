@@ -1,24 +1,25 @@
-import { useMemo, useState } from 'react';
-
+import { Suspense, useMemo, useState } from 'react';
 import dynamic from 'next/dynamic';
-import useSWR from 'swr';
-import { toast, ToastContainer, Zoom } from 'react-toastify';
 
-import type { GetStaticProps } from 'next';
-import type { favorite } from '@prisma/client';
-import type { FilterConfig, FoodConfig } from '@/types/config';
-import type { ApiResponse } from '@/types/apiResponse';
+import useSWR from 'swr';
+import { useSession } from 'next-auth/react';
+import { toast, ToastContainer, Zoom } from 'react-toastify';
+import { useTheme } from 'next-themes';
+import axios from 'axios';
 
 import { prisma } from '@/lib/prisma';
 import fetcher from '@/lib/fetcher';
 import { handleFood } from '@/lib/filter';
 
 import Layout from '@/components/layout';
-import { useSession } from 'next-auth/react';
-import axios from 'axios';
 
 const Food = dynamic(() => import('@/components/food'));
 const Dialog = dynamic(() => import('@/components/dialog'));
+
+import type { GetStaticProps } from 'next';
+import type { favorite } from '@prisma/client';
+import type { FilterConfig, FoodConfig } from '@/types/config';
+import type { ApiResponse } from '@/types/apiResponse';
 
 type Props = {
   fallbackData: ApiResponse;
@@ -27,6 +28,7 @@ type Props = {
 
 export default function Index({ fallbackData, fallbackFavoritesData }: Props) {
   const { data: session } = useSession();
+  const { resolvedTheme } = useTheme();
   const [clicked, setClicked] = useState(false);
   const [btnTitle, setBtnTitle] = useState('Get random food');
   const [foodConfig, setFoodConfig] = useState<FoodConfig>({
@@ -113,13 +115,6 @@ export default function Index({ fallbackData, fallbackFavoritesData }: Props) {
       </Layout>
     );
   }
-  if (!data) {
-    return (
-      <Layout>
-        <progress className="progress progress-primary w-full"></progress>
-      </Layout>
-    );
-  }
 
   return (
     <Layout>
@@ -127,7 +122,7 @@ export default function Index({ fallbackData, fallbackFavoritesData }: Props) {
         transition={Zoom}
         autoClose={2500}
         newestOnTop={true}
-        theme="colored"
+        theme={resolvedTheme === 'dark' ? 'dark' : 'light'}
       />
       <button
         type="button"
@@ -158,7 +153,16 @@ export default function Index({ fallbackData, fallbackFavoritesData }: Props) {
           </button>
         </div>
       )}
-      <Food foodList={memoizedFoodList} favorite={favoriteData?.data}></Food>
+      {!data?.data && (
+        <progress className="progress progress-primary w-full"></progress>
+      )}
+      <Suspense>
+        {data?.data && favoriteData?.data && (
+          <Food
+            foodList={memoizedFoodList}
+            favorite={favoriteData?.data}></Food>
+        )}
+      </Suspense>
     </Layout>
   );
 }

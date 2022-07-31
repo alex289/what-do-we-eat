@@ -1,12 +1,10 @@
 import { Suspense, useState } from 'react';
-
-import { signIn, useSession } from 'next-auth/react';
 import dynamic from 'next/dynamic';
-import useSWR from 'swr';
-import { ToastContainer, Zoom } from 'react-toastify';
 
-import type { GetStaticProps } from 'next';
-import type { ApiResponse } from '@/types/apiResponse';
+import useSWR from 'swr';
+import { signIn, useSession } from 'next-auth/react';
+import { ToastContainer, Zoom } from 'react-toastify';
+import { useTheme } from 'next-themes';
 
 import { prisma } from '@/lib/prisma';
 import fetcher from '@/lib/fetcher';
@@ -16,6 +14,9 @@ import Layout from '@/components/layout';
 
 const DashboardFood = dynamic(() => import('@/components/dashboard/food'));
 const CreateFood = dynamic(() => import('@/components/dashboard/createFood'));
+
+import type { GetStaticProps } from 'next';
+import type { ApiResponse } from '@/types/apiResponse';
 
 export default function Dashboard({
   fallbackData,
@@ -29,6 +30,7 @@ export default function Dashboard({
     },
   });
 
+  const { resolvedTheme } = useTheme();
   const [inputText, setInputText] = useState('');
 
   const { data, error } = useSWR<ApiResponse>('/api/food', fetcher, {
@@ -73,7 +75,7 @@ export default function Dashboard({
         transition={Zoom}
         autoClose={2500}
         newestOnTop={true}
-        theme="colored"
+        theme={resolvedTheme === 'dark' ? 'dark' : 'light'}
       />
       <CreateFood></CreateFood>
       <input
