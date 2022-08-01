@@ -30,5 +30,7 @@ export default async function handle(
   const result = await prisma.food.delete({
     where: { id: Number(foodId) },
   });
+  await prisma.favorite.deleteMany({ where: { id: Number(foodId) } });
+  await prisma.analytics.deleteMany({ where: { id: Number(foodId) } });
   res.json({ status: 'success', data: [result] });
 }

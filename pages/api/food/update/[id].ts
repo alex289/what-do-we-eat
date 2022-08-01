@@ -42,5 +42,11 @@ export default async function handle(
       effort: effort,
     },
   });
+  await prisma.analytics.updateMany({
+    where: { id: Number(foodId) },
+    data: {
+      name,
+    },
+  });
   res.json({ status: 'success', data: [result] });
 }
