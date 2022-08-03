@@ -7,10 +7,9 @@ Web app to tell you what to eat
 - **Framework**: [Next.js](https://nextjs.org/)
 - **Database**: [PlanetScale](https://planetscale.com)
 - **ORM**: [Prisma](https://prisma.io/)
-- **Authentication**: [NextAuth.js](https://next-auth.js.org/)
+- **Authentication**: [Next Auth](https://next-auth.js.org)
 - **Deployment**: [Vercel](https://vercel.com)
 - **Styling**: [Tailwind CSS](https://tailwindcss.com/)
-- **Authentication**: [Next Auth](https://next-auth.js.org)
 
 ## Overview
 
@@ -19,6 +18,7 @@ Web app to tell you what to eat
 - `pages/dashboard` - Managing the db entries aka the food.
 - `pages/*` - All static pages. (Index and 404)
 - `public/*` - Static assets including fonts and images.
+- `prisma/*` - My Prisma schema, which uses a PlanetScale MySQL database.
 - `styles/*` - A small amount of global styles. I'm mostly using vanilla Tailwind CSS.
 - `types/*` - All types
 
@@ -27,8 +27,8 @@ Web app to tell you what to eat
 ```bash
 $ git clone https://github.com/Alex289/what-do-we-eat.git
 $ cd what-do-we-eat
-$ yarn
-$ yarn dev
+$ pnpm
+$ pnpm dev
 ```
 
 Create a `.env` file  similar to [`.env.example`](https://github.com/Alex289/what-do-we-eat/blob/main/.env.example)
