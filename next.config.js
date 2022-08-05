@@ -23,7 +23,7 @@ const nextConfig = withPWA({
     domains: [
       'i.pinimg.com',
       'lh3.googleusercontent.com',
-      'pixabay.com',
+      'cdn.pixabay.com',
       'www.kikko-restaurant.de',
     ],
   },
