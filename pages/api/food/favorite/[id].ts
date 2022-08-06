@@ -44,8 +44,8 @@ export default async function handle(
         user: session.user.email,
       },
     });
-    res.json({ message: 'Success' });
-    return;
+
+    return res.json({ message: 'success' });
   }
 
   const result = await prisma.favorite.create({

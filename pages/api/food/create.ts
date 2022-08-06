@@ -23,6 +23,14 @@ export default async function handle(
     return res.status(405).json({ message: 'Only POST method allowed' });
   }
 
+  const existingFood = await prisma.food.findUnique({
+    where: { name },
+  });
+
+  if (existingFood) {
+    return res.status(400).json({ message: 'Failed. Food already exists' });
+  }
+
   const result = await prisma.food.create({
     data: {
       name: name,

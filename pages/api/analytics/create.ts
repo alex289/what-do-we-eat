@@ -31,7 +31,7 @@ export default async function handle(
     return res.status(400).json({ message: 'Failed. Invalid request' });
   }
 
-  const existingFood = await prisma.food.findFirst({
+  const existingFood = await prisma.food.findUnique({
     where: {
       name,
     },

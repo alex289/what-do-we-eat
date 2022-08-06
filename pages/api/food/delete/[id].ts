@@ -27,6 +27,16 @@ export default async function handle(
     return res.status(400).json({ message: 'No food id provided' });
   }
 
+  const existingFood = await prisma.food.findUnique({
+    where: {
+      id: Number(foodId),
+    },
+  });
+
+  if (!existingFood) {
+    return res.status(400).json({ message: 'Failed. Food does not exist' });
+  }
+
   const result = await prisma.food.delete({
     where: { id: Number(foodId) },
   });
