@@ -27,10 +27,10 @@
   "homepage": "https://github.com/Alex289/what-do-we-eat#readme",
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.4",
-    "@types/node": "^18.6.4",
+    "@types/node": "^18.6.5",
     "@types/nprogress": "^0.2.0",
-    "@types/react": "^18.0.16",
-    "@typescript-eslint/eslint-plugin": "^5.32.0",
+    "@types/react": "^18.0.17",
+    "@typescript-eslint/eslint-plugin": "^5.33.0",
     "autoprefixer": "^10.4.8",
     "daisyui": "^2.22.0",
     "eslint": "^8.21.0",
@@ -40,12 +40,12 @@
     "postcss": "^8.4.16",
     "prettier": "^2.7.1",
     "prettier-plugin-tailwindcss": "^0.1.13",
-    "prisma": "^4.1.1",
+    "prisma": "^4.2.1",
     "tailwindcss": "^3.1.8",
     "typescript": "^4.7.4"
   },
   "dependencies": {
-    "@prisma/client": "^4.1.1",
+    "@prisma/client": "^4.2.1",
     "axios": "^0.27.2",
     "chart.js": "^3.9.1",
     "next": "12.2.4",
