@@ -42,5 +42,9 @@ export default async function handle(
   });
   await prisma.favorite.deleteMany({ where: { id: Number(foodId) } });
   await prisma.analytics.deleteMany({ where: { id: Number(foodId) } });
+
+  await res.revalidate('/');
+  await res.revalidate('/dashboard');
+
   res.json({ status: 'success', data: [result] });
 }

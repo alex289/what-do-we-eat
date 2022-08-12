@@ -41,6 +41,8 @@ export default async function handle(
     return res.status(400).json({ message: 'Failed. Food does not exist' });
   }
 
+  await res.revalidate('/analytics');
+
   const result = await prisma.analytics.create({
     data: {
       name,

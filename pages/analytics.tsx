@@ -132,12 +132,9 @@ export const getStaticProps: GetStaticProps = async () => {
     data: entries,
   };
 
-  const HOUR_IN_SECONDS = 60 * 60;
-
   return {
     props: {
       fallbackData,
     },
-    revalidate: HOUR_IN_SECONDS,
   };
 };

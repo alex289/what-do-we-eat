@@ -48,5 +48,9 @@ export default async function handle(
       name,
     },
   });
+
+  await res.revalidate('/');
+  await res.revalidate('/dashboard');
+
   res.json({ status: 'success', data: [result] });
 }

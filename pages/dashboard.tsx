@@ -104,6 +104,5 @@ export const getStaticProps: GetStaticProps = async () => {
     props: {
       fallbackData,
     },
-    revalidate: 60,
   };
 };
