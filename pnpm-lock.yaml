@@ -3,14 +3,14 @@ lockfileVersion: 5.4
 specifiers:
   '@prisma/client': ^4.2.1
   '@tailwindcss/typography': ^0.5.4
-  '@types/node': ^18.7.2
+  '@types/node': ^18.7.3
   '@types/nprogress': ^0.2.0
   '@types/react': ^18.0.17
   '@typescript-eslint/eslint-plugin': ^5.33.0
   autoprefixer: ^10.4.8
   axios: ^0.27.2
   chart.js: ^3.9.1
-  daisyui: ^2.22.0
+  daisyui: ^2.24.0
   eslint: ^8.21.0
   eslint-config-next: ^12.2.5
   eslint-config-prettier: ^8.5.0
@@ -51,12 +51,12 @@ dependencies:
 
 devDependencies:
   '@tailwindcss/typography': 0.5.4_tailwindcss@3.1.8
-  '@types/node': 18.7.2
+  '@types/node': 18.7.3
   '@types/nprogress': 0.2.0
   '@types/react': 18.0.17
   '@typescript-eslint/eslint-plugin': 5.33.0_ws6vhtjsm4egj62emebgznrdc4
   autoprefixer: 10.4.8_postcss@8.4.16
-  daisyui: 2.22.0_25hquoklqeoqwmt7fwvvcyxm5e
+  daisyui: 2.24.0_25hquoklqeoqwmt7fwvvcyxm5e
   eslint: 8.21.0
   eslint-config-next: 12.2.5_qugx7qdu5zevzvxaiqyxfiwquq
   eslint-config-prettier: 8.5.0_eslint@8.21.0
@@ -1589,7 +1589,7 @@ packages:
     resolution: {integrity: sha512-ZUxbzKl0IfJILTS6t7ip5fQQM/J3TJYubDm3nMbgubNNYS62eXeUpoLUC8/7fJNiFYHTrGPQn7hspDUzIHX3UA==}
     dependencies:
       '@types/minimatch': 3.0.5
-      '@types/node': 18.7.2
+      '@types/node': 18.7.3
     dev: false
 
   /@types/json-schema/7.0.11:
@@ -1603,8 +1603,8 @@ packages:
     resolution: {integrity: sha512-Klz949h02Gz2uZCMGwDUSDS1YBlTdDDgbWHi+81l29tQALUtvz4rAYi5uoVhE5Lagoq6DeqAUlbrHvW/mXDgdQ==}
     dev: false
 
-  /@types/node/18.7.2:
-    resolution: {integrity: sha512-ce7MIiaYWCFv6A83oEultwhBXb22fxwNOQf5DIxWA4WXvDQ7K+L0fbWl/YOfCzlR5B/uFkSnVBhPcOfOECcWvA==}
+  /@types/node/18.7.3:
+    resolution: {integrity: sha512-LJgzOEwWuMTBxHzgBR/fhhBOWrvBjvO+zPteUgbbuQi80rYIZHrk1mNbRUqPZqSLP2H7Rwt1EFLL/tNLD1Xx/w==}
 
   /@types/nprogress/0.2.0:
     resolution: {integrity: sha512-1cYJrqq9GezNFPsWTZpFut/d4CjpZqA0vhqDUPFWYKF1oIyBz5qnoYMzR+0C/T96t3ebLAC1SSnwrVOm5/j74A==}
@@ -1625,7 +1625,7 @@ packages:
   /@types/resolve/1.17.1:
     resolution: {integrity: sha512-yy7HuzQhj0dhGpD8RLXSZWEkLsV9ibvxvi6EiJ3bkqLAO1RGo0WbkWQiwpRlSFymTJRz0d3k5LM3kkx8ArDbLw==}
     dependencies:
-      '@types/node': 18.7.2
+      '@types/node': 18.7.3
     dev: false
 
   /@types/scheduler/0.16.2:
@@ -2436,8 +2436,8 @@ packages:
     resolution: {integrity: sha512-uX1KG+x9h5hIJsaKR9xHUeUraxf8IODOwq9JLNPq6BwB04a/xgpq3rcx47l5BZu5zBPlgD342tdke3Hom/nJRA==}
     dev: true
 
-  /daisyui/2.22.0_25hquoklqeoqwmt7fwvvcyxm5e:
-    resolution: {integrity: sha512-H08aQP+Mfl2fQOmyaxd1NP54gQbr2xRUj2MmFFvfJ5EDGbthVBICDMNFKyia/zBfR58G8eTJo3CmydglM81/7Q==}
+  /daisyui/2.24.0_25hquoklqeoqwmt7fwvvcyxm5e:
+    resolution: {integrity: sha512-Fdu/4LCdTfWLWAbCuPxvnaRotEfJ+hVPgZ2kv/aUk9RZ00Yk8fGdJtIf0kXJ3IgUKOr8rCXUpfQY6DQU9usPCQ==}
     peerDependencies:
       autoprefixer: ^10.0.2
       postcss: ^8.1.6
@@ -3470,7 +3470,7 @@ packages:
     resolution: {integrity: sha512-KWYVV1c4i+jbMpaBC+U++4Va0cp8OisU185o73T1vo99hqi7w8tSJfUXYswwqqrjzwxa6KpRK54WhPvwf5w6PQ==}
     engines: {node: '>= 10.13.0'}
     dependencies:
-      '@types/node': 18.7.2
+      '@types/node': 18.7.3
       merge-stream: 2.0.0
       supports-color: 7.2.0
     dev: false
@@ -3479,7 +3479,7 @@ packages:
     resolution: {integrity: sha512-7vuh85V5cdDofPyxn58nrPjBktZo0u9x1g8WtjQol+jZDaE+fhN+cIvTj11GndBnMnyfrUOG1sZQxCdjKh+DKg==}
     engines: {node: '>= 10.13.0'}
     dependencies:
-      '@types/node': 18.7.2
+      '@types/node': 18.7.3
       merge-stream: 2.0.0
       supports-color: 8.1.1
     dev: false
