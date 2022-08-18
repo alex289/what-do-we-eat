@@ -1,4 +1,4 @@
-![cover](https://repository-images.githubusercontent.com/306412712/8823f78f-aacb-482e-b362-25a7e1b46001)
+![cover](https://repository-images.githubusercontent.com/306412712/1e3376b3-a434-4bf2-a92c-fb8aac078452)
 
 # What do we eat?
 

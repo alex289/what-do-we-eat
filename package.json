@@ -17,23 +17,26 @@
   "keywords": [
     "Next.js",
     "NodeJs",
-    "Docker"
+    "Vercel"
   ],
-  "author": "Alex",
+  "author": {
+    "name": "Alexander Konietzko",
+    "url": "https://alexanderkonietzko.vercel.app"
+  },
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/Alex289/what-do-we-eat/issues"
   },
-  "homepage": "https://github.com/Alex289/what-do-we-eat#readme",
+  "homepage": "https://what-do-we-eat.vercel.app",
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.4",
-    "@types/node": "^18.7.3",
+    "@types/node": "^18.7.6",
     "@types/nprogress": "^0.2.0",
     "@types/react": "^18.0.17",
-    "@typescript-eslint/eslint-plugin": "^5.33.0",
+    "@typescript-eslint/eslint-plugin": "^5.33.1",
     "autoprefixer": "^10.4.8",
     "daisyui": "^2.24.0",
-    "eslint": "^8.21.0",
+    "eslint": "^8.22.0",
     "eslint-config-next": "^12.2.5",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-react": "^7.30.1",
