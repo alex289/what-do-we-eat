@@ -12,8 +12,14 @@ import { searchFood } from '@/lib/filter';
 
 import Layout from '@/components/layout';
 
-const DashboardFood = dynamic(() => import('@/components/dashboard/food'));
-const CreateFood = dynamic(() => import('@/components/dashboard/createFood'));
+const DashboardFood = dynamic(() => import('@/components/dashboard/food'), {
+  suspense: true,
+  ssr: false,
+});
+const CreateFood = dynamic(() => import('@/components/dashboard/createFood'), {
+  suspense: true,
+  ssr: false,
+});
 
 import type { GetStaticProps } from 'next';
 import type { ApiResponse } from '@/types/apiResponse';
@@ -77,20 +83,22 @@ export default function Dashboard({
         newestOnTop={true}
         theme={resolvedTheme === 'dark' ? 'dark' : 'light'}
       />
-      <CreateFood></CreateFood>
+      <Suspense>
+        <CreateFood />
+      </Suspense>
       <input
         onChange={handleInput}
         type="text"
         placeholder="Search for food..."
-        className="input input-bordered input-primary ml-3 bg-white text-black placeholder-black dark:bg-gray-800 dark:text-white dark:placeholder-white"></input>
+        className="input input-bordered input-primary ml-3 bg-white text-black placeholder-black dark:bg-gray-800 dark:text-white dark:placeholder-white"
+      />
       <Suspense
-        fallback={
-          <progress className="progress progress-primary w-full"></progress>
-        }>
+        fallback={<progress className="progress progress-primary w-full" />}>
         <DashboardFood
           foodList={
             inputText === '' ? data.data : searchFood(data.data, inputText)
-          }></DashboardFood>
+          }
+        />
       </Suspense>
     </Layout>
   );

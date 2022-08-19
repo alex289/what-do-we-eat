@@ -13,8 +13,14 @@ import { handleFood } from '@/lib/filter';
 
 import Layout from '@/components/layout';
 
-const Food = dynamic(() => import('@/components/food'));
-const Dialog = dynamic(() => import('@/components/dialog'));
+const Food = dynamic(() => import('@/components/food'), {
+  suspense: true,
+  ssr: false,
+});
+const Dialog = dynamic(() => import('@/components/dialog'), {
+  suspense: true,
+  ssr: false,
+});
 
 import type { GetStaticProps } from 'next';
 import type { favorite } from '@prisma/client';
@@ -130,15 +136,19 @@ export default function Index({ fallbackData, fallbackFavoritesData }: Props) {
         onClick={handleClick}>
         {btnTitle}
       </button>
-      <Dialog
-        filterer={setFilter}
-        config={foodConfig}
-        setConfig={setFoodConfig}></Dialog>
+      <Suspense>
+        <Dialog
+          filterer={setFilter}
+          config={foodConfig}
+          setConfig={setFoodConfig}
+        />
+      </Suspense>
       <input
         onChange={handleInput}
         type="text"
         placeholder="Search for food..."
-        className="input input-bordered input-primary ml-3 bg-white text-black placeholder-black dark:bg-gray-800 dark:text-white dark:placeholder-white"></input>
+        className="input input-bordered input-primary ml-3 bg-white text-black placeholder-black dark:bg-gray-800 dark:text-white dark:placeholder-white"
+      />
       {foodConfig.random && session && (
         <div className="mb-2 ml-1 p-2">
           <button
@@ -153,14 +163,10 @@ export default function Index({ fallbackData, fallbackFavoritesData }: Props) {
           </button>
         </div>
       )}
-      {!data?.data && (
-        <progress className="progress progress-primary w-full"></progress>
-      )}
+      {!data?.data && <progress className="progress progress-primary w-full" />}
       <Suspense>
         {data?.data && favoriteData?.data && (
-          <Food
-            foodList={memoizedFoodList}
-            favorite={favoriteData?.data}></Food>
+          <Food foodList={memoizedFoodList} favorite={favoriteData?.data} />
         )}
       </Suspense>
     </Layout>
