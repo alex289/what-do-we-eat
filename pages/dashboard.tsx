@@ -21,14 +21,12 @@ const CreateFood = dynamic(() => import('@/components/dashboard/createFood'), {
   ssr: false,
 });
 
-import type { GetStaticProps } from 'next';
+import type { GetStaticProps, NextPage } from 'next';
 import type { ApiResponse } from '@/types/apiResponse';
 
-export default function Dashboard({
-  fallbackData,
-}: {
+const Dashboard: NextPage<{
   fallbackData: ApiResponse;
-}) {
+}> = ({ fallbackData }) => {
   const { data: session, status } = useSession({
     required: true,
     onUnauthenticated() {
@@ -67,13 +65,6 @@ export default function Dashboard({
       </Layout>
     );
   }
-  if (!data) {
-    return (
-      <Layout>
-        <progress className="progress progress-primary w-full"></progress>
-      </Layout>
-    );
-  }
 
   return (
     <Layout>
@@ -92,17 +83,20 @@ export default function Dashboard({
         placeholder="Search for food..."
         className="input input-bordered input-primary ml-3 bg-white text-black placeholder-black dark:bg-gray-800 dark:text-white dark:placeholder-white"
       />
+      {!data?.data && <progress className="progress progress-primary w-full" />}
       <Suspense
         fallback={<progress className="progress progress-primary w-full" />}>
-        <DashboardFood
-          foodList={
-            inputText === '' ? data.data : searchFood(data.data, inputText)
-          }
-        />
+        {data && (
+          <DashboardFood
+            foodList={
+              inputText === '' ? data.data : searchFood(data.data, inputText)
+            }
+          />
+        )}
       </Suspense>
     </Layout>
   );
-}
+};
 
 export const getStaticProps: GetStaticProps = async () => {
   const entries = await prisma.food.findMany();
@@ -114,3 +108,5 @@ export const getStaticProps: GetStaticProps = async () => {
     },
   };
 };
+
+export default Dashboard;

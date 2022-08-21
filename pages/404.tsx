@@ -2,7 +2,9 @@ import Link from 'next/link';
 
 import Layout from '@/components/layout';
 
-export default function NotFound() {
+import type { NextPage } from 'next';
+
+const NotFound: NextPage = () => {
   return (
     <Layout>
       <div className="flex flex-col justify-center px-8">
@@ -25,4 +27,6 @@ export default function NotFound() {
       </div>
     </Layout>
   );
-}
+};
+
+export default NotFound;

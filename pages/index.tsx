@@ -22,7 +22,7 @@ const Dialog = dynamic(() => import('@/components/dialog'), {
   ssr: false,
 });
 
-import type { GetStaticProps } from 'next';
+import type { GetStaticProps, NextPage } from 'next';
 import type { favorite } from '@prisma/client';
 import type { FilterConfig, FoodConfig } from '@/types/config';
 import type { ApiResponse } from '@/types/apiResponse';
@@ -32,7 +32,7 @@ type Props = {
   fallbackFavoritesData: ApiResponse<favorite[]>;
 };
 
-export default function Index({ fallbackData, fallbackFavoritesData }: Props) {
+const Index: NextPage<Props> = ({ fallbackData, fallbackFavoritesData }) => {
   const { data: session } = useSession();
   const { resolvedTheme } = useTheme();
   const [clicked, setClicked] = useState(false);
@@ -93,7 +93,7 @@ export default function Index({ fallbackData, fallbackFavoritesData }: Props) {
 
   async function submitAnalytics(picked: boolean) {
     const res = await axios.post('/api/analytics/create', {
-      name: memoizedFoodList[0].name,
+      name: memoizedFoodList[0]?.name,
       picked,
     });
 
@@ -171,7 +171,9 @@ export default function Index({ fallbackData, fallbackFavoritesData }: Props) {
       </Suspense>
     </Layout>
   );
-}
+};
+
+export default Index;
 
 export const getStaticProps: GetStaticProps = async () => {
   const entries = await prisma.food.findMany();

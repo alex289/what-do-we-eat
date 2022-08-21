@@ -17,7 +17,7 @@ import fetcher from '@/lib/fetcher';
 
 import Layout from '@/components/layout';
 
-import type { GetStaticProps } from 'next';
+import type { GetStaticProps, NextPage } from 'next';
 import type { analytics } from '@prisma/client';
 import type { ApiResponse } from '@/types/apiResponse';
 
@@ -62,11 +62,9 @@ function getRandomColor() {
   return color;
 }
 
-export default function AnalyticsPage({
-  fallbackData,
-}: {
+const AnalyticsPage: NextPage<{
   fallbackData: ApiResponse<analytics[]>;
-}) {
+}> = ({ fallbackData }) => {
   const [colors] = useState([getRandomColor(), getRandomColor()]);
   const { data, error } = useSWR<ApiResponse<analytics[]>>(
     '/api/analytics',
@@ -123,7 +121,7 @@ export default function AnalyticsPage({
       </Suspense>
     </Layout>
   );
-}
+};
 
 export const getStaticProps: GetStaticProps = async () => {
   const entries = await prisma.analytics.findMany();
@@ -138,3 +136,5 @@ export const getStaticProps: GetStaticProps = async () => {
     },
   };
 };
+
+export default AnalyticsPage;
