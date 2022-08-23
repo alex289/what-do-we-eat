@@ -1,9 +1,15 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-const withPWA = require('next-pwa');
 const runtimeCaching = require('next-pwa/cache');
 
+const withPWA = require('next-pwa')({
+  dest: 'public',
+  runtimeCaching,
+  mode: 'production',
+  disable: process.env.NODE_ENV !== 'production',
+});
+
 /** @type {import('next').NextConfig} */
-const nextConfig = withPWA({
+const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   experimental: {
@@ -27,13 +33,7 @@ const nextConfig = withPWA({
       'www.kikko-restaurant.de',
     ],
   },
-  pwa: {
-    dest: 'public',
-    runtimeCaching,
-    mode: 'production',
-    disable: process.env.NODE_ENV !== 'production',
-  },
-});
+};
 
 const ContentSecurityPolicy = `
   default-src 'self';
@@ -84,4 +84,4 @@ const securityHeaders = [
   },
 ];
 
-module.exports = nextConfig;
+module.exports = withPWA(nextConfig);
