@@ -34,6 +34,5 @@ export default async function handle(
       } as favorite)
   );
 
-  res.setHeader('Cache-Control', 's-maxage=60, stale-while-revalidate=3600');
   return res.json({ status: 'success', data });
 }

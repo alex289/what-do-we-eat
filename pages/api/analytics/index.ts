@@ -14,6 +14,5 @@ export default async function handle(
   }
 
   const items = await prisma.analytics.findMany();
-  res.setHeader('Cache-Control', 's-maxage=60, stale-while-revalidate=3600');
   res.json({ status: 'success', data: items });
 }
