@@ -58,6 +58,7 @@ const Favorite = ({ foodId, favorite }: Props) => {
     <span className="ml-auto flex">
       <button
         onClick={() => (isFavorite ? Remove() : Add())}
+        className="umami--click--favorite-food"
         aria-label="Favorites">
         <HeartIcon />
       </button>{' '}

@@ -132,7 +132,7 @@ const Index: NextPage<Props> = ({ fallbackData, fallbackFavoritesData }) => {
       />
       <button
         type="button"
-        className="btn btn-primary ml-3 normal-case"
+        className="umami--click--random-food btn btn-primary ml-3 normal-case"
         onClick={handleClick}>
         {btnTitle}
       </button>
