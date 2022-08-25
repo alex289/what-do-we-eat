@@ -30,10 +30,10 @@
   "homepage": "https://what-do-we-eat.vercel.app",
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.4",
-    "@types/node": "^18.7.11",
+    "@types/node": "^18.7.13",
     "@types/nprogress": "^0.2.0",
     "@types/react": "^18.0.17",
-    "@typescript-eslint/eslint-plugin": "^5.34.0",
+    "@typescript-eslint/eslint-plugin": "^5.35.1",
     "autoprefixer": "^10.4.8",
     "daisyui": "^2.24.0",
     "eslint": "^8.22.0",
