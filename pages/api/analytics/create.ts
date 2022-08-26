@@ -1,6 +1,7 @@
 import { unstable_getServerSession } from 'next-auth/next';
 
 import { prisma } from '@/lib/prisma';
+import logger from '@/lib/logger';
 import { authOptions } from '../auth/[...nextauth]';
 
 import type { NextApiRequest, NextApiResponse } from 'next';
@@ -49,5 +50,7 @@ export default async function handle(
       picked,
     },
   });
+
+  logger.info(`Created analytics ${result.id}`, result);
   res.json({ status: 'success', data: result });
 }

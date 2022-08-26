@@ -5,6 +5,7 @@ import { authOptions } from 'pages/api/auth/[...nextauth]';
 
 import type { NextApiRequest, NextApiResponse } from 'next';
 import type { ApiResponse } from '@/types/apiResponse';
+import logger from '@/lib/logger';
 
 export default async function handle(
   req: NextApiRequest,
@@ -45,6 +46,8 @@ export default async function handle(
 
   await res.revalidate('/');
   await res.revalidate('/dashboard');
+
+  logger.info(`Deleted food ${foodId}`);
 
   res.json({ status: 'success', data: [result] });
 }

@@ -1,6 +1,7 @@
 import { unstable_getServerSession } from 'next-auth/next';
 
 import { prisma } from '@/lib/prisma';
+import logger from '@/lib/logger';
 import { authOptions } from 'pages/api/auth/[...nextauth]';
 
 import type { NextApiRequest, NextApiResponse } from 'next';
@@ -45,6 +46,8 @@ export default async function handle(
       },
     });
 
+    logger.info(`Deleted favorite ${foodId}`);
+
     return res.json({ message: 'success' });
   }
 
@@ -54,6 +57,8 @@ export default async function handle(
       user: session.user.email,
     },
   });
+
+  logger.info(`Created favorite ${result.id}`, result);
 
   res.json({ status: 'success', data: result });
 }

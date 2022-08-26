@@ -48,6 +48,7 @@
     "typescript": "^4.7.4"
   },
   "dependencies": {
+    "@logtail/node": "^0.1.12",
     "@prisma/client": "^4.2.1",
     "axios": "^0.27.2",
     "chart.js": "^3.9.1",
