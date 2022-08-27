@@ -16,7 +16,7 @@ export default async function handle(
   const foodId = req.query.id;
 
   if (!session || !session.user?.email) {
-    res.status(401).json({ message: 'Failed. Not authenticated' });
+    res.status(401).json({ message: 'Unsufficient permissions' });
     return;
   }
 
@@ -33,9 +33,7 @@ export default async function handle(
   const item = await prisma.food.findUnique({ where: { id: Number(foodId) } });
 
   if (!item) {
-    return res
-      .status(400)
-      .json({ message: `Food with id ${foodId} not found` });
+    return res.status(400).json({ message: `Food ${foodId} not found` });
   }
 
   if (req.method === 'DELETE') {

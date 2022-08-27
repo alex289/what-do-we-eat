@@ -16,7 +16,7 @@ export default async function handle(
   const foodId = req.query.id;
 
   if (session && !session.isAdmin) {
-    res.status(401).json({ message: 'Failed. Not authenticated' });
+    res.status(401).json({ message: 'Unsufficient permissions' });
     return;
   }
 
@@ -35,7 +35,7 @@ export default async function handle(
   });
 
   if (!existingFood) {
-    return res.status(400).json({ message: 'Failed. Food does not exist' });
+    return res.status(400).json({ message: `Food '${foodId}' does not exist` });
   }
 
   const result = await prisma.food.delete({
