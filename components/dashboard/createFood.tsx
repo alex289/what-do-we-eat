@@ -1,6 +1,5 @@
 import { FormEvent, useRef } from 'react';
 
-import axios from 'axios';
 import { toast } from 'react-toastify';
 import { useSWRConfig } from 'swr';
 
@@ -22,19 +21,25 @@ const CreateFood = () => {
   async function saveFood(e: FormEvent<HTMLFormElement> & FormData) {
     e.preventDefault();
 
-    const res = await axios.post('/api/food/create', {
-      name: e.target.name.value,
-      image: e.target.image.value,
-      deliverable: e.target.deliverable.value === 'true' ? true : false,
-      tags: e.target.tags.value,
-      cheeseometer: Number(e.target.cheeseometer.value),
-      effort: Number(e.target.effort.value),
+    const res = await fetch('/api/food/create', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        name: e.target.name.value,
+        image: e.target.image.value,
+        deliverable: e.target.deliverable.value === 'true' ? true : false,
+        tags: e.target.tags.value,
+        cheeseometer: Number(e.target.cheeseometer.value),
+        effort: Number(e.target.effort.value),
+      }),
     });
 
+    const data = await res.json();
+
     if (res.status !== 200) {
-      toast.error(
-        `Failed updating '${e.target.name.value}': ${res.statusText}`
-      );
+      toast.error(`Failed creating '${e.target.name.value}': ${data.message}`);
       return;
     }
 

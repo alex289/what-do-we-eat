@@ -1,6 +1,5 @@
 import { FormEvent, useRef } from 'react';
 
-import axios from 'axios';
 import { useSWRConfig } from 'swr';
 
 import { toast } from 'react-toastify';
@@ -24,19 +23,25 @@ const UpdateFood = ({ food }: { food: food }) => {
   async function saveFood(e: FormEvent<HTMLFormElement> & FormData) {
     e.preventDefault();
 
-    const res = await axios.put('/api/food/update/' + food.id, {
-      name: e.target.name.value,
-      image: e.target.image.value,
-      deliverable: e.target.deliverable.value === 'true' ? true : false,
-      tags: e.target.tags.value,
-      cheeseometer: Number(e.target.cheeseometer.value),
-      effort: Number(e.target.effort.value),
+    const res = await fetch('/api/food/update/' + food.id, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        name: e.target.name.value,
+        image: e.target.image.value,
+        deliverable: e.target.deliverable.value === 'true' ? true : false,
+        tags: e.target.tags.value,
+        cheeseometer: Number(e.target.cheeseometer.value),
+        effort: Number(e.target.effort.value),
+      }),
     });
 
+    const data = await res.json();
+
     if (res.status !== 200) {
-      toast.error(
-        `Failed updating '${e.target.name.value}': ${res.statusText}`
-      );
+      toast.error(`Failed updating '${e.target.name.value}': ${data.message}`);
       return;
     }
 

@@ -5,7 +5,6 @@ import useSWR from 'swr';
 import { useSession } from 'next-auth/react';
 import { toast, ToastContainer, Zoom } from 'react-toastify';
 import { useTheme } from 'next-themes';
-import axios from 'axios';
 
 import { prisma } from '@/lib/prisma';
 import fetcher from '@/lib/fetcher';
@@ -92,15 +91,20 @@ const Index: NextPage<Props> = ({ fallbackData, fallbackFavoritesData }) => {
   }
 
   async function submitAnalytics(picked: boolean) {
-    const res = await axios.post('/api/analytics/create', {
-      name: memoizedFoodList[0]?.name,
-      picked,
+    const res = await fetch('/api/analytics/create', {
+      method: 'POST',
+      body: JSON.stringify({
+        name: memoizedFoodList[0]?.name,
+        picked,
+      }),
     });
+
+    const data = await res.json();
 
     if (res.status !== 200) {
       toast.error(
         `Failed saving choice '${picked ? 'Good one' : 'Bad one'}': ${
-          res.statusText
+          data.message
         }`
       );
       return;

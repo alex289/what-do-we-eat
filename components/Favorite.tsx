@@ -1,7 +1,6 @@
 import { useMemo, useState } from 'react';
 
 import { useSession } from 'next-auth/react';
-import axios from 'axios';
 import { toast } from 'react-toastify';
 import { useSWRConfig } from 'swr';
 
@@ -27,26 +26,30 @@ const Favorite = ({ foodId, favorite }: Props) => {
   }, [favorite, favouriteCount, session]);
 
   async function Add() {
-    const res = await axios.post('/api/food/favorite/' + foodId);
+    const res = await fetch('/api/food/favorite/' + foodId, { method: 'POST' });
 
     if (res.status === 200) {
       setFavoriteCount(favouriteCount + 1);
       mutate('/api/food/favorite');
       toast.success('Added to favorites');
     } else {
-      toast.error('Something went wrong :(');
+      const data = await res.json();
+      toast.error('Failed adding to favorites: ' + data.message);
     }
   }
 
   async function Remove() {
-    const res = await axios.delete('/api/food/favorite/' + foodId);
+    const res = await fetch('/api/food/favorite/' + foodId, {
+      method: 'DELETE',
+    });
 
     if (res.status === 200) {
       setFavoriteCount(favouriteCount - 1);
       mutate('/api/food/favorite');
       toast.success('Removed from favorites');
     } else {
-      toast.error('Something went wrong :(');
+      const data = await res.json();
+      toast.error('Failed removing from favorites: ' + data.message);
     }
   }
 

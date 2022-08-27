@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { useSWRConfig } from 'swr';
 import { toast } from 'react-toastify';
 import type { food } from '@prisma/client';
@@ -7,10 +6,14 @@ const DeleteFood = ({ food }: { food: food }) => {
   const { mutate } = useSWRConfig();
 
   async function deleteFood() {
-    const res = await axios.delete('/api/food/delete/' + food.id);
+    const res = await fetch('/api/food/delete/' + food.id, {
+      method: 'DELETE',
+    });
+
+    const data = await res.json();
 
     if (res.status !== 200) {
-      toast.error(`Failed updating '${food.name}': ${res.statusText}`);
+      toast.error(`Failed updating '${food.name}': ${data.message}`);
       return;
     }
 
