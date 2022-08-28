@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 import { useSession } from 'next-auth/react';
 import { toast } from 'react-toastify';
@@ -17,6 +17,8 @@ const Favorite = ({ foodId, favorite }: Props) => {
   const [favouriteCount, setFavoriteCount] = useState(favorite?.length ?? 0);
   const { data: session } = useSession();
   const { mutate } = useSWRConfig();
+
+  useEffect(() => setFavoriteCount(favorite?.length ?? 0), [favorite]);
 
   const isFavorite = useMemo(() => {
     return favouriteCount > (favorite?.length ?? 0) ||
@@ -60,6 +62,7 @@ const Favorite = ({ foodId, favorite }: Props) => {
   return (
     <span className="ml-auto flex">
       <button
+        type="button"
         onClick={() => (isFavorite ? Remove() : Add())}
         className="umami--click--favorite-food"
         aria-label="Favorites">
