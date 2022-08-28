@@ -1,4 +1,4 @@
-import { FormEvent, useRef } from 'react';
+import { FormEvent, useEffect, useRef } from 'react';
 
 import { useSWRConfig } from 'swr';
 
@@ -52,6 +52,34 @@ const UpdateFood = ({ food }: { food: food }) => {
     }
   }
 
+  const nameRef = useRef<HTMLInputElement>(null);
+  const imageRef = useRef<HTMLInputElement>(null);
+  const deliverableRef = useRef<HTMLSelectElement>(null);
+  const tagsRef = useRef<HTMLInputElement>(null);
+  const cheeseometerRef = useRef<HTMLSelectElement>(null);
+  const effortRef = useRef<HTMLSelectElement>(null);
+
+  useEffect(() => {
+    if (nameRef.current) {
+      nameRef.current.defaultValue = food.name;
+    }
+    if (imageRef.current) {
+      imageRef.current.defaultValue = food.image;
+    }
+    if (deliverableRef.current) {
+      deliverableRef.current.value = food.deliverable.toString();
+    }
+    if (tagsRef.current) {
+      tagsRef.current.defaultValue = food.tags ?? '';
+    }
+    if (cheeseometerRef.current) {
+      cheeseometerRef.current.value = food.cheeseometer.toString();
+    }
+    if (effortRef.current) {
+      effortRef.current.value = food.effort.toString();
+    }
+  }, [food]);
+
   return (
     <>
       <label
@@ -73,51 +101,42 @@ const UpdateFood = ({ food }: { food: food }) => {
             ✕
           </label>
           <h3 className="text-lg font-bold text-black dark:text-white">
-            Create food
+            Update food
           </h3>
           <form
             className="flex flex-col"
             onSubmit={(e) =>
               saveFood(e as FormEvent<HTMLFormElement> & FormData)
             }>
-            <label
-              className="mt-2 mb-1 mr-2 text-black dark:text-white"
-              htmlFor="name">
+            <label className="mt-2 mb-1 mr-2 text-black dark:text-white">
               Name
             </label>
             <input
               type="text"
-              required
               name="name"
-              id="name"
+              ref={nameRef}
+              required
               maxLength={30}
-              defaultValue={food.name}
               placeholder="Enter name"
               className="input w-full max-w-xs bg-gray-200 text-black placeholder-black dark:bg-gray-600 dark:text-white dark:placeholder-white"></input>
 
-            <label
-              className="my-1 mr-2 text-black dark:text-white"
-              htmlFor="image">
+            <label className="my-1 mr-2 text-black dark:text-white">
               Image (Optional)
             </label>
             <input
               type="text"
               name="image"
-              id="image"
+              ref={imageRef}
               placeholder="Enter image url"
-              defaultValue={food.image}
               className="input w-full max-w-xs bg-gray-200 text-black placeholder-black dark:bg-gray-600 dark:text-white dark:placeholder-white"></input>
 
-            <label
-              className="my-1 mr-2 text-black dark:text-white"
-              htmlFor="cheeseomenter">
+            <label className="my-1 mr-2 text-black dark:text-white">
               Cheeseometer
             </label>
             <select
-              className="select w-full max-w-xs bg-gray-200 text-black dark:bg-gray-600 dark:text-white"
               name="cheeseometer"
-              defaultValue={food.cheeseometer}
-              id="cheeseometer">
+              className="select w-full max-w-xs bg-gray-200 text-black dark:bg-gray-600 dark:text-white"
+              ref={cheeseometerRef}>
               <option value="0">0</option>
               <option value="1">1</option>
               <option value="2">2</option>
@@ -126,44 +145,33 @@ const UpdateFood = ({ food }: { food: food }) => {
               <option value="5">5</option>
             </select>
 
-            <label
-              className="my-1 mr-2 text-black dark:text-white"
-              htmlFor="deliverable">
+            <label className="my-1 mr-2 text-black dark:text-white">
               Deliverable
             </label>
             <select
-              className="select w-full max-w-xs bg-gray-200 text-black dark:bg-gray-600 dark:text-white"
               name="deliverable"
-              defaultValue={food.deliverable ? 'true' : 'false'}
-              id="deliverable">
+              className="select w-full max-w-xs bg-gray-200 text-black dark:bg-gray-600 dark:text-white"
+              ref={deliverableRef}>
               <option value="true">Yes</option>
               <option value="false">No</option>
             </select>
 
-            <label
-              className="my-1 mr-2 text-black dark:text-white"
-              htmlFor="tags">
-              Tags
-            </label>
+            <label className="my-1 mr-2 text-black dark:text-white">Tags</label>
             <input
               type="text"
               name="tags"
-              id="tags"
+              ref={tagsRef}
               maxLength={30}
-              defaultValue={food.tags || ''}
               placeholder="Enter name"
               className="input w-full max-w-xs bg-gray-200 text-black placeholder-black dark:bg-gray-600 dark:text-white dark:placeholder-white"></input>
 
-            <label
-              className="my-1 mr-2 text-black dark:text-white"
-              htmlFor="effort">
+            <label className="my-1 mr-2 text-black dark:text-white">
               Effort
             </label>
             <select
-              className="select w-full max-w-xs bg-gray-200 text-black dark:bg-gray-600 dark:text-white"
               name="effort"
-              defaultValue={food.effort}
-              id="effort">
+              className="select w-full max-w-xs bg-gray-200 text-black dark:bg-gray-600 dark:text-white"
+              ref={effortRef}>
               <option value="0">0</option>
               <option value="1">1</option>
               <option value="2">2</option>

@@ -30,9 +30,9 @@ export default async function handle(
     return res.status(400).json({ message: `Food '${foodId}' not found` });
   }
 
-  const existingFoodByName = await prisma.food.findMany({ where: { name } });
+  const existingFoodByName = await prisma.food.findFirst({ where: { name } });
 
-  if (existingFoodByName) {
+  if (existingFoodByName && existingFoodByName.id !== Number(foodId)) {
     return res.status(400).json({ message: `Food '${name}' already exists` });
   }
 
