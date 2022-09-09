@@ -7,6 +7,8 @@ import NProgress from 'nprogress';
 
 import Analytics from '@/components/Analytics';
 
+import type { Session } from 'next-auth';
+
 import '@/styles/global.css';
 import 'nprogress/nprogress.css';
 import 'react-toastify/dist/ReactToastify.css';
@@ -22,10 +24,10 @@ Router.events.on('routeChangeError', () => NProgress.done());
 
 export default function App({
   Component,
-  pageProps: { session, ...pageProps },
-}: AppProps) {
+  pageProps,
+}: AppProps<{ session: Session }>) {
   return (
-    <SessionProvider session={session}>
+    <SessionProvider session={pageProps.session}>
       <ThemeProvider attribute="class">
         <Analytics />
         <Component {...pageProps} />
