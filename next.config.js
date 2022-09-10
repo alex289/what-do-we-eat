@@ -15,7 +15,6 @@ const nextConfig = {
   experimental: {
     legacyBrowsers: false,
     browsersListForSwc: true,
-    images: { allowFutureImage: true },
   },
   async headers() {
     return [
