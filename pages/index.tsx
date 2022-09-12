@@ -14,11 +14,9 @@ import Layout from '@/components/layout';
 
 const Food = dynamic(() => import('@/components/food'), {
   suspense: true,
-  ssr: false,
 });
 const Dialog = dynamic(() => import('@/components/dialog'), {
   suspense: true,
-  ssr: false,
 });
 
 import type { GetStaticProps, NextPage } from 'next';

@@ -14,11 +14,9 @@ import Layout from '@/components/layout';
 
 const DashboardFood = dynamic(() => import('@/components/dashboard/food'), {
   suspense: true,
-  ssr: false,
 });
 const CreateFood = dynamic(() => import('@/components/dashboard/createFood'), {
   suspense: true,
-  ssr: false,
 });
 
 import type { GetStaticProps, NextPage } from 'next';
