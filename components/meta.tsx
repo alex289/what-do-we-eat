@@ -55,6 +55,7 @@ const Meta = () => {
       />
       <link
         rel="preload"
+        as="font"
         href="/static/fonts/ibm-plex-sans-var.woff2"
         type="font/woff2"
         crossOrigin="anonymous"
