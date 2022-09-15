@@ -1,15 +1,5 @@
-import { Suspense, useMemo, useState } from 'react';
+import { Suspense, useMemo } from 'react';
 
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend,
-} from 'chart.js';
-import { Bar } from 'react-chartjs-2';
 import useSWR from 'swr';
 import { prisma } from '@/lib/prisma';
 
@@ -21,51 +11,9 @@ import type { GetStaticProps, NextPage } from 'next';
 import type { analytics } from '@prisma/client';
 import type { ApiResponse } from '@/types/apiResponse';
 
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend
-);
-
-const options = {
-  plugins: {
-    title: {
-      display: true,
-      text: 'Analytics for picked random food',
-    },
-  },
-  responsive: true,
-  maintainAspectRatio: false,
-  interaction: {
-    mode: 'index' as const,
-    intersect: false,
-  },
-  scales: {
-    x: {
-      stacked: true,
-    },
-    y: {
-      stacked: true,
-    },
-  },
-};
-
-function getRandomColor() {
-  const letters = '0123456789ABCDEF';
-  let color = '#';
-  for (let i = 0; i < 6; i++) {
-    color += letters[Math.floor(Math.random() * 16)];
-  }
-  return color;
-}
-
 const AnalyticsPage: NextPage<{
   fallbackData: ApiResponse<analytics[]>;
 }> = ({ fallbackData }) => {
-  const [colors] = useState([getRandomColor(), getRandomColor()]);
   const { data, error } = useSWR<ApiResponse<analytics[]>>(
     '/api/analytics',
     fetcher,
@@ -73,50 +21,49 @@ const AnalyticsPage: NextPage<{
   );
 
   const memoizedData = useMemo(() => {
-    const labels = data?.data
-      .filter((v, i, a) => a.map((item) => item.name).indexOf(v.name) === i)
-      .map((item) => item.name);
-
-    return {
-      labels,
-      datasets: [
-        {
-          label: 'Picked',
-          data: labels?.map(
-            (label) =>
-              data?.data.filter((item) => item.name === label && item.picked)
-                .length
-          ),
-          backgroundColor: colors[0],
-          stack: 'Stack 0',
-        },
-        {
-          label: 'Not picked',
-          data: labels?.map(
-            (label) =>
-              data?.data.filter((item) => item.name === label && !item.picked)
-                .length
-          ),
-          backgroundColor: colors[1],
-          stack: 'Stack 1',
-        },
-      ],
-    };
-  }, [colors, data?.data]);
+    return (
+      data?.data.map((item) => {
+        return {
+          name: item.name,
+          picked: data.data.filter((v) => v.name === item.name && v.picked)
+            .length,
+          notPicked: data.data.filter((v) => v.name === item.name && !v.picked)
+            .length,
+        };
+      }) ?? []
+    );
+  }, [data?.data]);
 
   if (error) {
     return <Layout>Failed to load</Layout>;
   }
 
-  if (!data) {
-    return <Layout>Loading</Layout>;
-  }
-
   return (
     <Layout>
       <Suspense>
-        <div className="chart-container relative h-screen max-h-[35em] w-full px-8">
-          <Bar options={options} data={memoizedData} />
+        <div className="mx-auto max-w-4xl overflow-x-auto px-4">
+          <table className="mx-auto min-w-full table-auto border-collapse border border-gray-200 bg-gray-100 shadow-lg dark:border-gray-700 dark:bg-gray-800">
+            <thead>
+              <tr className="border-b border-gray-200 bg-gray-200 dark:border-gray-700 dark:bg-gray-700">
+                <th className="py-4 px-6 text-left font-medium">Food</th>
+                <th className="py-4 px-6 text-left font-medium">Picked</th>
+                <th className="py-4 px-6 text-left font-medium">Not Picked</th>
+              </tr>
+            </thead>
+            <tbody>
+              {memoizedData.map((item, index) => {
+                return (
+                  <tr
+                    key={index}
+                    className="border-b border-gray-200 hover:bg-gray-200 dark:border-gray-700 hover:dark:bg-gray-700">
+                    <td className="py-4 px-6">{item.name}</td>
+                    <td className="py-4 px-6">{item.picked}</td>
+                    <td className="py-4 px-6">{item.notPicked}</td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
         </div>
       </Suspense>
     </Layout>

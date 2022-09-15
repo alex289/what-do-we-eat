@@ -8,7 +8,6 @@ specifiers:
   '@types/react': ^18.0.20
   '@typescript-eslint/eslint-plugin': ^5.37.0
   autoprefixer: ^10.4.10
-  chart.js: ^3.9.1
   daisyui: ^2.27.0
   eslint: ^8.23.1
   eslint-config-next: ^12.3.0
@@ -24,7 +23,6 @@ specifiers:
   prettier-plugin-tailwindcss: ^0.1.13
   prisma: ^4.3.1
   react: ^18.2.0
-  react-chartjs-2: ^4.3.1
   react-dom: ^18.2.0
   react-toastify: ^9.0.8
   sharp: ^0.31.0
@@ -34,14 +32,12 @@ specifiers:
 
 dependencies:
   '@prisma/client': 4.3.1_prisma@4.3.1
-  chart.js: 3.9.1
   next: 12.3.0_w53b3ma4oycvgh3v4dwmhz6z6q
   next-auth: 4.10.3_biqbaboplfbrettd7655fr4n2y
   next-pwa: 5.6.0_e2bcmfatng5yoquhzqe2wsfthi
   next-themes: 0.2.1_c3hne4hwj64hb7tofigd3bvkji
   nprogress: 0.2.0
   react: 18.2.0
-  react-chartjs-2: 4.3.1_2unjvz6v6rskedwoxtmbfw2rje
   react-dom: 18.2.0_react@18.2.0
   react-toastify: 9.0.8_biqbaboplfbrettd7655fr4n2y
   sharp: 0.31.0
@@ -2279,10 +2275,6 @@ packages:
       ansi-styles: 4.3.0
       supports-color: 7.2.0
 
-  /chart.js/3.9.1:
-    resolution: {integrity: sha512-Ro2JbLmvg83gXF5F4sniaQ+lTbSv18E+TIf2cOeiH1Iqd2PGFOtem+DUufMZsCJwFE7ywPOpfXFBwRTGq7dh6w==}
-    dev: false
-
   /chokidar/3.5.3:
     resolution: {integrity: sha512-Dr3sfKRP6oTcjf2JmUmFJfeVMvXBdegxB0iVQ5eb2V10uFJUCAS8OByZdVAyVb8xXNz3GjjTgj9kLWsZTqE6kw==}
     engines: {node: '>= 8.10.0'}
@@ -4271,16 +4263,6 @@ packages:
       ini: 1.3.8
       minimist: 1.2.6
       strip-json-comments: 2.0.1
-    dev: false
-
-  /react-chartjs-2/4.3.1_2unjvz6v6rskedwoxtmbfw2rje:
-    resolution: {integrity: sha512-5i3mjP6tU7QSn0jvb8I4hudTzHJqS8l00ORJnVwI2sYu0ihpj83Lv2YzfxunfxTZkscKvZu2F2w9LkwNBhj6xA==}
-    peerDependencies:
-      chart.js: ^3.5.0
-      react: ^16.8.0 || ^17.0.0 || ^18.0.0
-    dependencies:
-      chart.js: 3.9.1
-      react: 18.2.0
     dev: false
 
   /react-dom/18.2.0_react@18.2.0:
