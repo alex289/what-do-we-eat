@@ -7,8 +7,8 @@ specifiers:
   '@types/nprogress': ^0.2.0
   '@types/react': ^18.0.20
   '@typescript-eslint/eslint-plugin': ^5.37.0
-  autoprefixer: ^10.4.10
-  daisyui: ^2.27.0
+  autoprefixer: ^10.4.11
+  daisyui: ^2.28.0
   eslint: ^8.23.1
   eslint-config-next: ^12.3.0
   eslint-config-prettier: ^8.5.0
@@ -49,8 +49,8 @@ devDependencies:
   '@types/nprogress': 0.2.0
   '@types/react': 18.0.20
   '@typescript-eslint/eslint-plugin': 5.37.0_4jf2roldh4hdrxy7csdfjilhde
-  autoprefixer: 10.4.10_postcss@8.4.16
-  daisyui: 2.27.0_wh6birz6bzek2zjlzgyc32cby4
+  autoprefixer: 10.4.11_postcss@8.4.16
+  daisyui: 2.28.0_6b4luod745iryv24jvdbvzbbsa
   eslint: 8.23.1
   eslint-config-next: 12.3.0_irgkl5vooow2ydyo6aokmferha
   eslint-config-prettier: 8.5.0_eslint@8.23.1
@@ -2086,8 +2086,8 @@ packages:
     engines: {node: '>= 4.0.0'}
     dev: false
 
-  /autoprefixer/10.4.10_postcss@8.4.16:
-    resolution: {integrity: sha512-nMaiDARyp1e74c8IeAXkr+BmFKa8By4Zak7tyaNPF09Iu39WFpNXOWrVirmXjKr+5cOyERwvtbMOLYz6iBJYgQ==}
+  /autoprefixer/10.4.11_postcss@8.4.16:
+    resolution: {integrity: sha512-5lHp6DgRodxlBLSkzHOTcufWFflH1ewfy2hvFQyjrblBFlP/0Yh4O/Wrg4ow8WRlN3AAUFFLAQwX8hTptzqVHg==}
     engines: {node: ^10 || ^12 || >=14}
     hasBin: true
     peerDependencies:
@@ -2417,13 +2417,13 @@ packages:
     resolution: {integrity: sha512-uX1KG+x9h5hIJsaKR9xHUeUraxf8IODOwq9JLNPq6BwB04a/xgpq3rcx47l5BZu5zBPlgD342tdke3Hom/nJRA==}
     dev: true
 
-  /daisyui/2.27.0_wh6birz6bzek2zjlzgyc32cby4:
-    resolution: {integrity: sha512-AhFGhTore1Kdnae+5RGc2PGESSXOjAQDHJfvryP+KY41gxMcNErtuaGZG+nOmvOzNKgxViSDSaOn/VZq6H8kxA==}
+  /daisyui/2.28.0_6b4luod745iryv24jvdbvzbbsa:
+    resolution: {integrity: sha512-UmqFNPu8U8IE9sKzLvbvk80oogZE9jTYj8SskiSbnrwm8YPK8B+cKYLHHR8Usdh1j9hhUGVc8Sjt15p328gV9g==}
     peerDependencies:
       autoprefixer: ^10.0.2
       postcss: ^8.1.6
     dependencies:
-      autoprefixer: 10.4.10_postcss@8.4.16
+      autoprefixer: 10.4.11_postcss@8.4.16
       color: 4.2.3
       css-selector-tokenizer: 0.8.0
       postcss: 8.4.16
