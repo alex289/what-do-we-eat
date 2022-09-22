@@ -1,4 +1,3 @@
-import type { AppProps } from 'next/app';
 import Router from 'next/router';
 
 import { SessionProvider } from 'next-auth/react';
@@ -7,6 +6,7 @@ import NProgress from 'nprogress';
 
 import Analytics from '@/components/Analytics';
 
+import type { AppType } from 'next/app';
 import type { Session } from 'next-auth';
 
 import '@/styles/global.css';
@@ -22,16 +22,18 @@ Router.events.on('routeChangeStart', (_url, { shallow }) => {
 Router.events.on('routeChangeComplete', () => NProgress.done());
 Router.events.on('routeChangeError', () => NProgress.done());
 
-export default function App({
+const App: AppType<{ session: Session | null }> = ({
   Component,
-  pageProps,
-}: AppProps<{ session: Session }>) {
+  pageProps: { session, ...pageProps },
+}) => {
   return (
-    <SessionProvider session={pageProps.session}>
+    <SessionProvider session={session}>
       <ThemeProvider attribute="class">
         <Analytics />
         <Component {...pageProps} />
       </ThemeProvider>
     </SessionProvider>
   );
-}
+};
+
+export default App;
