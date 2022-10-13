@@ -15,10 +15,7 @@ const Meta = () => {
       <title>What do we eat?</title>
       <meta name="title" content="What do we eat?" />
       <meta charSet="utf-8" />
-      <meta
-        name="viewport"
-        content="minimum-scale=1, initial-scale=1, width=device-width"
-      />
+      <meta name="viewport" content="initial-scale=1, width=device-width" />
       {mounted && (
         <meta
           name="theme-color"
@@ -69,7 +66,21 @@ const Meta = () => {
       />
       <meta property="og:site_name" content="What do we eat" />
       <meta property="og:url" content="https://what-do-we-eat.vercel.app" />
+      <meta property="og:image" content="/api/og" />
       <link rel="canonical" href="https://what-do-we-eat.vercel.app" />
+
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta property="twitter:domain" content="what-do-we-eat.vercel.app" />
+      <meta
+        property="twitter:url"
+        content="https://what-do-we-eat.vercel.app"
+      />
+      <meta name="twitter:title" content="What do we eat" />
+      <meta
+        name="twitter:description"
+        content="Web app to tell you what to eat"
+      />
+      <meta name="twitter:image" content="/api/og"></meta>
     </Head>
   );
 };
