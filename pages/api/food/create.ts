@@ -12,7 +12,7 @@ export default async function handle(
 ) {
   const session = await unstable_getServerSession(req, res, authOptions);
 
-  if (session && !session.isAdmin) {
+  if (session && !session.user.isAdmin) {
     res.status(401).json({ message: 'Unsufficient permissions' });
     return;
   }

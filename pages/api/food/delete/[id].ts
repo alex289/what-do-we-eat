@@ -14,7 +14,7 @@ export default async function handle(
 
   const foodId = req.query.id;
 
-  if (session && !session.isAdmin) {
+  if (session && !session.user.isAdmin) {
     res.status(401).json({ message: 'Unsufficient permissions' });
     return;
   }

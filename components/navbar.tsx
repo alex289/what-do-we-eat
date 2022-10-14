@@ -80,7 +80,7 @@ const Navbar = () => {
                 <div className="justify-between">{session.user.name}</div>
               </li>
               <>
-                {session.isAdmin && (
+                {session.user.isAdmin && (
                   <li>
                     <Link href="/dashboard">Dashboard</Link>
                   </li>

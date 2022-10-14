@@ -48,7 +48,7 @@ const Dashboard: NextPage<{
     return <Layout>Loading or not authenticated...</Layout>;
   }
 
-  if (session && !session.isAdmin) {
+  if (session && !session.user.isAdmin) {
     return (
       <Layout>
         <div className="m-10">Unauthorized</div>
