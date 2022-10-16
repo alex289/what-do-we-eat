@@ -18,7 +18,7 @@ export default async function handle(
     return;
   }
 
-  let { name, picked } = req.body;
+  let { name, picked } = JSON.parse(req.body);
 
   if (req.method !== 'POST') {
     return res.status(405).json({ message: 'Only POST method allowed' });

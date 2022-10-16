@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react';
+import dynamic from 'next/dynamic';
 import Link from 'next/link';
 
 import { signIn, useSession } from 'next-auth/react';
 import { useTheme } from 'next-themes';
 
-import UserMenu from '@/components/UserMenu';
 import Button from '@/components/core/Button';
+
+const UserMenu = dynamic(() => import('@/components/UserMenu'));
 
 const Navbar = () => {
   const { data: session } = useSession();

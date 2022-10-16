@@ -38,10 +38,6 @@ export function filterFood(foodList: food[], config: FilterConfig) {
 
   foodList.map((food) => {
     ignoreFilter(food);
-    if (food.name === 'Pizza') {
-      console.log(food.tags, filterTags);
-      console.log(food.tags?.includes(filterTags || ''));
-    }
     if (
       food.effort === Number(filterEffort) &&
       food.deliverable === (filterDeliverable === 'true') &&
