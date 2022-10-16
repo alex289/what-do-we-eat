@@ -1,14 +1,15 @@
-import Link from 'next/link';
-import Image from 'next/future/image';
-
-import { signIn, signOut, useSession } from 'next-auth/react';
-import { useTheme } from 'next-themes';
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
+
+import { signIn, useSession } from 'next-auth/react';
+import { useTheme } from 'next-themes';
+
+import UserMenu from '@/components/UserMenu';
+import Button from '@/components/core/Button';
 
 const Navbar = () => {
   const { data: session } = useSession();
   const { resolvedTheme, setTheme } = useTheme();
-  const [showDropdown, setShowDropdown] = useState(false);
 
   const [mounted, setMounted] = useState(false);
 
@@ -43,69 +44,12 @@ const Navbar = () => {
           )}
         </button>
 
-        {session?.user && (
-          <div className="mr-4 md:pr-4">
-            <div className="relative inline-block text-left">
-              <div>
-                {session?.user.image && (
-                  <Image
-                    src={session?.user?.image}
-                    alt="User"
-                    width={40}
-                    height={40}
-                    className="rounded-full"
-                    onClick={() => setShowDropdown(showDropdown ? false : true)}
-                  />
-                )}
-              </div>
-
-              {showDropdown && (
-                <div className="absolute right-0 mt-2 w-56 origin-top-right rounded-xl bg-gray-100 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none dark:bg-gray-700">
-                  <div className="py-1">
-                    <div className="block px-5 py-3 text-sm text-gray-700 dark:text-gray-100">
-                      {session.user.name}
-                    </div>
-                    {session.user.isAdmin && (
-                      <div className="block px-5 py-3 text-sm text-gray-700 dark:text-gray-100">
-                        <Link href="/dashboard">Dashboard</Link>
-                      </div>
-                    )}
-                    <div className="block px-5 py-3 text-sm text-gray-700 dark:text-gray-100">
-                      <Link href="/analytics">Analytics</Link>
-                    </div>
-                    <div className="block px-5 py-3 text-sm text-gray-700 dark:text-gray-100">
-                      <div onClick={() => signOut()} className="cursor-pointer">
-                        Logout
-                      </div>
-                    </div>
-                    <div className="block px-5 py-3 text-sm text-gray-700 dark:text-gray-100">
-                      <a
-                        href="https://github.com/alex289/what-do-we-eat"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex">
-                        GitHub
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          className="ml-1 h-4 w-4"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                          strokeWidth={2}>
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-                          />
-                        </svg>
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              )}
-            </div>
+        {!session && (
+          <div className="mr-4">
+            <Button onClick={() => signIn('google')}>Login</Button>
           </div>
         )}
+        {session?.user && <UserMenu user={session.user} />}
       </div>
     </nav>
   );
