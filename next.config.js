@@ -12,10 +12,6 @@ const withPWA = require('next-pwa')({
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
-  experimental: {
-    legacyBrowsers: false,
-    browsersListForSwc: true,
-  },
   async headers() {
     return [
       {
