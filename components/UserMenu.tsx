@@ -1,6 +1,6 @@
 import { Fragment } from 'react';
 import Link from 'next/link';
-import Image from 'next/future/image';
+import Image from 'next/image';
 
 import { Menu, Transition } from '@headlessui/react';
 import { signOut } from 'next-auth/react';

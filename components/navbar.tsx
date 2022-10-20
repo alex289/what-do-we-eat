@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import dynamic from 'next/dynamic';
 import Link from 'next/link';
+import dynamic from 'next/dynamic';
 
 import { signIn, useSession } from 'next-auth/react';
 import { useTheme } from 'next-themes';
