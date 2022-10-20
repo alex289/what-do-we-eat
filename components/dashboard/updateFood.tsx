@@ -1,8 +1,9 @@
-import { FormEvent, useEffect, useRef } from 'react';
+import { FormEvent, Fragment, useState } from 'react';
 
+import { Dialog, Transition } from '@headlessui/react';
 import { useSWRConfig } from 'swr';
-
 import { toast } from 'react-toastify';
+
 import type { food } from '@prisma/client';
 
 type FormData = {
@@ -18,7 +19,7 @@ type FormData = {
 
 const UpdateFood = ({ food }: { food: food }) => {
   const { mutate } = useSWRConfig();
-  const buttonRef = useRef<HTMLInputElement>(null);
+  const [isOpen, setIsOpen] = useState(false);
 
   async function saveFood(e: FormEvent<HTMLFormElement> & FormData) {
     e.preventDefault();
@@ -47,151 +48,179 @@ const UpdateFood = ({ food }: { food: food }) => {
 
     toast.success(`Updated '${e.target.name.value}'`);
     mutate('/api/food');
-    if (buttonRef.current) {
-      buttonRef.current.checked = false;
-    }
+
+    setIsOpen(false);
   }
-
-  const nameRef = useRef<HTMLInputElement>(null);
-  const imageRef = useRef<HTMLInputElement>(null);
-  const deliverableRef = useRef<HTMLSelectElement>(null);
-  const tagsRef = useRef<HTMLInputElement>(null);
-  const cheeseometerRef = useRef<HTMLSelectElement>(null);
-  const effortRef = useRef<HTMLSelectElement>(null);
-
-  useEffect(() => {
-    if (nameRef.current) {
-      nameRef.current.defaultValue = food.name;
-    }
-    if (imageRef.current) {
-      imageRef.current.defaultValue = food.image;
-    }
-    if (deliverableRef.current) {
-      deliverableRef.current.value = food.deliverable.toString();
-    }
-    if (tagsRef.current) {
-      tagsRef.current.defaultValue = food.tags ?? '';
-    }
-    if (cheeseometerRef.current) {
-      cheeseometerRef.current.value = food.cheeseometer.toString();
-    }
-    if (effortRef.current) {
-      effortRef.current.value = food.effort.toString();
-    }
-  }, [food]);
 
   return (
     <>
-      <label
-        htmlFor={`update${food.name}Dialog`}
-        className="modal-button btn mt-1 mr-2 border-none bg-orange-600 text-white ring-orange-400 hover:bg-orange-700 hover:ring-4">
+      <button
+        onClick={() => setIsOpen(true)}
+        className="mr-3 mb-2 w-full rounded-lg bg-orange-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-orange-700 focus:outline-none focus:ring-4 focus:ring-orange-300 dark:bg-orange-600 dark:hover:bg-orange-700 dark:focus:ring-orange-800">
         Update
-      </label>
-      <input
-        type="checkbox"
-        id={`update${food.name}Dialog`}
-        ref={buttonRef}
-        className="modal-toggle"
-      />
-      <div className="modal">
-        <div className="modal-box relative w-full max-w-xs bg-white dark:bg-gray-700">
-          <label
-            htmlFor={`update${food.name}Dialog`}
-            className="btn btn-circle btn-sm absolute right-4 top-4 border-none bg-white hover:bg-white dark:bg-gray-700 hover:dark:bg-gray-700">
-            ✕
-          </label>
-          <h3 className="text-lg font-bold text-black dark:text-white">
-            Update food
-          </h3>
-          <form
-            className="flex flex-col"
-            onSubmit={(e) =>
-              saveFood(e as FormEvent<HTMLFormElement> & FormData)
-            }>
-            <label className="mt-2 mb-1 mr-2 text-black dark:text-white">
-              Name
-            </label>
-            <input
-              type="text"
-              name="name"
-              ref={nameRef}
-              required
-              maxLength={30}
-              placeholder="Enter name"
-              className="input w-full max-w-xs bg-gray-200 text-black placeholder-black dark:bg-gray-600 dark:text-white dark:placeholder-white"></input>
+      </button>
 
-            <label className="my-1 mr-2 text-black dark:text-white">
-              Image (Optional)
-            </label>
-            <input
-              type="text"
-              name="image"
-              ref={imageRef}
-              placeholder="Enter image url"
-              className="input w-full max-w-xs bg-gray-200 text-black placeholder-black dark:bg-gray-600 dark:text-white dark:placeholder-white"></input>
+      <Transition appear show={isOpen} as={Fragment}>
+        <Dialog
+          as="div"
+          className="relative z-10"
+          onClose={() => setIsOpen(false)}>
+          <Transition.Child
+            as={Fragment}
+            enter="ease-out duration-300"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="ease-in duration-200"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0">
+            <div className="fixed inset-0 bg-black bg-opacity-25" />
+          </Transition.Child>
 
-            <label className="my-1 mr-2 text-black dark:text-white">
-              Cheeseometer
-            </label>
-            <select
-              name="cheeseometer"
-              className="select w-full max-w-xs bg-gray-200 text-black dark:bg-gray-600 dark:text-white"
-              ref={cheeseometerRef}>
-              <option value="0">0</option>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-            </select>
+          <div className="fixed inset-0 overflow-y-auto">
+            <div className="flex min-h-full items-center justify-center p-4 text-center">
+              <Transition.Child
+                as={Fragment}
+                enter="ease-out duration-300"
+                enterFrom="opacity-0 scale-95"
+                enterTo="opacity-100 scale-100"
+                leave="ease-in duration-200"
+                leaveFrom="opacity-100 scale-100"
+                leaveTo="opacity-0 scale-95">
+                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-gray-100 p-6 text-left align-middle shadow-xl transition-all dark:bg-gray-700">
+                  <Dialog.Title
+                    as="h3"
+                    className="mb-6 flex justify-between text-lg font-medium leading-6 text-gray-900 dark:text-gray-100">
+                    <div>Update food</div>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={1.5}
+                      stroke="currentColor"
+                      onClick={() => setIsOpen(false)}
+                      className="h-6 w-6 cursor-pointer">
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M6 18L18 6M6 6l12 12"
+                      />
+                    </svg>
+                  </Dialog.Title>
 
-            <label className="my-1 mr-2 text-black dark:text-white">
-              Deliverable
-            </label>
-            <select
-              name="deliverable"
-              className="select w-full max-w-xs bg-gray-200 text-black dark:bg-gray-600 dark:text-white"
-              ref={deliverableRef}>
-              <option value="true">Yes</option>
-              <option value="false">No</option>
-            </select>
+                  <form
+                    className="flex flex-col"
+                    onSubmit={(e) =>
+                      saveFood(e as FormEvent<HTMLFormElement> & FormData)
+                    }>
+                    <label
+                      className="mt-2 mb-1 mr-2 text-black dark:text-white"
+                      htmlFor="updateName">
+                      Name
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      name="name"
+                      id="updateName"
+                      maxLength={30}
+                      placeholder="Enter name"
+                      defaultValue={food.name}
+                      className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-violet-500 focus:ring-violet-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-violet-500 dark:focus:ring-violet-500"></input>
 
-            <label className="my-1 mr-2 text-black dark:text-white">Tags</label>
-            <input
-              type="text"
-              name="tags"
-              ref={tagsRef}
-              maxLength={30}
-              placeholder="Enter name"
-              className="input w-full max-w-xs bg-gray-200 text-black placeholder-black dark:bg-gray-600 dark:text-white dark:placeholder-white"></input>
+                    <label
+                      className="my-1 mr-2 text-black dark:text-white"
+                      htmlFor="updateImage">
+                      Image (Optional)
+                    </label>
+                    <input
+                      type="text"
+                      name="image"
+                      id="updateImage"
+                      placeholder="Enter image url"
+                      defaultValue={food.image}
+                      className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-violet-500 focus:ring-violet-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-violet-500 dark:focus:ring-violet-500"></input>
 
-            <label className="my-1 mr-2 text-black dark:text-white">
-              Effort
-            </label>
-            <select
-              name="effort"
-              className="select w-full max-w-xs bg-gray-200 text-black dark:bg-gray-600 dark:text-white"
-              ref={effortRef}>
-              <option value="0">0</option>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-              <option value="6">6</option>
-              <option value="7">7</option>
-              <option value="8">8</option>
-              <option value="9">9</option>
-              <option value="10">10</option>
-            </select>
-            <button
-              className="btn mt-5 rounded-lg border-none bg-green-600 text-lg text-gray-100 ring-green-400 hover:bg-green-700 hover:ring-4"
-              type="submit">
-              Save food
-            </button>
-          </form>
-        </div>
-      </div>
+                    <label
+                      className="my-1 mr-2 text-black dark:text-white"
+                      htmlFor="updateCheeseomenter">
+                      Cheeseometer
+                    </label>
+                    <select
+                      className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-violet-500 focus:ring-violet-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-violet-500 dark:focus:ring-violet-500"
+                      name="cheeseometer"
+                      id="updateCheeseomenter"
+                      defaultValue={food.cheeseometer}>
+                      <option value="0">0</option>
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                      <option value="5">5</option>
+                    </select>
+
+                    <label
+                      className="my-1 mr-2 text-black dark:text-white"
+                      htmlFor="updateDeliverable">
+                      Deliverable
+                    </label>
+                    <select
+                      className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-violet-500 focus:ring-violet-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-violet-500 dark:focus:ring-violet-500"
+                      name="deliverable"
+                      id="updateDeliverable"
+                      defaultValue={food.deliverable ? 'true' : 'false'}>
+                      <option value="true">Yes</option>
+                      <option value="false">No</option>
+                    </select>
+
+                    <label
+                      className="my-1 mr-2 text-black dark:text-white"
+                      htmlFor="updateTags">
+                      Tags
+                    </label>
+                    <select
+                      className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-violet-500 focus:ring-violet-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-violet-500 dark:focus:ring-violet-500"
+                      name="tags"
+                      id="updateTags"
+                      defaultValue={food.tags ?? ''}>
+                      <option value="">-</option>
+                      <option value="Veggie">Veggie</option>
+                      <option value="Vegan">Vegan</option>
+                    </select>
+
+                    <label
+                      className="my-1 mr-2 text-black dark:text-white"
+                      htmlFor="updateEffort">
+                      Effort
+                    </label>
+                    <select
+                      className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-violet-500 focus:ring-violet-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-violet-500 dark:focus:ring-violet-500"
+                      name="effort"
+                      id="updateEffort"
+                      defaultValue={food.effort}>
+                      <option value="0">0</option>
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                      <option value="5">5</option>
+                      <option value="6">6</option>
+                      <option value="7">7</option>
+                      <option value="8">8</option>
+                      <option value="9">9</option>
+                      <option value="10">10</option>
+                    </select>
+                    <button
+                      className="btn mt-5 rounded-lg border-none bg-orange-600 py-2 text-lg text-gray-100 ring-orange-400 hover:bg-orange-700 hover:ring-4"
+                      type="submit">
+                      Save food
+                    </button>
+                  </form>
+                </Dialog.Panel>
+              </Transition.Child>
+            </div>
+          </div>
+        </Dialog>
+      </Transition>
     </>
   );
 };

@@ -1,11 +1,18 @@
+import { FormEvent, Fragment, useState } from 'react';
+
+import { Dialog, Transition } from '@headlessui/react';
 import { useSWRConfig } from 'swr';
 import { toast } from 'react-toastify';
+
 import type { food } from '@prisma/client';
 
 const DeleteFood = ({ food }: { food: food }) => {
+  const [isOpen, setIsOpen] = useState(false);
   const { mutate } = useSWRConfig();
 
-  async function deleteFood() {
+  async function deleteFood(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+
     const res = await fetch('/api/food/delete/' + food.id, {
       method: 'DELETE',
     });
@@ -19,39 +26,82 @@ const DeleteFood = ({ food }: { food: food }) => {
 
     toast.success(`Deleted '${food.name}'`);
     mutate('/api/food');
+
+    setIsOpen(false);
   }
 
   return (
     <>
-      <label
-        htmlFor={`delete${food.name}Dialog`}
-        className="modal-button btn mt-1 mr-2 border-none bg-red-600 text-white ring-red-400 hover:bg-red-700 hover:ring-4">
+      <button
+        onClick={() => setIsOpen(true)}
+        className="mr-3 mb-2 w-full rounded-lg bg-red-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-4 focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">
         Delete
-      </label>
-      <input
-        type="checkbox"
-        id={`delete${food.name}Dialog`}
-        className="modal-toggle"
-      />
-      <div className="modal">
-        <div className="modal-box relative w-auto bg-white dark:bg-gray-700">
-          <label
-            htmlFor={`delete${food.name}Dialog`}
-            className="btn btn-circle btn-sm absolute right-4 top-4 border-none bg-white hover:bg-white dark:bg-gray-700 hover:dark:bg-gray-700">
-            ✕
-          </label>
-          <h3 className="text-lg font-bold">Delete food</h3>
-          <p className="mt-4 grid">
-            Are you sure you want to delete {`'${food.name}'`}?
-            <label
-              className="btn m-4 rounded-lg border-none bg-red-600 px-4 py-2 text-gray-100 ring-red-400 hover:bg-red-700 hover:ring-4"
-              htmlFor={`delete${food.name}Dialog`}
-              onClick={() => deleteFood()}>
-              Delete {food.name}
-            </label>
-          </p>
-        </div>
-      </div>
+      </button>
+
+      <Transition appear show={isOpen} as={Fragment}>
+        <Dialog
+          as="div"
+          className="relative z-10"
+          onClose={() => setIsOpen(false)}>
+          <Transition.Child
+            as={Fragment}
+            enter="ease-out duration-300"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="ease-in duration-200"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0">
+            <div className="fixed inset-0 bg-black bg-opacity-25" />
+          </Transition.Child>
+
+          <div className="fixed inset-0 overflow-y-auto">
+            <div className="flex min-h-full items-center justify-center p-4 text-center">
+              <Transition.Child
+                as={Fragment}
+                enter="ease-out duration-300"
+                enterFrom="opacity-0 scale-95"
+                enterTo="opacity-100 scale-100"
+                leave="ease-in duration-200"
+                leaveFrom="opacity-100 scale-100"
+                leaveTo="opacity-0 scale-95">
+                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-gray-100 p-6 text-left align-middle shadow-xl transition-all dark:bg-gray-700">
+                  <Dialog.Title
+                    as="h3"
+                    className="mb-6 flex justify-between text-lg font-medium leading-6 text-gray-900 dark:text-gray-100">
+                    <div>Delete food</div>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={1.5}
+                      stroke="currentColor"
+                      onClick={() => setIsOpen(false)}
+                      className="h-6 w-6 cursor-pointer">
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M6 18L18 6M6 6l12 12"
+                      />
+                    </svg>
+                  </Dialog.Title>
+
+                  <p>Are you sure you want to delete {`"${food.name}"`}?</p>
+
+                  <form
+                    className="flex flex-col"
+                    onSubmit={(e) => deleteFood(e)}>
+                    <button
+                      className="btn mt-5 rounded-lg border-none bg-red-600 py-2 text-lg text-gray-100 ring-red-400 hover:bg-red-700 hover:ring-4"
+                      type="submit">
+                      Delete food
+                    </button>
+                  </form>
+                </Dialog.Panel>
+              </Transition.Child>
+            </div>
+          </div>
+        </Dialog>
+      </Transition>
     </>
   );
 };
