@@ -1,16 +1,18 @@
-import { useState } from 'react';
+import { Fragment, useState } from 'react';
+import { Dialog, Transition } from '@headlessui/react';
 
+import Button from '@/components/core/Button';
 import type { FilterConfig, FoodConfig } from '@/types/config';
 
-export default function Dialog({
-  filterer,
-  config,
-  setConfig,
-}: {
+type Props = {
   filterer: (filter: FilterConfig) => void;
   config: FoodConfig;
   setConfig: (config: FoodConfig) => void;
-}) {
+};
+
+export default function FilterDialog({ filterer, config, setConfig }: Props) {
+  const [isOpen, setIsOpen] = useState(false);
+
   const [deliverable, setDeliverable] = useState('true');
   const [effort, setEffort] = useState('5');
   const [cheeseometer, setCheeseometer] = useState('0');
@@ -30,6 +32,8 @@ export default function Dialog({
       search: config.search,
       searchInput: config.searchInput,
     });
+
+    setIsOpen(false);
   }
 
   function clearFilter() {
@@ -39,103 +43,137 @@ export default function Dialog({
       search: config.search,
       searchInput: config.searchInput,
     });
+
+    setIsOpen(false);
   }
 
   return (
     <>
-      <label
-        htmlFor="dialog"
-        className="modal-button btn btn-primary mb-4 ml-3 normal-case">
-        Filter food
-      </label>
-      <input type="checkbox" id="dialog" className="modal-toggle" />
-      <div className="modal">
-        <div className="modal-box relative w-auto bg-white dark:bg-gray-700">
-          <label
-            htmlFor="dialog"
-            className="btn btn-circle btn-sm absolute right-4 top-4 border-none bg-white hover:bg-white dark:bg-gray-700 hover:dark:bg-gray-700">
-            ✕
-          </label>
-          <h3 className="text-lg font-bold text-black dark:text-white">
-            Filter food
-          </h3>
-          <div className="flex flex-col">
-            <label className="my-2 mr-2 text-black dark:text-white">
-              Cheeseometer
-            </label>
-            <select
-              className="select w-full max-w-xs bg-gray-200 text-black dark:bg-gray-600 dark:text-white"
-              onChange={(e) => setCheeseometer(e.target.value)}
-              value={cheeseometer}>
-              <option value="-">-</option>
-              <option value="0">0</option>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-            </select>
+      <Button onClick={() => setIsOpen(true)}>Filter food</Button>
 
-            <label className="my-2 mr-2 text-black dark:text-white">
-              Deliverable
-            </label>
-            <select
-              className="select w-full max-w-xs bg-gray-200 text-black dark:bg-gray-600 dark:text-white"
-              onChange={(e) => setDeliverable(e.target.value)}
-              value={deliverable}>
-              <option value="-">-</option>
-              <option value="true">Yes</option>
-              <option value="false">No</option>
-            </select>
+      <Transition appear show={isOpen} as={Fragment}>
+        <Dialog
+          as="div"
+          className="relative z-10"
+          onClose={() => setIsOpen(false)}>
+          <Transition.Child
+            as={Fragment}
+            enter="ease-out duration-300"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="ease-in duration-200"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0">
+            <div className="fixed inset-0 bg-black bg-opacity-25" />
+          </Transition.Child>
 
-            <label className="my-2 mr-2 text-black dark:text-white">Tags</label>
-            <select
-              className="select w-full max-w-xs bg-gray-200 text-black dark:bg-gray-600 dark:text-white"
-              onChange={(e) => setTags(e.target.value)}
-              value={tags}>
-              <option value="-">-</option>
-              <option value="Veggie">Veggie</option>
-              <option value="Vegan">Vegan</option>
-            </select>
+          <div className="fixed inset-0 overflow-y-auto">
+            <div className="flex min-h-full items-center justify-center p-4 text-center">
+              <Transition.Child
+                as={Fragment}
+                enter="ease-out duration-300"
+                enterFrom="opacity-0 scale-95"
+                enterTo="opacity-100 scale-100"
+                leave="ease-in duration-200"
+                leaveFrom="opacity-100 scale-100"
+                leaveTo="opacity-0 scale-95">
+                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-gray-100 p-6 text-left align-middle shadow-xl transition-all dark:bg-gray-700">
+                  <Dialog.Title
+                    as="h3"
+                    className="mb-6 text-lg font-medium leading-6 text-gray-900 dark:text-gray-100">
+                    Filter food
+                  </Dialog.Title>
+                  <label
+                    htmlFor="cheeseometer"
+                    className="mb-2 block text-sm font-medium text-gray-900 dark:text-gray-400">
+                    Cheesometer
+                  </label>
+                  <select
+                    id="cheeseometer"
+                    onChange={(e) => setCheeseometer(e.target.value)}
+                    value={cheeseometer}
+                    className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-violet-500 focus:ring-violet-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-violet-500 dark:focus:ring-violet-500">
+                    <option value="-">-</option>
+                    <option value="0">0</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                  </select>
 
-            <label className="my-2 mr-2 text-black dark:text-white">
-              Effort
-            </label>
-            <select
-              className="select w-full max-w-xs bg-gray-200 text-black dark:bg-gray-600 dark:text-white"
-              onChange={(e) => setEffort(e.target.value)}
-              value={effort}>
-              <option value="-">-</option>
-              <option value="0">0</option>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-              <option value="6">6</option>
-              <option value="7">7</option>
-              <option value="8">8</option>
-              <option value="9">9</option>
-              <option value="10">10</option>
-            </select>
+                  <label
+                    htmlFor="deliverable"
+                    className="mb-2 mt-1 block text-sm font-medium text-gray-900 dark:text-gray-400">
+                    Deliverable
+                  </label>
+                  <select
+                    id="deliverable"
+                    onChange={(e) => setDeliverable(e.target.value)}
+                    value={deliverable}
+                    className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-violet-500 focus:ring-violet-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-violet-500 dark:focus:ring-violet-500">
+                    <option value="-">-</option>
+                    <option value="true">Yes</option>
+                    <option value="false">No</option>
+                  </select>
 
-            <div className="mx-auto mt-4 flex">
-              <label
-                className="btn mr-4 border-none bg-green-600 px-6 text-white ring-green-400 hover:bg-green-700 hover:ring-4"
-                htmlFor="dialog"
-                onClick={() => saveFilter()}>
-                Apply filter
-              </label>
-              <label
-                className="btn ml-4 border-none bg-red-600 px-6 text-white ring-red-400 hover:bg-red-700 hover:ring-4"
-                htmlFor="dialog"
-                onClick={() => clearFilter()}>
-                Clear filter
-              </label>
+                  <label
+                    htmlFor="tags"
+                    className="mb-2 mt-1 block text-sm font-medium text-gray-900 dark:text-gray-400">
+                    Tags
+                  </label>
+                  <select
+                    id="tags"
+                    onChange={(e) => setTags(e.target.value)}
+                    value={tags}
+                    className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-violet-500 focus:ring-violet-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-violet-500 dark:focus:ring-violet-500">
+                    <option value="-">-</option>
+                    <option value="Veggie">Veggie</option>
+                    <option value="Vegan">Vegan</option>
+                  </select>
+
+                  <label
+                    htmlFor="effort"
+                    className="mb-2 mt-1 block text-sm font-medium text-gray-900 dark:text-gray-400">
+                    Effort
+                  </label>
+                  <select
+                    id="effort"
+                    onChange={(e) => setEffort(e.target.value)}
+                    value={effort}
+                    className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-violet-500 focus:ring-violet-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-violet-500 dark:focus:ring-violet-500">
+                    <option value="-">-</option>
+                    <option value="0">0</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                  </select>
+
+                  <div className="mt-6">
+                    <button
+                      onClick={saveFilter}
+                      className="mr-2 mb-2 rounded-lg bg-green-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-green-700 dark:bg-green-600 dark:hover:bg-green-700">
+                      Apply filter
+                    </button>
+                    <button
+                      onClick={clearFilter}
+                      className="mr-2 mb-2 rounded-lg bg-red-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-red-700 dark:bg-red-600 dark:hover:bg-red-700">
+                      Clear filter
+                    </button>
+                  </div>
+                </Dialog.Panel>
+              </Transition.Child>
             </div>
           </div>
-        </div>
-      </div>
+        </Dialog>
+      </Transition>
     </>
   );
 }

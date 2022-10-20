@@ -136,16 +136,16 @@ const Index: NextPage<Props> = ({ fallbackData, fallbackFavoritesData }) => {
         <button
           onClick={handleClick}
           type="button"
-          className="umami--click--random-food ml-4 mb-2 rounded-lg bg-violet-500 px-5 py-2.5 text-sm font-medium text-white hover:bg-violet-700 focus:outline-none focus:ring-4 focus:ring-purple-300 dark:bg-violet-700 hover:dark:bg-violet-900 dark:focus:ring-purple-900">
+          className="umami--click--random-food ml-4 mr-2 mb-2 rounded-lg bg-violet-500 px-5 py-2.5 text-sm font-medium text-white hover:bg-violet-700 dark:bg-violet-700 hover:dark:bg-violet-900">
           {btnTitle}
         </button>
-        {/* <Suspense>
-        <Dialog
-        filterer={setFilter}
-        config={foodConfig}
-        setConfig={setFoodConfig}
-        />
-      </Suspense> */}
+        <Suspense>
+          <Dialog
+            filterer={setFilter}
+            config={foodConfig}
+            setConfig={setFoodConfig}
+          />
+        </Suspense>
 
         <form className="ml-2 mb-2 flex items-center">
           <label htmlFor="simple-search" className="sr-only">
