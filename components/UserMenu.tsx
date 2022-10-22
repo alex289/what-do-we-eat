@@ -16,7 +16,7 @@ type Props = {
 
 export default function UserMenu({ user }: Props) {
   return (
-    <div className="top-16 mr-4 w-fit rounded-full text-right">
+    <div className="top-16 ml-2 w-fit rounded-full text-right sm:ml-0 sm:mr-4">
       <Menu as="div" className="relative inline-block rounded-full text-left">
         <div>
           <Menu.Button className="inline-flex h-10 w-10 justify-center rounded-full px-4 py-2">
@@ -40,7 +40,7 @@ export default function UserMenu({ user }: Props) {
           leaveFrom="transform opacity-100 scale-100"
           leaveTo="transform opacity-0 scale-95">
           <Menu.Items className="absolute right-0 mt-2 w-56 origin-top-right rounded-md bg-gray-50 text-black shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none dark:bg-gray-800 dark:text-white dark:ring-gray-700">
-            <div className="px-1 py-1 ">
+            <div className="px-1 py-1">
               <Menu.Item>
                 {({ active }) => (
                   <button
@@ -69,8 +69,6 @@ export default function UserMenu({ user }: Props) {
                   </Menu.Item>
                 </Link>
               )}
-            </div>
-            <div className="px-1 py-1">
               <Link href="/analytics">
                 <Menu.Item>
                   {({ active }) => (

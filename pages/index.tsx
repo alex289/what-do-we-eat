@@ -132,22 +132,24 @@ const Index: NextPage<Props> = ({ fallbackData, fallbackFavoritesData }) => {
         newestOnTop={true}
         theme={resolvedTheme === 'dark' ? 'dark' : 'light'}
       />
-      <div className="mb-2 flex">
-        <button
-          onClick={handleClick}
-          type="button"
-          className="umami--click--random-food ml-4 mr-2 mb-2 rounded-lg bg-violet-500 px-5 py-2.5 text-sm font-medium text-white hover:bg-violet-700 dark:bg-violet-700 hover:dark:bg-violet-900">
-          {btnTitle}
-        </button>
-        <Suspense>
-          <Dialog
-            filterer={setFilter}
-            config={foodConfig}
-            setConfig={setFoodConfig}
-          />
-        </Suspense>
+      <div className="mb-2 flex flex-col sm:flex-row">
+        <div className="mx-2 flex justify-between sm:block 2xl:mx-8">
+          <button
+            onClick={handleClick}
+            type="button"
+            className="umami--click--random-food mx-3 mb-2 rounded-lg bg-violet-500 px-5 py-2.5 text-sm font-medium text-white hover:bg-violet-700 dark:bg-violet-700 hover:dark:bg-violet-900">
+            {btnTitle}
+          </button>
+          <Suspense>
+            <Dialog
+              filterer={setFilter}
+              config={foodConfig}
+              setConfig={setFoodConfig}
+            />
+          </Suspense>
+        </div>
 
-        <form className="ml-2 mb-2 flex items-center">
+        <form className="mx-4 mb-2 mt-1 flex items-center sm:mx-0 sm:mt-0">
           <label htmlFor="simple-search" className="sr-only">
             Search
           </label>
@@ -178,15 +180,15 @@ const Index: NextPage<Props> = ({ fallbackData, fallbackFavoritesData }) => {
       </div>
 
       {foodConfig.random && session && (
-        <div className="mb-2 ml-1 p-2">
+        <div className="mb-2 ml-1 p-2 2xl:ml-7">
           <button
             onClick={() => submitAnalytics(true)}
-            className="mr-2 mb-2 rounded-lg bg-green-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-4 focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
+            className="mx-2 mb-2 rounded-lg bg-green-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-4 focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
             Good choice
           </button>
           <button
             onClick={() => submitAnalytics(false)}
-            className="mr-2 mb-2 rounded-lg bg-red-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-4 focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">
+            className="mx-2 mb-2 rounded-lg bg-red-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-4 focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">
             Bad choice
           </button>
         </div>

@@ -12,7 +12,7 @@ type Props = {
 };
 
 const Food = ({ foodList, favorite }: Props) => (
-  <ul className="md:grid-flow-column mx-2 mt-3 grid gap-6 px-2 md:mt-0 md:grid-cols-2 xl:grid-flow-row xl:grid-cols-5 2xl:mx-8">
+  <ul className="md:grid-flow-column 2xl:grid-cols-fit mx-2 mt-3 grid gap-6 px-2 sm:grid-cols-2 md:mt-0 lg:grid-cols-3 xl:grid-cols-5 2xl:mx-8 2xl:grid-cols-6">
     {foodList.map((food, index) => (
       <li
         key={index}
@@ -53,7 +53,7 @@ const Food = ({ foodList, favorite }: Props) => (
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
                 fill="currentColor"
-                className={`h-6 w-6 text-orange-400 ${
+                className={`h-5 w-5 text-orange-400 ${
                   !(food.cheeseometer >= 1) && 'opacity-20'
                 }`}>
                 <path
@@ -66,7 +66,7 @@ const Food = ({ foodList, favorite }: Props) => (
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
                 fill="currentColor"
-                className={`h-6 w-6 text-orange-400 ${
+                className={`h-5 w-5 text-orange-400 ${
                   !(food.cheeseometer >= 2) && 'opacity-20'
                 }`}>
                 <path
@@ -79,7 +79,7 @@ const Food = ({ foodList, favorite }: Props) => (
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
                 fill="currentColor"
-                className={`h-6 w-6 text-orange-400 ${
+                className={`h-5 w-5 text-orange-400 ${
                   !(food.cheeseometer >= 3) && 'opacity-20'
                 }`}>
                 <path
@@ -92,7 +92,7 @@ const Food = ({ foodList, favorite }: Props) => (
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
                 fill="currentColor"
-                className={`h-6 w-6 text-orange-400 ${
+                className={`h-5 w-5 text-orange-400 ${
                   !(food.cheeseometer >= 4) && 'opacity-20'
                 }`}>
                 <path
@@ -105,7 +105,7 @@ const Food = ({ foodList, favorite }: Props) => (
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
                 fill="currentColor"
-                className={`h-6 w-6 text-orange-400 ${
+                className={`h-5 w-5 text-orange-400 ${
                   !(food.cheeseometer === 5) && 'opacity-20'
                 }`}>
                 <path
