@@ -27,7 +27,6 @@ export default async function handle(
   });
 
   if (existingFood) {
-    console.log(name);
     return res.status(400).json({ message: `Food '${name}' already exists` });
   }
 
