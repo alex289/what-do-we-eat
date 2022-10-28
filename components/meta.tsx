@@ -66,7 +66,10 @@ const Meta = () => {
       />
       <meta property="og:site_name" content="What do we eat" />
       <meta property="og:url" content="https://what-do-we-eat.vercel.app" />
-      <meta property="og:image" content="/api/og" />
+      <meta
+        property="og:image"
+        content="https://what-do-we-eat.vercel.app/api/og"
+      />
       <link rel="canonical" href="https://what-do-we-eat.vercel.app" />
 
       <meta name="twitter:card" content="summary_large_image" />
@@ -80,7 +83,10 @@ const Meta = () => {
         name="twitter:description"
         content="Web app to tell you what to eat"
       />
-      <meta name="twitter:image" content="/api/og"></meta>
+      <meta
+        name="twitter:image"
+        content="https://what-do-we-eat.vercel.app/api/og"
+      />
     </Head>
   );
 };
