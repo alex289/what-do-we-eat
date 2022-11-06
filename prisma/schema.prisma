@@ -22,6 +22,8 @@ model food {
 model favorite {
   id   Int    @id @db.UnsignedInt
   user String
+
+  @@index([user], name: "user")
 }
 
 model analytics {
