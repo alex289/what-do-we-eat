@@ -50,13 +50,6 @@ const Meta = () => {
         sizes="16x16"
         href="/static/icons/favicon-16x16.png"
       />
-      <link
-        rel="preload"
-        as="font"
-        href="/static/fonts/ibm-plex-sans-var.woff2"
-        type="font/woff2"
-        crossOrigin="anonymous"
-      />
 
       <meta property="og:type" content="website" />
       <meta property="og:title" content="What do we eat" />
