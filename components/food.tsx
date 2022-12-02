@@ -25,7 +25,7 @@ const Food = ({ foodList, favorite }: Props) => (
               width={564}
               height={564}
               loading="lazy"
-              className="absolute inset-0 h-64 w-full rounded-tl-lg rounded-tr-lg xl:h-48"
+              className="absolute inset-0 h-64 w-full rounded-tl-lg rounded-tr-lg object-cover xl:h-48"
             />
           )}
         </figure>

@@ -24,7 +24,7 @@ const DashboardFood = ({ foodList }: { foodList: food[] }) => {
                 width={564}
                 height={564}
                 quality={100}
-                className="absolute inset-0 h-64 w-full rounded-tl-lg  rounded-tr-lg xl:h-48"></Image>
+                className="absolute inset-0 h-64 w-full rounded-tl-lg  rounded-tr-lg object-cover xl:h-48"></Image>
             )}
           </figure>
           <div className="px-5 text-black dark:text-white">
