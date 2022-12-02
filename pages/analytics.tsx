@@ -21,8 +21,24 @@ const AnalyticsPage: NextPage<{
   );
 
   const memoizedData = useMemo(() => {
+    if (!data?.data) {
+      return [];
+    }
+
+    const uniqueAnalytics: analytics[] = [];
+
+    for (const currentAnalytics of data.data) {
+      const existingAnalytics = uniqueAnalytics.find(
+        (a) => a.name === currentAnalytics.name
+      );
+
+      if (!existingAnalytics) {
+        uniqueAnalytics.push(currentAnalytics);
+      }
+    }
+
     return (
-      data?.data.map((item) => {
+      uniqueAnalytics.map((item) => {
         return {
           name: item.name,
           picked: data.data.filter((v) => v.name === item.name && v.picked)
