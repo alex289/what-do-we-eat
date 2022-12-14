@@ -81,7 +81,7 @@ export default function FilterDialog({ filter, filterer }: Props) {
                   <label
                     htmlFor="sort"
                     className="mb-2 block text-sm font-medium text-gray-900 dark:text-gray-400">
-                    Sort By
+                    Sort
                   </label>
                   <select
                     id="sort"
