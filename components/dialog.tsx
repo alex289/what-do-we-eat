@@ -18,6 +18,7 @@ export default function FilterDialog({ filter, filterer }: Props) {
     const target = event.target as any;
 
     filterer({
+      sort: target.sort.value.replace('-', ''),
       effort: target.effort.value.replace('-', ''),
       deliverable: target.deliverable.value.replace('-', ''),
       cheeseometer: target.cheeseometer.value.replace('-', ''),
@@ -29,6 +30,7 @@ export default function FilterDialog({ filter, filterer }: Props) {
 
   function clearFilter() {
     filterer({
+      sort: '',
       effort: '',
       deliverable: '',
       cheeseometer: '',
@@ -77,17 +79,17 @@ export default function FilterDialog({ filter, filterer }: Props) {
                     Filter food
                   </Dialog.Title>
                   <label
-                    htmlFor="order"
+                    htmlFor="sort"
                     className="mb-2 block text-sm font-medium text-gray-900 dark:text-gray-400">
-                    Order By
+                    Sort By
                   </label>
                   <select
-                    id="order"
-                    defaultValue="-"
+                    id="sort"
+                    defaultValue={filter.sort}
                     className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-violet-500 focus:ring-violet-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-violet-500 dark:focus:ring-violet-500">
                     <option value="">-</option>
-                    <option value="asc">Asc</option>
-                    <option value="desc">Desc</option>
+                    <option value="asc">Ascending</option>
+                    <option value="desc">Descending</option>
                   </select>
 
                   <label

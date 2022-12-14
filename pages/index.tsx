@@ -41,6 +41,7 @@ const Index: NextPage<Props> = ({ fallbackData, fallbackFavoritesData }) => {
   const [btnTitle, setBtnTitle] = useState('Get random food');
   const [randomizer, setRandomizer] = useState(false);
   const [filter, setFilter] = useState<FilterConfig>({
+    sort: '',
     effort: '',
     deliverable: '',
     cheeseometer: '',
@@ -48,13 +49,13 @@ const Index: NextPage<Props> = ({ fallbackData, fallbackFavoritesData }) => {
   });
 
   const { data, error } = useSWR<ApiResponse>(
-    `/api/food?page=${page}${
-      debouncedSearch !== '' ? '&search=' + debouncedSearch : ''
-    }${filter.effort !== '' ? '&effort=' + filter.effort : ''}${
-      filter.deliverable !== '' ? '&deliverable=' + filter.deliverable : ''
-    }${
-      filter.cheeseometer !== '' ? '&cheeseometer=' + filter.cheeseometer : ''
-    }${filter.tags !== '' ? '&tags=' + filter.tags : ''}`,
+    `/api/food?page=${page}
+    ${debouncedSearch !== '' ? '&search=' + debouncedSearch : ''}
+    ${filter.sort !== '' ? '&sort=' + filter.sort : ''}
+    ${filter.effort !== '' ? '&effort=' + filter.effort : ''}
+    ${filter.deliverable !== '' ? '&deliverable=' + filter.deliverable : ''}
+    ${filter.cheeseometer !== '' ? '&cheeseometer=' + filter.cheeseometer : ''}
+    ${filter.tags !== '' ? '&tags=' + filter.tags : ''}`,
     fetcher,
     {
       fallbackData,

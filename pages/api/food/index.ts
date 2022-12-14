@@ -12,7 +12,7 @@ export default async function handle(
     return res.status(405).json({ message: 'Only GET method allowed' });
   }
 
-  const orderBy = req.query.orderBy;
+  const sort = req.query.sort;
   const page = parseInt(req.query.page as string) || 1;
   const take = parseInt(req.query.take as string) || 100;
   const search = req.query.search;
@@ -26,7 +26,7 @@ export default async function handle(
       },
     },
     orderBy: {
-      [orderBy ? 'name' : 'id']: orderBy === 'desc' ? 'desc' : 'asc',
+      [sort ? 'name' : 'id']: sort === 'desc' ? 'desc' : 'asc',
     },
   });
 
