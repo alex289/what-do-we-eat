@@ -22,7 +22,7 @@ const Dialog = dynamic(() => import('@/components/dialog'), {
 
 import type { GetStaticProps, NextPage } from 'next';
 import type { favorite } from '@prisma/client';
-import type { FilterConfig, FoodConfig } from '@/types/config';
+import type { FilterConfig } from '@/types/config';
 import type { ApiResponse } from '@/types/apiResponse';
 
 type Props = {
@@ -39,9 +39,7 @@ const Index: NextPage<Props> = ({ fallbackData, fallbackFavoritesData }) => {
   const [search, setSearch] = useState('');
   const debouncedSearch = useDebounce(search, 500);
   const [btnTitle, setBtnTitle] = useState('Get random food');
-  const [foodConfig, setFoodConfig] = useState<FoodConfig>({
-    random: false,
-  });
+  const [randomizer, setRandomizer] = useState(false);
   const [filter, setFilter] = useState<FilterConfig>({
     effort: '',
     deliverable: '',
@@ -80,10 +78,7 @@ const Index: NextPage<Props> = ({ fallbackData, fallbackFavoritesData }) => {
       isClicked = true;
     }
     setBtnTitle(isClicked ? 'Get food list' : 'Get random food');
-
-    setFoodConfig({
-      random: isClicked,
-    });
+    setRandomizer(isClicked);
   }
 
   async function submitAnalytics(picked: boolean) {
@@ -110,8 +105,8 @@ const Index: NextPage<Props> = ({ fallbackData, fallbackFavoritesData }) => {
   }
 
   const memoizedFoodList = useMemo(
-    () => handleFood(data?.data || [], foodConfig),
-    [data, foodConfig]
+    () => handleFood(data?.data || [], randomizer),
+    [data, randomizer]
   );
 
   if (error) {
@@ -139,12 +134,7 @@ const Index: NextPage<Props> = ({ fallbackData, fallbackFavoritesData }) => {
             {btnTitle}
           </button>
           <Suspense>
-            <Dialog
-              filter={filter}
-              filterer={setFilter}
-              config={foodConfig}
-              setConfig={setFoodConfig}
-            />
+            <Dialog filter={filter} filterer={setFilter} />
           </Suspense>
         </div>
 
@@ -178,7 +168,7 @@ const Index: NextPage<Props> = ({ fallbackData, fallbackFavoritesData }) => {
         </form>
       </div>
 
-      {foodConfig.random && session && (
+      {randomizer && session && (
         <div className="mb-2 ml-1 p-2 2xl:ml-7">
           <button
             onClick={() => submitAnalytics(true)}

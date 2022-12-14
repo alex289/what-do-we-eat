@@ -1,7 +1,3 @@
-export type FoodConfig = {
-  random: boolean;
-};
-
 export type FilterConfig = {
   effort: string;
   deliverable: string;

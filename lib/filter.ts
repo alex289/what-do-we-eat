@@ -1,4 +1,3 @@
-import type { FoodConfig } from '@/types/config';
 import type { food } from '@prisma/client';
 
 export function randomFood(foodList: food[]) {
@@ -6,10 +5,10 @@ export function randomFood(foodList: food[]) {
   return food === undefined ? [] : [food];
 }
 
-export function handleFood(foodList: food[], config: FoodConfig) {
+export function handleFood(foodList: food[], randomize: boolean) {
   let currentFoodList = foodList;
 
-  if (config.random) {
+  if (randomize) {
     currentFoodList = randomFood(currentFoodList);
   }
 

@@ -2,21 +2,14 @@ import { Fragment, useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 
 import Button from '@/components/core/Button';
-import type { FilterConfig, FoodConfig } from '@/types/config';
+import type { FilterConfig } from '@/types/config';
 
 type Props = {
   filter: FilterConfig;
   filterer: (filter: FilterConfig) => void;
-  config: FoodConfig;
-  setConfig: (config: FoodConfig) => void;
 };
 
-export default function FilterDialog({
-  filter,
-  filterer,
-  config,
-  setConfig,
-}: Props) {
+export default function FilterDialog({ filter, filterer }: Props) {
   const [isOpen, setIsOpen] = useState(false);
 
   function submit(event: React.FormEvent<HTMLFormElement>) {
@@ -29,10 +22,6 @@ export default function FilterDialog({
       deliverable: target.deliverable.value.replace('-', ''),
       cheeseometer: target.cheeseometer.value.replace('-', ''),
       tags: target.tags.value.replace('-', ''),
-    });
-
-    setConfig({
-      random: config.random,
     });
 
     setIsOpen(false);
