@@ -1,5 +1,4 @@
 export type FoodConfig = {
-  filter: boolean;
   random: boolean;
 };
 

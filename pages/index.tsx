@@ -33,13 +33,13 @@ type Props = {
 const Index: NextPage<Props> = ({ fallbackData, fallbackFavoritesData }) => {
   const { data: session } = useSession();
   const { resolvedTheme } = useTheme();
+
   const [clicked, setClicked] = useState(false);
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState('');
   const debouncedSearch = useDebounce(search, 500);
   const [btnTitle, setBtnTitle] = useState('Get random food');
   const [foodConfig, setFoodConfig] = useState<FoodConfig>({
-    filter: false,
     random: false,
   });
   const [filter, setFilter] = useState<FilterConfig>({
@@ -50,9 +50,13 @@ const Index: NextPage<Props> = ({ fallbackData, fallbackFavoritesData }) => {
   });
 
   const { data, error } = useSWR<ApiResponse>(
-    `/api/food?page=${page}&${
-      debouncedSearch !== '' && 'search=' + debouncedSearch
-    }`,
+    `/api/food?page=${page}${
+      debouncedSearch !== '' ? '&search=' + debouncedSearch : ''
+    }${filter.effort !== '' ? '&effort=' + filter.effort : ''}${
+      filter.deliverable !== '' ? '&deliverable=' + filter.deliverable : ''
+    }${
+      filter.cheeseometer !== '' ? '&cheeseometer=' + filter.cheeseometer : ''
+    }${filter.tags !== '' ? '&tags=' + filter.tags : ''}`,
     fetcher,
     {
       fallbackData,
@@ -78,7 +82,6 @@ const Index: NextPage<Props> = ({ fallbackData, fallbackFavoritesData }) => {
     setBtnTitle(isClicked ? 'Get food list' : 'Get random food');
 
     setFoodConfig({
-      filter: foodConfig.filter,
       random: isClicked,
     });
   }
@@ -107,8 +110,8 @@ const Index: NextPage<Props> = ({ fallbackData, fallbackFavoritesData }) => {
   }
 
   const memoizedFoodList = useMemo(
-    () => handleFood(data?.data || [], foodConfig, filter),
-    [data, foodConfig, filter]
+    () => handleFood(data?.data || [], foodConfig),
+    [data, foodConfig]
   );
 
   if (error) {
@@ -137,6 +140,7 @@ const Index: NextPage<Props> = ({ fallbackData, fallbackFavoritesData }) => {
           </button>
           <Suspense>
             <Dialog
+              filter={filter}
               filterer={setFilter}
               config={foodConfig}
               setConfig={setFoodConfig}

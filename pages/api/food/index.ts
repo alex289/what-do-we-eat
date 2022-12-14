@@ -30,17 +30,14 @@ export default async function handle(
     },
   });
 
-  const cheesometer = parseInt(req.query.cheesometer as string);
-  if (cheesometer) {
-    items = items.filter((item) => item.cheeseometer === cheesometer);
+  const cheeseometer = parseInt(req.query.cheeseometer as string);
+  if (cheeseometer) {
+    items = items.filter((item) => item.cheeseometer === cheeseometer);
   }
 
-  const deliverable =
-    req.query.deliverable === 'true' || req.query.deliverable === 'false'
-      ? req.query.deliverable
-      : undefined;
+  const deliverable = req.query.deliverable;
   if (deliverable) {
-    items = items.filter((item) => item.deliverable === Boolean(deliverable));
+    items = items.filter((item) => item.deliverable.toString() === deliverable);
   }
 
   const tags = req.query.tags;
