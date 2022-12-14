@@ -6,14 +6,6 @@ export function randomFood(foodList: food[]) {
   return food === undefined ? [] : [food];
 }
 
-export function searchFood(foodList: food[], input: string) {
-  return foodList.filter((food) =>
-    food.name
-      .toLowerCase()
-      .match(input.replace(/[|&;$%@"<>()+,?]/g, '').toLowerCase())
-  );
-}
-
 export function filterFood(foodList: food[], config: FilterConfig) {
   const filteredList: food[] = [];
   let filterEffort = config.effort;
@@ -60,9 +52,6 @@ export function handleFood(
 
   if (config.filter) {
     currentFoodList = filterFood(currentFoodList, filterConfig);
-  }
-  if (config.search) {
-    currentFoodList = searchFood(currentFoodList, config.searchInput || '');
   }
   if (config.random) {
     currentFoodList = randomFood(currentFoodList);

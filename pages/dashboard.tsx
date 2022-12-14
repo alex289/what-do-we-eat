@@ -8,7 +8,7 @@ import { useTheme } from 'next-themes';
 
 import { prisma } from '@/lib/prisma';
 import fetcher from '@/lib/fetcher';
-import { searchFood } from '@/lib/filter';
+import { useDebounce } from '@/lib/useDebounce';
 
 import Layout from '@/components/layout';
 
@@ -33,16 +33,16 @@ const Dashboard: NextPage<{
   });
 
   const { resolvedTheme } = useTheme();
-  const [inputText, setInputText] = useState('');
+  const [search, setSearch] = useState('');
+  const debouncedSearch = useDebounce(search, 500);
 
-  const { data, error } = useSWR<ApiResponse>('/api/food', fetcher, {
-    fallbackData,
-  });
-
-  function handleInput(e: React.ChangeEvent<HTMLInputElement>) {
-    e.preventDefault();
-    setInputText(e.target.value);
-  }
+  const { data, error } = useSWR<ApiResponse>(
+    `/api/food?${debouncedSearch !== '' && 'search=' + debouncedSearch}`,
+    fetcher,
+    {
+      fallbackData,
+    }
+  );
 
   if (status === 'loading') {
     return <Layout>Loading or not authenticated...</Layout>;
@@ -97,7 +97,7 @@ const Dashboard: NextPage<{
               </svg>
             </div>
             <input
-              onChange={handleInput}
+              onChange={(e) => setSearch(e.target.value)}
               type="text"
               id="simple-search"
               className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 pl-10 text-sm text-gray-900 focus:border-violet-500 focus:ring-violet-500  dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-violet-500 dark:focus:ring-violet-500"
@@ -108,15 +108,7 @@ const Dashboard: NextPage<{
         </form>
       </div>
 
-      <Suspense>
-        {data && (
-          <DashboardFood
-            foodList={
-              inputText === '' ? data.data : searchFood(data.data, inputText)
-            }
-          />
-        )}
-      </Suspense>
+      <Suspense>{data && <DashboardFood foodList={data.data} />}</Suspense>
     </Layout>
   );
 };

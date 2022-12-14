@@ -9,6 +9,7 @@ import { useTheme } from 'next-themes';
 import { prisma } from '@/lib/prisma';
 import fetcher from '@/lib/fetcher';
 import { handleFood } from '@/lib/filter';
+import { useDebounce } from '@/lib/useDebounce';
 
 import Layout from '@/components/layout';
 
@@ -33,12 +34,13 @@ const Index: NextPage<Props> = ({ fallbackData, fallbackFavoritesData }) => {
   const { data: session } = useSession();
   const { resolvedTheme } = useTheme();
   const [clicked, setClicked] = useState(false);
+  const [page, setPage] = useState(1);
+  const [search, setSearch] = useState('');
+  const debouncedSearch = useDebounce(search, 500);
   const [btnTitle, setBtnTitle] = useState('Get random food');
   const [foodConfig, setFoodConfig] = useState<FoodConfig>({
     filter: false,
     random: false,
-    search: false,
-    searchInput: '',
   });
   const [filter, setFilter] = useState<FilterConfig>({
     effort: '',
@@ -47,9 +49,15 @@ const Index: NextPage<Props> = ({ fallbackData, fallbackFavoritesData }) => {
     tags: '',
   });
 
-  const { data, error } = useSWR<ApiResponse>('/api/food', fetcher, {
-    fallbackData,
-  });
+  const { data, error } = useSWR<ApiResponse>(
+    `/api/food?page=${page}&${
+      debouncedSearch !== '' && 'search=' + debouncedSearch
+    }`,
+    fetcher,
+    {
+      fallbackData,
+    }
+  );
   const { data: favoriteData } = useSWR<ApiResponse<favorite[]>>(
     '/api/food/favorite',
     fetcher,
@@ -72,19 +80,6 @@ const Index: NextPage<Props> = ({ fallbackData, fallbackFavoritesData }) => {
     setFoodConfig({
       filter: foodConfig.filter,
       random: isClicked,
-      search: foodConfig.search,
-      searchInput: foodConfig.searchInput,
-    });
-  }
-
-  function handleInput(e: React.ChangeEvent<HTMLInputElement>) {
-    e.preventDefault();
-
-    setFoodConfig({
-      filter: foodConfig.filter,
-      random: foodConfig.random,
-      search: true,
-      searchInput: e.target.value,
     });
   }
 
@@ -168,7 +163,7 @@ const Index: NextPage<Props> = ({ fallbackData, fallbackFavoritesData }) => {
               </svg>
             </div>
             <input
-              onChange={handleInput}
+              onChange={(e) => setSearch(e.target.value)}
               type="text"
               id="simple-search"
               className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 pl-10 text-sm text-gray-900 focus:border-violet-500 focus:ring-violet-500  dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-violet-500 dark:focus:ring-violet-500"
@@ -198,6 +193,51 @@ const Index: NextPage<Props> = ({ fallbackData, fallbackFavoritesData }) => {
           <Food foodList={memoizedFoodList} favorite={favoriteData?.data} />
         )}
       </Suspense>
+
+      <ul className="my-4 mx-auto flex items-center justify-center -space-x-px">
+        <li>
+          <button
+            disabled={page === 1}
+            onClick={() => setPage(page - 1)}
+            className="ml-0 block rounded-l-lg border border-gray-300 bg-white px-3 py-2 leading-tight text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+            <span className="sr-only">Previous</span>
+            <svg
+              aria-hidden="true"
+              className="h-5 w-5"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+              xmlns="http://www.w3.org/2000/svg">
+              <path
+                fillRule="evenodd"
+                d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+                clipRule="evenodd"></path>
+            </svg>
+          </button>
+        </li>
+        <li>
+          <div className="border border-gray-300 bg-white px-3 py-2 leading-tight text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+            {page}
+          </div>
+        </li>
+        <li>
+          <button
+            onClick={() => setPage(page + 1)}
+            className="block rounded-r-lg border border-gray-300 bg-white px-3 py-2 leading-tight text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+            <span className="sr-only">Next</span>
+            <svg
+              aria-hidden="true"
+              className="h-5 w-5"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+              xmlns="http://www.w3.org/2000/svg">
+              <path
+                fillRule="evenodd"
+                d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                clipRule="evenodd"></path>
+            </svg>
+          </button>
+        </li>
+      </ul>
     </Layout>
   );
 };

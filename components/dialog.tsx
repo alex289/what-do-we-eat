@@ -13,6 +13,7 @@ type Props = {
 export default function FilterDialog({ filterer, config, setConfig }: Props) {
   const [isOpen, setIsOpen] = useState(false);
 
+  const [order, setOrderBy] = useState('');
   const [deliverable, setDeliverable] = useState('true');
   const [effort, setEffort] = useState('5');
   const [cheeseometer, setCheeseometer] = useState('0');
@@ -29,8 +30,6 @@ export default function FilterDialog({ filterer, config, setConfig }: Props) {
     setConfig({
       filter: true,
       random: config.random,
-      search: config.search,
-      searchInput: config.searchInput,
     });
 
     setIsOpen(false);
@@ -40,8 +39,6 @@ export default function FilterDialog({ filterer, config, setConfig }: Props) {
     setConfig({
       filter: false,
       random: config.random,
-      search: config.search,
-      searchInput: config.searchInput,
     });
 
     setIsOpen(false);
@@ -83,6 +80,21 @@ export default function FilterDialog({ filterer, config, setConfig }: Props) {
                     className="mb-6 text-lg font-medium leading-6 text-gray-900 dark:text-gray-100">
                     Filter food
                   </Dialog.Title>
+                  <label
+                    htmlFor="order"
+                    className="mb-2 block text-sm font-medium text-gray-900 dark:text-gray-400">
+                    Order By
+                  </label>
+                  <select
+                    id="order"
+                    onChange={(e) => setOrderBy(e.target.value)}
+                    value={order}
+                    className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-violet-500 focus:ring-violet-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-violet-500 dark:focus:ring-violet-500">
+                    <option value="">-</option>
+                    <option value="asc">Asc</option>
+                    <option value="desc">Desc</option>
+                  </select>
+
                   <label
                     htmlFor="cheeseometer"
                     className="mb-2 block text-sm font-medium text-gray-900 dark:text-gray-400">
