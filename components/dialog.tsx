@@ -2,46 +2,39 @@ import { Fragment, useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 
 import Button from '@/components/core/Button';
-import type { FilterConfig, FoodConfig } from '@/types/config';
+import type { FilterConfig } from '@/types/config';
 
 type Props = {
+  filter: FilterConfig;
   filterer: (filter: FilterConfig) => void;
-  config: FoodConfig;
-  setConfig: (config: FoodConfig) => void;
 };
 
-export default function FilterDialog({ filterer, config, setConfig }: Props) {
+export default function FilterDialog({ filter, filterer }: Props) {
   const [isOpen, setIsOpen] = useState(false);
 
-  const [deliverable, setDeliverable] = useState('true');
-  const [effort, setEffort] = useState('5');
-  const [cheeseometer, setCheeseometer] = useState('0');
-  const [tags, setTags] = useState('-');
+  function submit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const target = event.target as any;
 
-  function saveFilter() {
     filterer({
-      effort: effort,
-      deliverable: deliverable,
-      cheeseometer: cheeseometer,
-      tags: tags,
-    });
-
-    setConfig({
-      filter: true,
-      random: config.random,
-      search: config.search,
-      searchInput: config.searchInput,
+      sort: target.sort.value.replace('-', ''),
+      effort: target.effort.value.replace('-', ''),
+      deliverable: target.deliverable.value.replace('-', ''),
+      cheeseometer: target.cheeseometer.value.replace('-', ''),
+      tags: target.tags.value.replace('-', ''),
     });
 
     setIsOpen(false);
   }
 
   function clearFilter() {
-    setConfig({
-      filter: false,
-      random: config.random,
-      search: config.search,
-      searchInput: config.searchInput,
+    filterer({
+      sort: '',
+      effort: '',
+      deliverable: '',
+      cheeseometer: '',
+      tags: '',
     });
 
     setIsOpen(false);
@@ -68,7 +61,9 @@ export default function FilterDialog({ filterer, config, setConfig }: Props) {
           </Transition.Child>
 
           <div className="fixed inset-0 overflow-y-auto">
-            <div className="flex min-h-full items-center justify-center p-4 text-center">
+            <form
+              onSubmit={submit}
+              className="flex min-h-full items-center justify-center p-4 text-center">
               <Transition.Child
                 as={Fragment}
                 enter="ease-out duration-300"
@@ -84,14 +79,27 @@ export default function FilterDialog({ filterer, config, setConfig }: Props) {
                     Filter food
                   </Dialog.Title>
                   <label
+                    htmlFor="sort"
+                    className="mb-2 block text-sm font-medium text-gray-900 dark:text-gray-400">
+                    Sort
+                  </label>
+                  <select
+                    id="sort"
+                    defaultValue={filter.sort}
+                    className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-violet-500 focus:ring-violet-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-violet-500 dark:focus:ring-violet-500">
+                    <option value="">-</option>
+                    <option value="asc">Ascending</option>
+                    <option value="desc">Descending</option>
+                  </select>
+
+                  <label
                     htmlFor="cheeseometer"
                     className="mb-2 block text-sm font-medium text-gray-900 dark:text-gray-400">
                     Cheesometer
                   </label>
                   <select
                     id="cheeseometer"
-                    onChange={(e) => setCheeseometer(e.target.value)}
-                    value={cheeseometer}
+                    defaultValue={filter.cheeseometer}
                     className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-violet-500 focus:ring-violet-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-violet-500 dark:focus:ring-violet-500">
                     <option value="-">-</option>
                     <option value="0">0</option>
@@ -109,8 +117,7 @@ export default function FilterDialog({ filterer, config, setConfig }: Props) {
                   </label>
                   <select
                     id="deliverable"
-                    onChange={(e) => setDeliverable(e.target.value)}
-                    value={deliverable}
+                    defaultValue={filter.deliverable}
                     className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-violet-500 focus:ring-violet-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-violet-500 dark:focus:ring-violet-500">
                     <option value="-">-</option>
                     <option value="true">Yes</option>
@@ -124,8 +131,7 @@ export default function FilterDialog({ filterer, config, setConfig }: Props) {
                   </label>
                   <select
                     id="tags"
-                    onChange={(e) => setTags(e.target.value)}
-                    value={tags}
+                    defaultValue={filter.tags}
                     className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-violet-500 focus:ring-violet-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-violet-500 dark:focus:ring-violet-500">
                     <option value="-">-</option>
                     <option value="Veggie">Veggie</option>
@@ -139,8 +145,7 @@ export default function FilterDialog({ filterer, config, setConfig }: Props) {
                   </label>
                   <select
                     id="effort"
-                    onChange={(e) => setEffort(e.target.value)}
-                    value={effort}
+                    defaultValue={filter.effort}
                     className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-violet-500 focus:ring-violet-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-violet-500 dark:focus:ring-violet-500">
                     <option value="-">-</option>
                     <option value="0">0</option>
@@ -158,19 +163,20 @@ export default function FilterDialog({ filterer, config, setConfig }: Props) {
 
                   <div className="mt-6">
                     <button
-                      onClick={saveFilter}
+                      type="submit"
                       className="mr-2 mb-2 rounded-lg bg-green-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-green-700 dark:bg-green-600 dark:hover:bg-green-700">
                       Apply filter
                     </button>
                     <button
                       onClick={clearFilter}
+                      type="button"
                       className="mr-2 mb-2 rounded-lg bg-red-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-red-700 dark:bg-red-600 dark:hover:bg-red-700">
                       Clear filter
                     </button>
                   </div>
                 </Dialog.Panel>
               </Transition.Child>
-            </div>
+            </form>
           </div>
         </Dialog>
       </Transition>

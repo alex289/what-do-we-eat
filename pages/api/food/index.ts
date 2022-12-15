@@ -12,12 +12,12 @@ export default async function handle(
     return res.status(405).json({ message: 'Only GET method allowed' });
   }
 
-  const orderBy = req.query.orderBy;
+  const sort = req.query.sort;
   const page = parseInt(req.query.page as string) || 1;
-  const take = parseInt(req.query.take as string) || 100;
+  const take = parseInt(req.query.take as string) || 40;
   const search = req.query.search;
 
-  const items = await prisma.food.findMany({
+  let items = await prisma.food.findMany({
     take,
     skip: (page - 1) * take,
     where: {
@@ -26,8 +26,29 @@ export default async function handle(
       },
     },
     orderBy: {
-      [orderBy ? 'name' : 'id']: orderBy === 'desc' ? 'desc' : 'asc',
+      [sort ? 'name' : 'id']: sort === 'desc' ? 'desc' : 'asc',
     },
   });
+
+  const cheeseometer = parseInt(req.query.cheeseometer as string);
+  if (cheeseometer) {
+    items = items.filter((item) => item.cheeseometer === cheeseometer);
+  }
+
+  const deliverable = req.query.deliverable;
+  if (deliverable) {
+    items = items.filter((item) => item.deliverable.toString() === deliverable);
+  }
+
+  const tags = req.query.tags;
+  if (tags) {
+    items = items.filter((item) => item.tags === tags);
+  }
+
+  const effort = parseInt(req.query.effort as string);
+  if (effort) {
+    items = items.filter((item) => item.effort === effort);
+  }
+
   res.json({ status: 'success', data: items });
 }
