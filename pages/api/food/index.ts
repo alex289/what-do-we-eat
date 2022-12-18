@@ -14,12 +14,12 @@ export default async function handle(
 
   const sort = req.query.sort;
   const page = parseInt(req.query.page as string) || 1;
-  const take = parseInt(req.query.take as string) || 40;
+  const amount = parseInt(req.query.amount as string) || 40;
   const search = req.query.search;
 
   let items = await prisma.food.findMany({
-    take,
-    skip: (page - 1) * take,
+    take: amount,
+    skip: (page - 1) * amount,
     where: {
       name: {
         contains: search as string,

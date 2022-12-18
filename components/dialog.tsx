@@ -19,6 +19,7 @@ export default function FilterDialog({ filter, filterer }: Props) {
 
     filterer({
       sort: target.sort.value.replace('-', ''),
+      amount: target.amount.value,
       effort: target.effort.value.replace('-', ''),
       deliverable: target.deliverable.value.replace('-', ''),
       cheeseometer: target.cheeseometer.value.replace('-', ''),
@@ -31,6 +32,7 @@ export default function FilterDialog({ filter, filterer }: Props) {
   function clearFilter() {
     filterer({
       sort: '',
+      amount: 40,
       effort: '',
       deliverable: '',
       cheeseometer: '',
@@ -91,6 +93,19 @@ export default function FilterDialog({ filter, filterer }: Props) {
                     <option value="asc">Ascending</option>
                     <option value="desc">Descending</option>
                   </select>
+
+                  <label
+                    htmlFor="amount"
+                    className="mb-2 block text-sm font-medium text-gray-900 dark:text-gray-400">
+                    Amount
+                  </label>
+                  <input
+                    id="amount"
+                    type="number"
+                    min={1}
+                    max={100}
+                    defaultValue={filter.amount}
+                    className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-violet-500 focus:ring-violet-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-violet-500 dark:focus:ring-violet-500"></input>
 
                   <label
                     htmlFor="cheeseometer"

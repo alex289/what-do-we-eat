@@ -42,6 +42,7 @@ const Index: NextPage<Props> = ({ fallbackData, fallbackFavoritesData }) => {
   const [randomizer, setRandomizer] = useState(false);
   const [filter, setFilter] = useState<FilterConfig>({
     sort: '',
+    amount: 40,
     effort: '',
     deliverable: '',
     cheeseometer: '',
@@ -52,6 +53,7 @@ const Index: NextPage<Props> = ({ fallbackData, fallbackFavoritesData }) => {
     `/api/food?page=${page}
     ${debouncedSearch !== '' ? '&search=' + debouncedSearch : ''}
     ${filter.sort !== '' ? '&sort=' + filter.sort : ''}
+    ${filter.amount !== 40 ? '&amount=' + filter.amount : ''}
     ${filter.effort !== '' ? '&effort=' + filter.effort : ''}
     ${filter.deliverable !== '' ? '&deliverable=' + filter.deliverable : ''}
     ${filter.cheeseometer !== '' ? '&cheeseometer=' + filter.cheeseometer : ''}
