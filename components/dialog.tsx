@@ -19,7 +19,7 @@ export default function FilterDialog({ filter, filterer }: Props) {
 
     filterer({
       sort: target.sort.value.replace('-', ''),
-      amount: target.amount.value,
+      amount: Number(target.amount.value),
       effort: target.effort.value.replace('-', ''),
       deliverable: target.deliverable.value.replace('-', ''),
       cheeseometer: target.cheeseometer.value.replace('-', ''),

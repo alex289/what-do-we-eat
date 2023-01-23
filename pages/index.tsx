@@ -196,7 +196,7 @@ const Index: NextPage<Props> = ({ fallbackData, fallbackFavoritesData }) => {
           <button
             disabled={page === 1}
             onClick={() => setPage(page - 1)}
-            className="ml-0 block rounded-l-lg border border-gray-300 bg-white px-3 py-2 leading-tight text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+            className="ml-0 block rounded-l-lg border border-gray-300 bg-white px-3 py-2 leading-tight text-gray-500 enabled:hover:bg-gray-100 enabled:hover:text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 enabled:dark:hover:bg-gray-700 enabled:dark:hover:text-white">
             <span className="sr-only">Previous</span>
             <svg
               aria-hidden="true"
@@ -218,9 +218,9 @@ const Index: NextPage<Props> = ({ fallbackData, fallbackFavoritesData }) => {
         </li>
         <li>
           <button
-            disabled={data?.data.length !== 40}
+            disabled={data?.data.length !== filter.amount}
             onClick={() => setPage(page + 1)}
-            className="block rounded-r-lg border border-gray-300 bg-white px-3 py-2 leading-tight text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+            className="block rounded-r-lg border border-gray-300 bg-white px-3 py-2 leading-tight text-gray-500 enabled:hover:bg-gray-100 enabled:hover:text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 enabled:dark:hover:bg-gray-700 enabled:dark:hover:text-white">
             <span className="sr-only">Next</span>
             <svg
               aria-hidden="true"
