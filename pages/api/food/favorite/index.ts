@@ -1,4 +1,4 @@
-import { unstable_getServerSession } from 'next-auth/next';
+import { getServerSession } from 'next-auth/next';
 
 import { prisma } from '@/lib/prisma';
 import { authOptions } from 'pages/api/auth/[...nextauth]';
@@ -15,7 +15,7 @@ export default async function handle(
     return res.status(405).json({ message: 'Only GET method allowed' });
   }
 
-  const session = await unstable_getServerSession(req, res, authOptions);
+  const session = await getServerSession(req, res, authOptions);
 
   const onlySelfEmail = (user: string) => {
     if (!session) {
