@@ -78,7 +78,7 @@ const Dashboard: NextPage<{
           <CreateFood />
         </Suspense>
 
-        <form className="ml-2 mb-2 flex items-center">
+        <form className="mb-2 ml-2 flex items-center">
           <label htmlFor="simple-search" className="sr-only">
             Search
           </label>

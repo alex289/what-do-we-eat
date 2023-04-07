@@ -179,13 +179,13 @@ export default function FilterDialog({ filter, filterer }: Props) {
                   <div className="mt-6">
                     <button
                       type="submit"
-                      className="mr-2 mb-2 rounded-lg bg-green-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-green-700 dark:bg-green-600 dark:hover:bg-green-700">
+                      className="mb-2 mr-2 rounded-lg bg-green-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-green-700 dark:bg-green-600 dark:hover:bg-green-700">
                       Apply filter
                     </button>
                     <button
                       onClick={clearFilter}
                       type="button"
-                      className="mr-2 mb-2 rounded-lg bg-red-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-red-700 dark:bg-red-600 dark:hover:bg-red-700">
+                      className="mb-2 mr-2 rounded-lg bg-red-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-red-700 dark:bg-red-600 dark:hover:bg-red-700">
                       Clear filter
                     </button>
                   </div>

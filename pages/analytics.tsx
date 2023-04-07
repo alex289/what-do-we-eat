@@ -61,13 +61,13 @@ const AnalyticsPage: NextPage<{
           <table className="w-full text-left text-sm text-gray-500 dark:text-gray-400">
             <thead className="bg-gray-100 text-xs uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400">
               <tr>
-                <th scope="col" className="py-3 px-6">
+                <th scope="col" className="px-6 py-3">
                   Food
                 </th>
-                <th scope="col" className="py-3 px-6">
+                <th scope="col" className="px-6 py-3">
                   Picked
                 </th>
-                <th scope="col" className="py-3 px-6">
+                <th scope="col" className="px-6 py-3">
                   Not Picked
                 </th>
               </tr>
@@ -80,11 +80,11 @@ const AnalyticsPage: NextPage<{
                     className="border-b bg-white hover:bg-gray-200 dark:border-gray-700 dark:bg-gray-800 hover:dark:bg-gray-600">
                     <th
                       scope="row"
-                      className="whitespace-nowrap py-4 px-6 font-medium text-gray-900 dark:text-white">
+                      className="whitespace-nowrap px-6 py-4 font-medium text-gray-900 dark:text-white">
                       {item.name}
                     </th>
-                    <td className="py-4 px-6">{item.picked}</td>
-                    <td className="py-4 px-6">{item.notPicked}</td>
+                    <td className="px-6 py-4">{item.picked}</td>
+                    <td className="px-6 py-4">{item.notPicked}</td>
                   </tr>
                 );
               })}

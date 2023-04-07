@@ -130,7 +130,7 @@ const Food = ({ foodList, favorite }: Props) => (
             {food.tags &&
               food.tags.split(',').map((tag) => (
                 <p className="text-base" key={tag.trim()}>
-                  <span className="my-4 rounded-full bg-green-600 py-1 px-3 text-sm">
+                  <span className="my-4 rounded-full bg-green-600 px-3 py-1 text-sm">
                     {tag.trim()}
                   </span>
                 </p>

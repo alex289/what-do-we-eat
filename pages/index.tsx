@@ -191,7 +191,7 @@ const Index: NextPage<Props> = ({ fallbackData, fallbackFavoritesData }) => {
         )}
       </Suspense>
 
-      <ul className="my-4 mx-auto flex items-center justify-center -space-x-px">
+      <ul className="mx-auto my-4 flex items-center justify-center -space-x-px">
         <li>
           <button
             disabled={page === 1}
