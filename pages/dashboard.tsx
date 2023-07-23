@@ -41,7 +41,7 @@ const Dashboard: NextPage<{
     fetcher,
     {
       fallbackData,
-    }
+    },
   );
 
   if (status === 'loading') {

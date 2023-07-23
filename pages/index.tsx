@@ -61,12 +61,12 @@ const Index: NextPage<Props> = ({ fallbackData, fallbackFavoritesData }) => {
     fetcher,
     {
       fallbackData,
-    }
+    },
   );
   const { data: favoriteData } = useSWR<ApiResponse<favorite[]>>(
     '/api/food/favorite',
     fetcher,
-    { fallbackData: fallbackFavoritesData }
+    { fallbackData: fallbackFavoritesData },
   );
 
   function handleClick(e: React.MouseEvent) {
@@ -99,7 +99,7 @@ const Index: NextPage<Props> = ({ fallbackData, fallbackFavoritesData }) => {
       toast.error(
         `Failed saving choice '${picked ? 'Good one' : 'Bad one'}': ${
           data.message
-        }`
+        }`,
       );
       return;
     }
@@ -109,7 +109,7 @@ const Index: NextPage<Props> = ({ fallbackData, fallbackFavoritesData }) => {
 
   const memoizedFoodList = useMemo(
     () => handleFood(data?.data || [], randomizer),
-    [data, randomizer]
+    [data, randomizer],
   );
 
   if (error) {

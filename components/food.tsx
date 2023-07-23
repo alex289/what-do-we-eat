@@ -35,7 +35,7 @@ const Food = ({ foodList, favorite }: Props) => (
               className="hover:underline"
               href={`https://www.chefkoch.de/rs/s0/${food.name.replace(
                 / /g,
-                '+'
+                '+',
               )}/Rezepte.html`}
               target="_blank"
               rel="noreferrer noopener">

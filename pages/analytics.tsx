@@ -17,7 +17,7 @@ const AnalyticsPage: NextPage<{
   const { data, error } = useSWR<ApiResponse<analytics[]>>(
     '/api/analytics',
     fetcher,
-    { fallbackData }
+    { fallbackData },
   );
 
   const memoizedData = useMemo(() => {
@@ -29,7 +29,7 @@ const AnalyticsPage: NextPage<{
 
     for (const currentAnalytics of data.data) {
       const existingAnalytics = uniqueAnalytics.find(
-        (a) => a.name === currentAnalytics.name
+        (a) => a.name === currentAnalytics.name,
       );
 
       if (!existingAnalytics) {
