@@ -8,7 +8,7 @@ const Analytics = () => {
           <Script
             async
             defer
-            data-website-id="b737e68a-8cc4-46b1-bac6-9d69828e8b91"
+            data-website-id="b81d45ca-284a-4726-8f51-0aff58212749"
             src="https://alexanderkonietzko-analytics.vercel.app/umami.js"
           />
         </>
