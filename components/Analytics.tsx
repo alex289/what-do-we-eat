@@ -9,7 +9,7 @@ const Analytics = () => {
             async
             defer
             data-website-id="b81d45ca-284a-4726-8f51-0aff58212749"
-            src="https://alexanderkonietzko-analytics.vercel.app/umami.js"
+            src="https://alexanderkonietzko-analytics.vercel.app/script.js"
           />
         </>
       )}
