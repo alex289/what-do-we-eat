@@ -1,15 +1,18 @@
 {
   "compilerOptions": {
     "baseUrl": ".",
-        "paths": {
-            "@/*": ["./*"],
-        },
-    "target": "es5",
+    "paths": {
+      "@/*": [
+        "./src/*"
+      ]
+    },
+    "target": "es2017",
     "lib": [
       "dom",
       "dom.iterable",
       "esnext"
     ],
+    "checkJs": true,
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -22,16 +25,22 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
-    "noUncheckedIndexedAccess": true
+    "noUncheckedIndexedAccess": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ]
   },
   "include": [
     "next-env.d.ts",
-    "types/**/*.d.ts",
+    "src/types/**/*.d.ts",
     "**/*.ts",
     "**/*.tsx",
     "**/*.mjs",
     "**/*.js",
     "**/*.cjs",
+    ".next/types/**/*.ts"
   ],
   "exclude": [
     "node_modules"
