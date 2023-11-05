@@ -1,7 +1,8 @@
 import '@/styles/global.css';
 import 'react-toastify/dist/ReactToastify.css';
 
-import { Inter } from '@next/font/google';
+import { GeistSans, GeistMono } from 'geist/font';
+import clsx from 'clsx';
 
 import Analytics from '@/components/Analytics';
 import { Providers } from '@/components/provider';
@@ -9,8 +10,6 @@ import Layout from '@/components/layout';
 
 import { type Metadata, type Viewport } from 'next';
 import { getServerAuthSession } from '@/lib/auth';
-
-const inter = Inter({ subsets: ['latin'] });
 
 export function generateMetadata(): Metadata {
   return {
@@ -92,7 +91,7 @@ export default async function RootLayout({
 }) {
   const session = await getServerAuthSession();
   return (
-    <html lang="en" className={inter.className}>
+    <html lang="en" className={clsx(GeistSans.variable, GeistMono.variable)}>
       <body className="bg-gray-50 text-black dark:bg-gray-800 dark:text-white">
         <Providers>
           <Layout session={session}>
