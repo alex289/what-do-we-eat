@@ -5,10 +5,11 @@ import { GeistSans } from 'geist/font/sans';
 import { GeistMono } from 'geist/font/mono';
 import clsx from 'clsx';
 
-import Analytics from '@/components/Analytics';
+import Analytics from '@/components/analytics';
 import { Providers } from '@/components/provider';
 
 import { type Metadata, type Viewport } from 'next';
+import Navbar from '@/components/navbar';
 
 export function generateMetadata(): Metadata {
   return {
@@ -92,8 +93,9 @@ export default function RootLayout({
     <html lang="en" className={clsx(GeistSans.variable, GeistMono.variable)}>
       <body className="bg-gray-50 text-black dark:bg-gray-800 dark:text-white">
         <Providers>
-          <Analytics />
+          <Navbar />
           {children}
+          <Analytics />
         </Providers>
       </body>
     </html>

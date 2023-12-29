@@ -3,24 +3,29 @@ import { CardTitle, CardHeader, CardContent, Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { prisma } from '@/lib/prisma';
 import Image from 'next/image';
-import { Input } from '@/components/ui/input';
 
-export default async function Home() {
+export default async function Dashboard() {
   const foodList = await prisma.food.findMany();
   return (
     <>
       <div className="mb-4 ml-4 flex items-center gap-4">
-        <Button className="px-4 py-2">Random Food</Button>
-        <Button className="px-4 py-2">Filter Dialog</Button>
-        <Input
+        <Button className="bg-blue-500 px-4 py-2 text-white">
+          Random Food
+        </Button>
+        <Button className="bg-blue-500 px-4 py-2 text-white">
+          Filter Dialog
+        </Button>
+        <input
+          aria-label="Search"
+          className="rounded-md border-2 border-gray-200 px-2 py-1"
           placeholder="Search food..."
-          className="w-fit dark:bg-gray-900"
+          type="search"
         />
       </div>
       <main className="grid grid-cols-1 gap-4 p-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
         {foodList.map((food) => (
           <Card className="col-span-full sm:col-span-1" key={food.id}>
-            <CardContent className="flex flex-col items-center gap-2 px-0">
+            <CardContent className="flex flex-col items-center gap-2">
               <Image
                 alt={food.name}
                 src={food.image}
@@ -30,18 +35,7 @@ export default async function Home() {
                 className="inset-0 h-64 w-full rounded-tl-lg rounded-tr-lg object-cover xl:h-48"
               />
               <CardHeader>
-                <CardTitle>
-                  <a
-                    className="hover:underline"
-                    href={`https://www.chefkoch.de/rs/s0/${food.name.replace(
-                      / /g,
-                      '+',
-                    )}/Rezepte.html`}
-                    target="_blank"
-                    rel="noreferrer noopener">
-                    {food.name}
-                  </a>
-                </CardTitle>
+                <CardTitle>{food.name}</CardTitle>
               </CardHeader>
               <div className="flex items-center gap-2">
                 <StarIcon className="h-6 w-6" />
