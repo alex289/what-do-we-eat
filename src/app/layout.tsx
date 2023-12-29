@@ -7,10 +7,8 @@ import clsx from 'clsx';
 
 import Analytics from '@/components/Analytics';
 import { Providers } from '@/components/provider';
-import Layout from '@/components/layout';
 
 import { type Metadata, type Viewport } from 'next';
-import { getServerAuthSession } from '@/lib/auth';
 
 export function generateMetadata(): Metadata {
   return {
@@ -85,20 +83,17 @@ export const viewport: Viewport = {
   colorScheme: 'light dark',
 };
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const session = await getServerAuthSession();
   return (
     <html lang="en" className={clsx(GeistSans.variable, GeistMono.variable)}>
       <body className="bg-gray-50 text-black dark:bg-gray-800 dark:text-white">
         <Providers>
-          <Layout session={session}>
-            <Analytics />
-            {children}
-          </Layout>
+          <Analytics />
+          {children}
         </Providers>
       </body>
     </html>
