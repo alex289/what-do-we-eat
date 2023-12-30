@@ -43,7 +43,7 @@ jobs:
     - name: Get pnpm store directory
       id: pnpm-cache
       run: |
-        echo "::set-output name=pnpm_cache_dir::$(pnpm store path)"
+        echo "pnpm_cache_dir=$(pnpm store path)" >> $GITHUB_OUTPUT
 
     - uses: actions/cache@v3
       name: Setup pnpm cache
@@ -117,7 +117,7 @@ jobs:
           body="${body//'%'/'%25'}"
           body="${body//$'\n'/'%0A'}"
           body="${body//$'\r'/'%0D'}"
-          echo ::set-output name=body::$body
+          echo "body=$body" >> $GITHUB_OUTPUT
 
       - name: Find Comment
         uses: peter-evans/find-comment@v2
