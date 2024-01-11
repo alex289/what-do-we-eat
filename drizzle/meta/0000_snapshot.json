@@ -1,0 +1,175 @@
+{
+  "id": "00000000-0000-0000-0000-000000000000",
+  "prevId": "",
+  "version": "5",
+  "dialect": "mysql",
+  "tables": {
+    "analytics": {
+      "name": "analytics",
+      "columns": {
+        "id": {
+          "autoincrement": true,
+          "name": "id",
+          "type": "int unsigned",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "name": {
+          "autoincrement": false,
+          "name": "name",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "picked": {
+          "autoincrement": false,
+          "name": "picked",
+          "type": "tinyint",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "compositePrimaryKeys": {
+        "analytics_id": {
+          "name": "analytics_id",
+          "columns": [
+            "id"
+          ]
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "uniqueConstraints": {
+        "analytics_id_key": {
+          "name": "analytics_id_key",
+          "columns": [
+            "id"
+          ]
+        }
+      }
+    },
+    "favorite": {
+      "name": "favorite",
+      "columns": {
+        "id": {
+          "autoincrement": false,
+          "name": "id",
+          "type": "int unsigned",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "user": {
+          "autoincrement": false,
+          "name": "user",
+          "type": "varchar(191)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "compositePrimaryKeys": {
+        "favorite_id": {
+          "name": "favorite_id",
+          "columns": [
+            "id"
+          ]
+        }
+      },
+      "indexes": {
+        "user": {
+          "name": "user",
+          "columns": [
+            "user"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {},
+      "uniqueConstraints": {}
+    },
+    "food": {
+      "name": "food",
+      "columns": {
+        "id": {
+          "autoincrement": true,
+          "name": "id",
+          "type": "int unsigned",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "name": {
+          "autoincrement": false,
+          "name": "name",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "image": {
+          "default": "''",
+          "autoincrement": false,
+          "name": "image",
+          "type": "varchar(1000)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "cheeseometer": {
+          "autoincrement": false,
+          "name": "cheeseometer",
+          "type": "int unsigned",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "deliverable": {
+          "autoincrement": false,
+          "name": "deliverable",
+          "type": "tinyint",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "tags": {
+          "autoincrement": false,
+          "name": "tags",
+          "type": "varchar(191)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "effort": {
+          "autoincrement": false,
+          "name": "effort",
+          "type": "int unsigned",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "compositePrimaryKeys": {
+        "food_id": {
+          "name": "food_id",
+          "columns": [
+            "id"
+          ]
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "uniqueConstraints": {
+        "food_id_key": {
+          "name": "food_id_key",
+          "columns": [
+            "id"
+          ]
+        },
+        "food_name_key": {
+          "name": "food_name_key",
+          "columns": [
+            "name"
+          ]
+        }
+      }
+    }
+  },
+  "schemas": {},
+  "_meta": {
+    "schemas": {},
+    "tables": {},
+    "columns": {}
+  }
+}

@@ -1,12 +1,12 @@
 import { Button } from '@/components/ui/button';
 import { CardTitle, CardHeader, CardContent, Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { prisma } from '@/lib/prisma';
 import Image from 'next/image';
 import { Input } from '@/components/ui/input';
+import { db } from '@/lib/db';
 
 export default async function Home() {
-  const foodList = await prisma.food.findMany();
+  const foodList = await db.query.food.findMany();
   return (
     <>
       <div className="mb-4 ml-4 flex items-center gap-4">
