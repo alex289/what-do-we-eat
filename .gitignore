@@ -3,6 +3,7 @@ dist
 .next
 .swc
 .env*.local
+.env
 sw.js
 workbox-*.js
 .DS_Store
