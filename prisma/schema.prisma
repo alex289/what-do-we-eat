@@ -3,29 +3,30 @@ generator client {
 }
 
 datasource db {
-  provider = "mysql"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("POSTGRES_PRISMA_URL") // uses connection pooling
+  directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
 }
 
 model food {
-  id           Int     @id @unique @default(autoincrement()) @db.UnsignedInt
+  id           Int     @id @unique @default(autoincrement())
   name         String  @unique @db.VarChar(255)
   image        String  @default("") @db.VarChar(1000)
-  cheeseometer Int     @db.UnsignedInt
+  cheeseometer Int
   deliverable  Boolean
   tags         String?
-  effort       Int     @db.UnsignedInt
+  effort       Int
 }
 
 model favorite {
-  id   Int    @id @db.UnsignedInt
+  id   Int    @id @db.Integer
   user String
 
   @@index([user], name: "user")
 }
 
 model analytics {
-  id     Int     @id @unique @default(autoincrement()) @db.UnsignedInt
+  id     Int     @id @unique @default(autoincrement())
   name   String  @db.VarChar(255)
   picked Boolean
 }
