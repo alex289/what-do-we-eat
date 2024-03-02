@@ -80,4 +80,5 @@ const securityHeaders = [
   },
 ];
 
+// @ts-expect-error - ignore for now
 export default million.next(nextConfig, { auto: { rsc: true } });
