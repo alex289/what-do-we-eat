@@ -55,7 +55,7 @@ export default function DashboardPage({
     fetcher,
   );
 
-  if (!session || !session.user.isAdmin) {
+  if (!session?.user?.isAdmin) {
     return (
       <div>
         <div className="m-10">Unauthorized</div>
