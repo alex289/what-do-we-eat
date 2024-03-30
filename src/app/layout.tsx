@@ -6,8 +6,8 @@ import { GeistMono } from 'geist/font/mono';
 import { GeistSans } from 'geist/font/sans';
 import { type Metadata, type Viewport } from 'next';
 import { ThemeProvider } from 'next-themes';
+import Script from 'next/script';
 
-import Analytics from '@/components/analytics';
 import Layout from '@/components/layout';
 import { getServerAuthSession } from '@/lib/auth';
 
@@ -99,8 +99,17 @@ export default async function RootLayout({
           enableSystem
           disableTransitionOnChange>
           <Layout session={session}>
-            <Analytics />
             {children}
+            {process.env.NODE_ENV === 'production' && (
+              <>
+                <Script
+                  async
+                  defer
+                  data-website-id="b81d45ca-284a-4726-8f51-0aff58212749"
+                  src="https://alexanderkonietzko-analytics.vercel.app/script.js"
+                />
+              </>
+            )}
           </Layout>
         </ThemeProvider>
       </body>
