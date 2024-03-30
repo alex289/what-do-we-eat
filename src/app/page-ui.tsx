@@ -22,6 +22,8 @@ import type { favorite } from '@prisma/client';
 import type { FilterConfig } from '@/types/config';
 import type { ApiResponse } from '@/types/apiResponse';
 import { type Session } from 'next-auth';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 
 export default function IndexPage({ session }: { session: Session | null }) {
   const { resolvedTheme } = useTheme();
@@ -73,7 +75,7 @@ export default function IndexPage({ session }: { session: Session | null }) {
   }
 
   async function submitAnalytics(picked: boolean) {
-    const res = await fetch('/api/analytics/create', {
+    const res = await fetch('/api/analytics', {
       method: 'POST',
       body: JSON.stringify({
         name: memoizedFoodList[0]?.name,
@@ -112,61 +114,37 @@ export default function IndexPage({ session }: { session: Session | null }) {
         newestOnTop={true}
         theme={resolvedTheme === 'dark' ? 'dark' : 'light'}
       />
-      <div className="mb-2 flex flex-col sm:flex-row">
+      <div className="mb-4 flex flex-col sm:flex-row">
         <div className="mx-2 flex justify-between sm:block 2xl:mx-8">
-          <button
-            onClick={handleClick}
-            type="button"
-            className="umami--click--random-food mx-3 mb-2 rounded-lg bg-violet-500 px-5 py-2.5 text-sm font-medium text-white hover:bg-violet-700 dark:bg-violet-700 hover:dark:bg-violet-900">
+          <Button
+            className="umami--click--random-food mx-3"
+            onClick={handleClick}>
             {btnTitle}
-          </button>
+          </Button>
           <Suspense>
             <Dialog filter={filter} filterer={setFilter} />
           </Suspense>
         </div>
 
-        <form className="mx-4 mb-2 mt-1 flex items-center sm:mx-0 sm:mt-0">
-          <label htmlFor="simple-search" className="sr-only">
-            Search
-          </label>
-          <div className="relative w-full">
-            <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-              <svg
-                aria-hidden="true"
-                className="h-5 w-5 text-gray-500 dark:text-gray-400"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg">
-                <path
-                  fillRule="evenodd"
-                  d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-                  clipRule="evenodd"></path>
-              </svg>
-            </div>
-            <input
-              onChange={(e) => setSearch(e.target.value)}
-              type="text"
-              id="simple-search"
-              className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 pl-10 text-sm text-gray-900 focus:border-violet-500 focus:ring-violet-500  dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-violet-500 dark:focus:ring-violet-500"
-              placeholder="Search"
-              required
-            />
-          </div>
-        </form>
+        <Input
+          type="text"
+          placeholder="Search"
+          onChange={(e) => setSearch(e.target.value)}
+          className="ml-1 w-64"
+        />
       </div>
 
       {randomizer && session && (
-        <div className="mb-2 ml-1 p-2 2xl:ml-7">
-          <button
-            onClick={() => submitAnalytics(true)}
-            className="mx-2 mb-2 rounded-lg bg-green-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-4 focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
+        <div className="mb-2 ml-3 flex gap-3 p-2 2xl:ml-7">
+          <Button
+            className="bg-green-600 hover:bg-green-500 dark:bg-green-700 dark:hover:bg-green-800"
+            onClick={() => submitAnalytics(true)}>
             Good choice
-          </button>
-          <button
-            onClick={() => submitAnalytics(false)}
-            className="mx-2 mb-2 rounded-lg bg-red-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-4 focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">
+          </Button>
+
+          <Button variant="destructive" onClick={() => submitAnalytics(false)}>
             Bad choice
-          </button>
+          </Button>
         </div>
       )}
       <Suspense>

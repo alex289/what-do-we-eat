@@ -1,3 +1,4 @@
+import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 
 export default function NotFound() {
@@ -13,10 +14,8 @@ export default function NotFound() {
           something wrong. I&apos;m guessing you spelled something wrong. Can
           you double check that URL?
         </p>
-        <Link
-          href="/"
-          className="btn mx-auto w-64 rounded-md border-none bg-gray-200 p-1 py-3 text-center font-bold text-black hover:bg-[#c9c9c9] dark:bg-gray-700 dark:text-white hover:dark:bg-gray-600 sm:p-4">
-          Return home
+        <Link href="/" className="mx-auto">
+          <Button>Return home</Button>
         </Link>
       </div>
     </div>

@@ -1,8 +1,8 @@
 import { Fragment, useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 
-import Button from '@/components/core/Button';
 import type { FilterConfig } from '@/types/config';
+import { Button } from './ui/button';
 
 interface Props {
   filter: FilterConfig;

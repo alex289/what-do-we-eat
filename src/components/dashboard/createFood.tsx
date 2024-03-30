@@ -3,6 +3,7 @@ import { type FormEvent, Fragment, useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { toast } from 'react-toastify';
 import { useSWRConfig } from 'swr';
+import { Button } from '../ui/button';
 
 interface FormData {
   target: {
@@ -22,7 +23,7 @@ const CreateFood = () => {
   async function saveFood(e: FormEvent<HTMLFormElement> & FormData) {
     e.preventDefault();
 
-    const res = await fetch('/api/food/create', {
+    const res = await fetch('/api/food', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -52,11 +53,11 @@ const CreateFood = () => {
 
   return (
     <>
-      <button
+      <Button
         onClick={() => setIsOpen(true)}
-        className="mx-3 mb-2 rounded-lg bg-green-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-4 focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
+        className="mx-3 bg-green-600 hover:bg-green-500 dark:bg-green-700 dark:hover:bg-green-800">
         Create food
-      </button>
+      </Button>
 
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog

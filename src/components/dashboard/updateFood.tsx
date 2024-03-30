@@ -5,6 +5,7 @@ import { useSWRConfig } from 'swr';
 import { toast } from 'react-toastify';
 
 import type { food } from '@prisma/client';
+import { Button } from '../ui/button';
 
 interface FormData {
   target: {
@@ -54,11 +55,11 @@ const UpdateFood = ({ food }: { food: food }) => {
 
   return (
     <>
-      <button
-        onClick={() => setIsOpen(true)}
-        className="mb-2 mr-3 w-full rounded-lg bg-orange-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-orange-700 focus:outline-none focus:ring-4 focus:ring-orange-300 dark:bg-orange-600 dark:hover:bg-orange-700 dark:focus:ring-orange-800">
+      <Button
+        className="bg-orange-600 hover:bg-orange-500 dark:bg-orange-700 dark:hover:bg-orange-800"
+        onClick={() => setIsOpen(true)}>
         Update
-      </button>
+      </Button>
 
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog

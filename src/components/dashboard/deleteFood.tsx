@@ -5,6 +5,7 @@ import { useSWRConfig } from 'swr';
 import { toast } from 'react-toastify';
 
 import type { food } from '@prisma/client';
+import { Button } from '../ui/button';
 
 const DeleteFood = ({ food }: { food: food }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -32,11 +33,9 @@ const DeleteFood = ({ food }: { food: food }) => {
 
   return (
     <>
-      <button
-        onClick={() => setIsOpen(true)}
-        className="mb-2 mr-3 w-full rounded-lg bg-red-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-4 focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">
+      <Button variant="destructive" onClick={() => setIsOpen(true)}>
         Delete
-      </button>
+      </Button>
 
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog
@@ -88,13 +87,11 @@ const DeleteFood = ({ food }: { food: food }) => {
                   <p>Are you sure you want to delete {`"${food.name}"`}?</p>
 
                   <form
-                    className="flex flex-col"
+                    className="mt-4 flex flex-col"
                     onSubmit={(e) => deleteFood(e)}>
-                    <button
-                      className="btn mt-5 rounded-lg border-none bg-red-600 py-2 text-lg text-gray-100 ring-red-400 hover:bg-red-700 hover:ring-4"
-                      type="submit">
+                    <Button variant="destructive" type="submit">
                       Delete food
-                    </button>
+                    </Button>
                   </form>
                 </Dialog.Panel>
               </Transition.Child>

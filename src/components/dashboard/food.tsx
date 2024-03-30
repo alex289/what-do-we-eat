@@ -54,7 +54,7 @@ const DashboardFood = ({ foodList }: { foodList: food[] }) => {
                   </p>
                 ))}
             </div>
-            <div className={`mb-4 flex flex-col ${!food.tags && 'pt-6'}`}>
+            <div className={`mb-4 flex flex-col gap-2 ${!food.tags && 'pt-6'}`}>
               <UpdateFood food={food} />
               <DeleteFood food={food} />
             </div>

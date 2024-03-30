@@ -5,12 +5,12 @@ import { GeistSans } from 'geist/font/sans';
 import { GeistMono } from 'geist/font/mono';
 import clsx from 'clsx';
 
-import Analytics from '@/components/Analytics';
-import { Providers } from '@/components/provider';
+import Analytics from '@/components/analytics';
 import Layout from '@/components/layout';
 
 import { type Metadata, type Viewport } from 'next';
 import { getServerAuthSession } from '@/lib/auth';
+import { ThemeProvider } from 'next-themes';
 
 export function generateMetadata(): Metadata {
   return {
@@ -93,13 +93,17 @@ export default async function RootLayout({
   const session = await getServerAuthSession();
   return (
     <html lang="en" className={clsx(GeistSans.variable, GeistMono.variable)}>
-      <body className="bg-gray-50 text-black dark:bg-gray-800 dark:text-white">
-        <Providers>
+      <body className="min-h-screen bg-background font-sans antialiased">
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange>
           <Layout session={session}>
             <Analytics />
             {children}
           </Layout>
-        </Providers>
+        </ThemeProvider>
       </body>
     </html>
   );
