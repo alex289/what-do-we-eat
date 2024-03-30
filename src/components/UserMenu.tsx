@@ -1,9 +1,8 @@
-import { Fragment } from 'react';
-import Link from 'next/link';
-import Image from 'next/image';
-
 import { Menu, Transition } from '@headlessui/react';
 import { signOut } from 'next-auth/react';
+import Image from 'next/image';
+import Link from 'next/link';
+import { Fragment } from 'react';
 
 interface Props {
   user: {

@@ -1,15 +1,21 @@
 'use client';
 
-import { Suspense, useMemo, useState } from 'react';
-import dynamic from 'next/dynamic';
-
-import useSWR from 'swr';
-import { toast, ToastContainer, Zoom } from 'react-toastify';
+import { type Session } from 'next-auth';
 import { useTheme } from 'next-themes';
+import dynamic from 'next/dynamic';
+import { Suspense, useMemo, useState } from 'react';
+import { toast, ToastContainer, Zoom } from 'react-toastify';
+import useSWR from 'swr';
 
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 import fetcher from '@/lib/fetcher';
 import { handleFood } from '@/lib/filter';
 import { useDebounce } from '@/lib/useDebounce';
+
+import type { ApiResponse } from '@/types/apiResponse';
+import type { FilterConfig } from '@/types/config';
+import type { favorite } from '@prisma/client';
 
 const Food = dynamic(() => import('@/components/food'), {
   suspense: true,
@@ -17,13 +23,6 @@ const Food = dynamic(() => import('@/components/food'), {
 const Dialog = dynamic(() => import('@/components/dialog'), {
   suspense: true,
 });
-
-import type { favorite } from '@prisma/client';
-import type { FilterConfig } from '@/types/config';
-import type { ApiResponse } from '@/types/apiResponse';
-import { type Session } from 'next-auth';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 
 export default function IndexPage({ session }: { session: Session | null }) {
   const { resolvedTheme } = useTheme();

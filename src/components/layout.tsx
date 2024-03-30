@@ -1,7 +1,8 @@
-import type { ReactNode } from 'react';
+import { type Session } from 'next-auth';
 
 import Navbar from '@/components/navbar';
-import { type Session } from 'next-auth';
+
+import type { ReactNode } from 'react';
 
 const Layout = ({
   children,

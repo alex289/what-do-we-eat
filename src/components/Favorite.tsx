@@ -1,12 +1,11 @@
+import { type Session } from 'next-auth';
 import { useEffect, useMemo, useState } from 'react';
-
 import { toast } from 'react-toastify';
 import { useSWRConfig } from 'swr';
 
 import HeartIcon from '@/components/icons/HeartIcon';
 
 import type { favorite } from '@prisma/client';
-import { type Session } from 'next-auth';
 
 interface Props {
   foodId: number;

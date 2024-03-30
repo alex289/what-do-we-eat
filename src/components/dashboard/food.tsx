@@ -1,13 +1,13 @@
-import Image from 'next/image';
 import dynamic from 'next/dynamic';
+import Image from 'next/image';
 
 import CheckMark from '@/components/icons/CheckMark';
 import CrossMark from '@/components/icons/CrossMark';
 
+import type { food } from '@prisma/client';
+
 const UpdateFood = dynamic(() => import('@/components/dashboard/updateFood'));
 const DeleteFood = dynamic(() => import('@/components/dashboard/deleteFood'));
-
-import type { food } from '@prisma/client';
 
 const DashboardFood = ({ foodList }: { foodList: food[] }) => {
   return (

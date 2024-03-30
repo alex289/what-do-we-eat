@@ -1,11 +1,11 @@
+import { type Session } from 'next-auth';
 import Image from 'next/image';
-
-import type { favorite, food } from '@prisma/client';
 
 import Favorite from '@/components/Favorite';
 import CheckMark from '@/components/icons/CheckMark';
 import CrossMark from '@/components/icons/CrossMark';
-import { type Session } from 'next-auth';
+
+import type { favorite, food } from '@prisma/client';
 
 interface Props {
   foodList: food[];

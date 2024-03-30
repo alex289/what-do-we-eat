@@ -1,11 +1,12 @@
-import { type FormEvent, Fragment, useState } from 'react';
-
 import { Dialog, Transition } from '@headlessui/react';
-import { useSWRConfig } from 'swr';
+import { Fragment, useState } from 'react';
 import { toast } from 'react-toastify';
+import { useSWRConfig } from 'swr';
+
+import { Button } from '../ui/button';
 
 import type { food } from '@prisma/client';
-import { Button } from '../ui/button';
+import type { FormEvent } from 'react';
 
 const DeleteFood = ({ food }: { food: food }) => {
   const [isOpen, setIsOpen] = useState(false);

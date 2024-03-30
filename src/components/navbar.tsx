@@ -1,11 +1,10 @@
 'use client';
 
-import Link from 'next/link';
-import dynamic from 'next/dynamic';
-
-import { signIn } from 'next-auth/react';
-
 import { type Session } from 'next-auth';
+import { signIn } from 'next-auth/react';
+import dynamic from 'next/dynamic';
+import Link from 'next/link';
+
 import { ThemeToggle } from './theme-toggle';
 import { Button } from './ui/button';
 

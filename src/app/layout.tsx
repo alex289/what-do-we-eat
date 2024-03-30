@@ -1,16 +1,15 @@
 import '@/styles/global.css';
 import 'react-toastify/dist/ReactToastify.css';
 
-import { GeistSans } from 'geist/font/sans';
-import { GeistMono } from 'geist/font/mono';
 import clsx from 'clsx';
+import { GeistMono } from 'geist/font/mono';
+import { GeistSans } from 'geist/font/sans';
+import { type Metadata, type Viewport } from 'next';
+import { ThemeProvider } from 'next-themes';
 
 import Analytics from '@/components/analytics';
 import Layout from '@/components/layout';
-
-import { type Metadata, type Viewport } from 'next';
 import { getServerAuthSession } from '@/lib/auth';
-import { ThemeProvider } from 'next-themes';
 
 export function generateMetadata(): Metadata {
   return {

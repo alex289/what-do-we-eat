@@ -1,9 +1,11 @@
-import { type FormEvent, Fragment, useState } from 'react';
-
 import { Dialog, Transition } from '@headlessui/react';
+import { Fragment, useState } from 'react';
 import { toast } from 'react-toastify';
 import { useSWRConfig } from 'swr';
+
 import { Button } from '../ui/button';
+
+import type { FormEvent } from 'react';
 
 interface FormData {
   target: {

@@ -1,14 +1,18 @@
 'use client';
 
-import { Suspense, useState } from 'react';
-import dynamic from 'next/dynamic';
-
-import useSWR from 'swr';
-import { ToastContainer, Zoom } from 'react-toastify';
+import { type FilterConfig } from '@/types/config';
+import { type Session } from 'next-auth';
 import { useTheme } from 'next-themes';
+import dynamic from 'next/dynamic';
+import { Suspense, useState } from 'react';
+import { ToastContainer, Zoom } from 'react-toastify';
+import useSWR from 'swr';
 
+import { Input } from '@/components/ui/input';
 import fetcher from '@/lib/fetcher';
 import { useDebounce } from '@/lib/useDebounce';
+
+import type { ApiResponse } from '@/types/apiResponse';
 
 const DashboardFood = dynamic(() => import('@/components/dashboard/food'), {
   suspense: true,
@@ -19,11 +23,6 @@ const CreateFood = dynamic(() => import('@/components/dashboard/createFood'), {
 const Dialog = dynamic(() => import('@/components/dialog'), {
   suspense: true,
 });
-
-import type { ApiResponse } from '@/types/apiResponse';
-import { type Session } from 'next-auth';
-import { type FilterConfig } from '@/types/config';
-import { Input } from '@/components/ui/input';
 
 export default function DashboardPage({
   session,

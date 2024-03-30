@@ -1,6 +1,7 @@
+import { type favorite } from '@prisma/client';
+
 import { getServerAuthSession } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
-import { type favorite } from '@prisma/client';
 
 export async function GET() {
   const session = await getServerAuthSession();

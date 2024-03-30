@@ -1,10 +1,11 @@
 'use client';
 
-import fetcher from '@/lib/fetcher';
 import { type ApiResponse } from '@/types/apiResponse';
 import { type analytics } from '@prisma/client';
 import { useMemo } from 'react';
 import useSWR from 'swr';
+
+import fetcher from '@/lib/fetcher';
 
 export default function AnalyticsPage() {
   const { data, error } = useSWR<ApiResponse<analytics[]>, string>(
