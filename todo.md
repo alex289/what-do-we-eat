@@ -17,17 +17,16 @@ Refactor Design:
 
 Features:
 
-- Drizzle
+- Drizzle (+drizzle eslint)
 - Clerk auth
 - Sentry
 - Posthog
-- Upstash
+- Upstash rate limiting
 - Uploadthing
 - Let users add their own food
 
 Chores:
 
-- Turbo
 - Readme update
 
 Inspiration: https://github.com/t3dotgg/t3gallery
