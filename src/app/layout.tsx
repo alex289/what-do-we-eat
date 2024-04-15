@@ -8,6 +8,7 @@ import { type Metadata, type Viewport } from 'next';
 import { ThemeProvider } from 'next-themes';
 import Script from 'next/script';
 
+import { env } from '@/env.mjs';
 import Layout from '@/components/layout';
 import { getServerAuthSession } from '@/lib/auth';
 
@@ -100,7 +101,7 @@ export default async function RootLayout({
           disableTransitionOnChange>
           <Layout session={session}>
             {children}
-            {process.env.NODE_ENV === 'production' && (
+            {env.NODE_ENV === 'production' && (
               <>
                 <Script
                   async

@@ -9,8 +9,25 @@ Refactor Design:
 - Filter dialog
 - Pagination
 - Toasts
-- Og image
-- Server components?
+- OG image
+- Server components
 - Breadcrumbs?
 - Fix adding analytics and food
 - CRUD dialogs
+
+Features:
+
+- Drizzle
+- Clerk auth
+- Sentry
+- Posthog
+- Upstash
+- Uploadthing
+- Let users add their own food
+
+Chores:
+
+- Turbo
+- Readme update
+
+Inspiration: https://github.com/t3dotgg/t3gallery
