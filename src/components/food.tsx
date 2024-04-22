@@ -5,11 +5,11 @@ import Favorite from '@/components/Favorite';
 import CheckMark from '@/components/icons/CheckMark';
 import CrossMark from '@/components/icons/CrossMark';
 
-import type { favorite, food } from '@prisma/client';
+import type { Favorite as FavoriteType, Food } from '@/server/db/types';
 
 interface Props {
-  foodList: food[];
-  favorite: favorite[] | undefined;
+  foodList: Food[];
+  favorite: FavoriteType[] | undefined;
   session: Session | null;
 }
 

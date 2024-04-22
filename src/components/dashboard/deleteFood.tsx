@@ -5,10 +5,10 @@ import { useSWRConfig } from 'swr';
 
 import { Button } from '../ui/button';
 
-import type { food } from '@prisma/client';
+import type { Food } from '@/server/db/types';
 import type { FormEvent } from 'react';
 
-const DeleteFood = ({ food }: { food: food }) => {
+const DeleteFood = ({ food }: { food: Food }) => {
   const [isOpen, setIsOpen] = useState(false);
   const { mutate } = useSWRConfig();
 

@@ -1,7 +1,8 @@
+import { db } from '@/server/db';
+import { food } from '@/server/db/schema';
 import { revalidatePath } from 'next/cache';
 
 import { getServerAuthSession } from '@/lib/auth';
-import { prisma } from '@/lib/prisma';
 
 export async function GET(req: Request) {
   const queries = new URLSearchParams(req.url);
@@ -11,19 +12,19 @@ export async function GET(req: Request) {
   const amount = parseInt(queries.get('amount')!) || 40;
   const search = queries.get('search') ?? '';
 
-  let items = await prisma.food.findMany({
-    take: amount,
-    skip: (page - 1) * amount,
-    where: {
-      name: {
-        contains: search,
-      },
-    },
-    orderBy: {
-      [sort ? 'name' : 'id']: sort === 'desc' ? 'desc' : 'asc',
-    },
+  let items = await db.query.food.findMany({
+    limit: amount,
+    offset: (page - 1) * amount,
+    where: (foods, { like }) =>
+      like(foods.name, search.length > 1 ? `%${search}%` : '%'),
+    orderBy: (foods, { asc, desc }) => [
+      sort === 'desc'
+        ? desc(sort ? foods.name : foods.id)
+        : asc(sort ? foods.name : foods.id),
+    ],
   });
 
+  // Todo: These filters should be moved to the database query
   const cheeseometer = parseInt(queries.get('cheeseometer')!);
   if (cheeseometer) {
     items = items.filter((item) => item.cheeseometer === cheeseometer);
@@ -74,8 +75,8 @@ export async function POST(req: Request) {
       effort: number;
     };
 
-  const existingFood = await prisma.food.findFirst({
-    where: { name },
+  const existingFood = await db.query.food.findFirst({
+    where: (foods, { eq }) => eq(foods.name, name),
   });
 
   if (existingFood) {
@@ -90,15 +91,13 @@ export async function POST(req: Request) {
     );
   }
 
-  const result = await prisma.food.create({
-    data: {
-      name: name,
-      image: image,
-      cheeseometer: cheeseometer,
-      deliverable: deliverable,
-      tags: tags,
-      effort: effort,
-    },
+  const result = await db.insert(food).values({
+    name: name,
+    image: image,
+    cheeseometer: cheeseometer,
+    deliverable: deliverable,
+    tags: tags,
+    effort: effort,
   });
 
   revalidatePath('/');

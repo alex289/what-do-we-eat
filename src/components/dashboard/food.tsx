@@ -4,12 +4,12 @@ import Image from 'next/image';
 import CheckMark from '@/components/icons/CheckMark';
 import CrossMark from '@/components/icons/CrossMark';
 
-import type { food } from '@prisma/client';
+import type { Food } from '@/server/db/types';
 
 const UpdateFood = dynamic(() => import('@/components/dashboard/updateFood'));
 const DeleteFood = dynamic(() => import('@/components/dashboard/deleteFood'));
 
-const DashboardFood = ({ foodList }: { foodList: food[] }) => {
+const DashboardFood = ({ foodList }: { foodList: Food[] }) => {
   return (
     <ul className="md:grid-flow-column 2xl:grid-cols-fit mx-2 mt-3 grid gap-6 px-2 sm:grid-cols-2 md:mt-0 lg:grid-cols-3 xl:grid-cols-5 2xl:mx-8 2xl:grid-cols-6">
       {foodList.map((food, index) => (

@@ -1,5 +1,8 @@
+import { db } from '@/server/db';
+import { favorite } from '@/server/db/schema';
+import { and, eq } from 'drizzle-orm';
+
 import { getServerAuthSession } from '@/lib/auth';
-import { prisma } from '@/lib/prisma';
 
 export async function PUT(
   _req: Request,
@@ -29,7 +32,9 @@ export async function PUT(
     });
   }
 
-  const item = await prisma.food.findUnique({ where: { id: Number(foodId) } });
+  const item = await db.query.food.findFirst({
+    where: (foods, { eq }) => eq(foods.id, Number(foodId)),
+  });
 
   if (!item) {
     return new Response(
@@ -43,11 +48,9 @@ export async function PUT(
     );
   }
 
-  const result = await prisma.favorite.create({
-    data: {
-      id: Number(foodId),
-      user: session.user.email,
-    },
+  const result = await db.insert(favorite).values({
+    id: Number(foodId),
+    user: session.user.email,
   });
 
   return new Response(JSON.stringify({ status: 'success', data: result }), {
@@ -86,7 +89,9 @@ export async function DELETE(
     });
   }
 
-  const item = await prisma.food.findUnique({ where: { id: Number(foodId) } });
+  const item = await db.query.food.findFirst({
+    where: (foods, { eq }) => eq(foods.id, Number(foodId)),
+  });
 
   if (!item) {
     return new Response(
@@ -100,12 +105,14 @@ export async function DELETE(
     );
   }
 
-  await prisma.favorite.deleteMany({
-    where: {
-      id: Number(foodId),
-      user: session.user.email,
-    },
-  });
+  await db
+    .delete(favorite)
+    .where(
+      and(
+        eq(favorite.id, Number(foodId)),
+        eq(favorite.user, session.user.email),
+      ),
+    );
 
   return new Response(JSON.stringify({ status: 'success' }), {
     status: 200,

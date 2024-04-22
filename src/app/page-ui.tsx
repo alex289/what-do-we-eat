@@ -13,9 +13,9 @@ import fetcher from '@/lib/fetcher';
 import { handleFood } from '@/lib/filter';
 import { useDebounce } from '@/lib/useDebounce';
 
+import type { Favorite } from '@/server/db/types';
 import type { ApiResponse } from '@/types/apiResponse';
 import type { FilterConfig } from '@/types/config';
-import type { favorite } from '@prisma/client';
 
 const Food = dynamic(() => import('@/components/food'), {
   suspense: true,
@@ -53,7 +53,7 @@ export default function IndexPage({ session }: { session: Session | null }) {
     ${filter.tags !== '' ? '&tags=' + filter.tags : ''}`,
     fetcher,
   );
-  const { data: favoriteData } = useSWR<ApiResponse<favorite[]>>(
+  const { data: favoriteData } = useSWR<ApiResponse<Favorite[]>>(
     '/api/food/favorite',
     fetcher,
   );

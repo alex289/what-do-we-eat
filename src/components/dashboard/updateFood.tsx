@@ -5,7 +5,7 @@ import { useSWRConfig } from 'swr';
 
 import { Button } from '../ui/button';
 
-import type { food } from '@prisma/client';
+import type { Food } from '@/server/db/types';
 import type { FormEvent } from 'react';
 
 interface FormData {
@@ -19,7 +19,7 @@ interface FormData {
   };
 }
 
-const UpdateFood = ({ food }: { food: food }) => {
+const UpdateFood = ({ food }: { food: Food }) => {
   const { mutate } = useSWRConfig();
   const [isOpen, setIsOpen] = useState(false);
 
@@ -139,7 +139,7 @@ const UpdateFood = ({ food }: { food: food }) => {
                       name="image"
                       id="updateImage"
                       placeholder="Enter image url"
-                      defaultValue={food.image}
+                      defaultValue={food.image ?? ''}
                       className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-violet-500 focus:ring-violet-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-violet-500 dark:focus:ring-violet-500"></input>
 
                     <label
