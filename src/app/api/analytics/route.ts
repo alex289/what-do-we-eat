@@ -1,7 +1,8 @@
+import { db } from '@/server/db';
+import { analytics } from '@/server/db/schema';
 import { revalidatePath } from 'next/cache';
 
 import { getServerAuthSession } from '@/lib/auth';
-import { prisma } from '@/lib/prisma';
 
 export async function POST(req: Request) {
   const session = await getServerAuthSession();
@@ -32,10 +33,8 @@ export async function POST(req: Request) {
     });
   }
 
-  const existingFood = await prisma.food.findUnique({
-    where: {
-      name,
-    },
+  const existingFood = await db.query.food.findFirst({
+    where: (foods, { eq }) => eq(foods.name, name),
   });
 
   if (!existingFood) {
@@ -49,11 +48,10 @@ export async function POST(req: Request) {
 
   revalidatePath('/analytics');
 
-  const result = await prisma.analytics.create({
-    data: {
-      name,
-      picked,
-    },
+  const result = await db.insert(analytics).values({
+    name: name,
+    picked: picked,
+    date: Date.now.toString(),
   });
 
   return new Response(JSON.stringify({ status: 'success', data: result }), {
@@ -65,7 +63,7 @@ export async function POST(req: Request) {
 }
 
 export async function GET() {
-  const items = await prisma.analytics.findMany();
+  const items = await db.query.analytics.findMany();
   return new Response(JSON.stringify({ status: 'success', data: items }), {
     status: 200,
     headers: {

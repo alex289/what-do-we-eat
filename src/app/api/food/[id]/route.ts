@@ -1,7 +1,9 @@
+import { db } from '@/server/db';
+import { analytics, favorite, food } from '@/server/db/schema';
+import { eq } from 'drizzle-orm';
 import { revalidatePath } from 'next/cache';
 
 import { getServerAuthSession } from '@/lib/auth';
-import { prisma } from '@/lib/prisma';
 
 export async function PUT(
   req: Request,
@@ -31,7 +33,9 @@ export async function PUT(
     );
   }
 
-  const item = await prisma.food.findMany({ where: { id: Number(foodId) } });
+  const item = await db.query.food.findMany({
+    where: (foods, { eq }) => eq(foods.id, Number(foodId)),
+  });
 
   if (!item) {
     return new Response(
@@ -45,7 +49,9 @@ export async function PUT(
     );
   }
 
-  const existingFoodByName = await prisma.food.findFirst({ where: { name } });
+  const existingFoodByName = await db.query.food.findFirst({
+    where: (foods, { eq }) => eq(foods.name, name),
+  });
 
   if (existingFoodByName && existingFoodByName.id !== Number(foodId)) {
     return new Response(
@@ -59,23 +65,22 @@ export async function PUT(
     );
   }
 
-  const result = await prisma.food.update({
-    where: { id: Number(foodId) },
-    data: {
+  const result = await db
+    .update(food)
+    .set({
       name: name,
       image: image,
       cheeseometer: cheeseometer,
       deliverable: deliverable,
       tags: tags,
       effort: effort,
-    },
-  });
-  await prisma.analytics.updateMany({
-    where: { id: Number(foodId) },
-    data: {
-      name,
-    },
-  });
+    })
+    .where(eq(food.id, Number(foodId)));
+
+  await db
+    .update(analytics)
+    .set({ name })
+    .where(eq(analytics.id, Number(foodId)));
 
   revalidatePath('/');
   revalidatePath('/dashboard');
@@ -117,10 +122,8 @@ export async function DELETE(
     });
   }
 
-  const existingFood = await prisma.food.findUnique({
-    where: {
-      id: Number(foodId),
-    },
+  const existingFood = await db.query.food.findFirst({
+    where: (foods, { eq }) => eq(foods.id, Number(foodId)),
   });
 
   if (!existingFood) {
@@ -135,11 +138,9 @@ export async function DELETE(
     );
   }
 
-  const result = await prisma.food.delete({
-    where: { id: Number(foodId) },
-  });
-  await prisma.favorite.deleteMany({ where: { id: Number(foodId) } });
-  await prisma.analytics.deleteMany({ where: { id: Number(foodId) } });
+  const result = await db.delete(food).where(eq(food.id, Number(foodId)));
+  await db.delete(favorite).where(eq(favorite.id, Number(foodId)));
+  await db.delete(analytics).where(eq(analytics.id, Number(foodId)));
 
   revalidatePath('/');
   revalidatePath('/dashboard');

@@ -11,13 +11,11 @@ Refactor Design:
 - Toasts
 - OG image
 - Server components
-- Breadcrumbs?
 - Fix adding analytics and food
 - CRUD dialogs
 
 Features:
 
-- Drizzle (+drizzle eslint)
 - Clerk auth
 - Sentry
 - Posthog

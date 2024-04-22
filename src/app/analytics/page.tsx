@@ -1,14 +1,15 @@
 'use client';
 
 import { type ApiResponse } from '@/types/apiResponse';
-import { type analytics } from '@prisma/client';
 import { useMemo } from 'react';
 import useSWR from 'swr';
 
 import fetcher from '@/lib/fetcher';
 
+import type { Analytics } from '@/server/db/types';
+
 export default function AnalyticsPage() {
-  const { data, error } = useSWR<ApiResponse<analytics[]>, string>(
+  const { data, error } = useSWR<ApiResponse<Analytics[]>, string>(
     '/api/analytics',
     fetcher,
   );
@@ -18,7 +19,7 @@ export default function AnalyticsPage() {
       return [];
     }
 
-    const uniqueAnalytics: analytics[] = [];
+    const uniqueAnalytics: Analytics[] = [];
 
     for (const currentAnalytics of data.data) {
       const existingAnalytics = uniqueAnalytics.find(

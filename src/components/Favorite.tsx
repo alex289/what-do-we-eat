@@ -5,11 +5,11 @@ import { useSWRConfig } from 'swr';
 
 import HeartIcon from '@/components/icons/HeartIcon';
 
-import type { favorite } from '@prisma/client';
+import type { Favorite } from '@/server/db/types';
 
 interface Props {
   foodId: number;
-  favorite: favorite[] | undefined;
+  favorite: Favorite[] | undefined;
   session: Session | null;
 }
 
