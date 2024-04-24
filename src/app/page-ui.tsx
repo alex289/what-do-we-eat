@@ -86,9 +86,9 @@ export default function IndexPage({
       }),
     });
 
-    const data = (await res.json()) as { message: string };
-
     if (res.status !== 200) {
+      const data = (await res.json()) as { message: string };
+
       toast.error(
         `Failed saving choice '${picked ? 'Good one' : 'Bad one'}': ${
           data.message

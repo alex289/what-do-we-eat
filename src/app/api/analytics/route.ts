@@ -1,5 +1,6 @@
 import { db } from '@/server/db';
 import { analytics } from '@/server/db/schema';
+import { ratelimit } from '@/server/ratelimit';
 import { auth } from '@clerk/nextjs/server';
 import { revalidatePath } from 'next/cache';
 
@@ -9,6 +10,17 @@ export async function POST(req: Request) {
   if (!session.userId) {
     return new Response(JSON.stringify({ message: 'Unauthorized' }), {
       status: 401,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+  }
+
+  const { success } = await ratelimit.limit(session.userId);
+
+  if (!success) {
+    return new Response(JSON.stringify({ message: 'Rate limit exceeded' }), {
+      status: 429,
       headers: {
         'Content-Type': 'application/json',
       },
@@ -47,13 +59,13 @@ export async function POST(req: Request) {
 
   revalidatePath('/analytics');
 
-  const result = await db.insert(analytics).values({
+  await db.insert(analytics).values({
     name: name,
     picked: picked,
     date: Date.now.toString(),
   });
 
-  return new Response(JSON.stringify({ status: 'success', data: result }), {
+  return new Response(JSON.stringify({ status: 'success' }), {
     status: 200,
     headers: {
       'Content-Type': 'application/json',

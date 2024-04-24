@@ -1,5 +1,6 @@
 import { db } from '@/server/db';
 import { analytics, favorite, food } from '@/server/db/schema';
+import { ratelimit } from '@/server/ratelimit';
 import { auth } from '@clerk/nextjs/server';
 import { eq } from 'drizzle-orm';
 import { revalidatePath } from 'next/cache';
@@ -8,11 +9,22 @@ export async function PUT(
   req: Request,
   { params }: { params: { id: string } },
 ) {
-  const { sessionClaims } = auth();
+  const { sessionClaims, userId } = auth();
 
   if (!sessionClaims || sessionClaims.admin !== true) {
     return new Response(JSON.stringify({ message: 'Unauthorized' }), {
       status: 401,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+  }
+
+  const { success } = await ratelimit.limit(userId);
+
+  if (!success) {
+    return new Response(JSON.stringify({ message: 'Rate limit exceeded' }), {
+      status: 429,
       headers: {
         'Content-Type': 'application/json',
       },
@@ -94,11 +106,22 @@ export async function DELETE(
   _req: Request,
   { params }: { params: { id: string } },
 ) {
-  const { sessionClaims } = auth();
+  const { sessionClaims, userId } = auth();
 
   if (!sessionClaims || sessionClaims.admin !== true) {
     return new Response(JSON.stringify({ message: 'Unauthorized' }), {
       status: 401,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+  }
+
+  const { success } = await ratelimit.limit(userId);
+
+  if (!success) {
+    return new Response(JSON.stringify({ message: 'Rate limit exceeded' }), {
+      status: 429,
       headers: {
         'Content-Type': 'application/json',
       },
@@ -132,14 +155,14 @@ export async function DELETE(
     );
   }
 
-  const result = await db.delete(food).where(eq(food.id, Number(foodId)));
+  await db.delete(food).where(eq(food.id, Number(foodId)));
   await db.delete(favorite).where(eq(favorite.id, Number(foodId)));
   await db.delete(analytics).where(eq(analytics.id, Number(foodId)));
 
   revalidatePath('/');
   revalidatePath('/dashboard');
 
-  return new Response(JSON.stringify({ status: 'success', data: [result] }), {
+  return new Response(JSON.stringify({ status: 'success' }), {
     status: 200,
     headers: {
       'Content-Type': 'application/json',

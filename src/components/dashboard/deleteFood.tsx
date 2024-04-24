@@ -19,9 +19,8 @@ const DeleteFood = ({ food }: { food: Food }) => {
       method: 'DELETE',
     });
 
-    const data = (await res.json()) as { message: string };
-
     if (res.status !== 200) {
+      const data = (await res.json()) as { message: string };
       toast.error(`Failed updating '${food.name}': ${data.message}`);
       return;
     }

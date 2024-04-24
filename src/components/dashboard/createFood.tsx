@@ -40,9 +40,8 @@ const CreateFood = () => {
       }),
     });
 
-    const data = (await res.json()) as { message: string };
-
     if (res.status !== 200) {
+      const data = (await res.json()) as { message: string };
       toast.error(`Failed creating '${e.target.name.value}': ${data.message}`);
       return;
     }

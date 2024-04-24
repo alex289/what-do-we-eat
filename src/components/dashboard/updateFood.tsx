@@ -41,9 +41,8 @@ const UpdateFood = ({ food }: { food: Food }) => {
       }),
     });
 
-    const data = (await res.json()) as { message: string };
-
     if (res.status !== 200) {
+      const data = (await res.json()) as { message: string };
       toast.error(`Failed updating '${e.target.name.value}': ${data.message}`);
       return;
     }

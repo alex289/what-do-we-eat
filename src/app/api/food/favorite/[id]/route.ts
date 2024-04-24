@@ -1,17 +1,30 @@
 import { db } from '@/server/db';
 import { favorite } from '@/server/db/schema';
-import { auth } from '@clerk/nextjs/server';
-import { and, eq } from 'drizzle-orm';
+import { ratelimit } from '@/server/ratelimit';
+import { auth, currentUser } from '@clerk/nextjs/server';
+import { and, eq, inArray } from 'drizzle-orm';
 
-export async function PUT(
+export async function POST(
   _req: Request,
   { params }: { params: { id: string } },
 ) {
-  const { sessionClaims } = auth();
+  const { sessionClaims, userId } = auth();
+  const activeUser = await currentUser();
 
-  if (!sessionClaims || sessionClaims.admin !== true) {
+  if (!sessionClaims || !activeUser || sessionClaims.admin !== true) {
     return new Response(JSON.stringify({ message: 'Unauthorized' }), {
       status: 401,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+  }
+
+  const { success } = await ratelimit.limit(userId);
+
+  if (!success) {
+    return new Response(JSON.stringify({ message: 'Rate limit exceeded' }), {
+      status: 429,
       headers: {
         'Content-Type': 'application/json',
       },
@@ -45,13 +58,12 @@ export async function PUT(
     );
   }
 
-  const result = await db.insert(favorite).values({
+  await db.insert(favorite).values({
     id: Number(foodId),
-    // user: session.user.email,
-    user: '',
+    user: activeUser.emailAddresses[0]!.emailAddress,
   });
 
-  return new Response(JSON.stringify({ status: 'success', data: result }), {
+  return new Response(JSON.stringify({ status: 'success' }), {
     status: 200,
     headers: {
       'Content-Type': 'application/json',
@@ -63,11 +75,23 @@ export async function DELETE(
   _req: Request,
   { params }: { params: { id: string } },
 ) {
-  const { sessionClaims } = auth();
+  const { sessionClaims, userId } = auth();
+  const activeUser = await currentUser();
 
-  if (!sessionClaims || sessionClaims.admin !== true) {
+  if (!sessionClaims || !activeUser || sessionClaims.admin !== true) {
     return new Response(JSON.stringify({ message: 'Unauthorized' }), {
       status: 401,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+  }
+
+  const { success } = await ratelimit.limit(userId);
+
+  if (!success) {
+    return new Response(JSON.stringify({ message: 'Rate limit exceeded' }), {
+      status: 429,
       headers: {
         'Content-Type': 'application/json',
       },
@@ -104,7 +128,10 @@ export async function DELETE(
   await db.delete(favorite).where(
     and(
       eq(favorite.id, Number(foodId)),
-      // eq(favorite.user, session.user.email),
+      inArray(
+        favorite.user,
+        activeUser.emailAddresses.flatMap((email) => email.emailAddress),
+      ),
       eq(favorite.user, favorite.user),
     ),
   );

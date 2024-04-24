@@ -16,7 +16,6 @@ Refactor Design:
 
 Features:
 
-- Upstash rate limiting
 - Uploadthing
 - Let users add their own food
 

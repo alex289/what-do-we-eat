@@ -1,5 +1,6 @@
 import { db } from '@/server/db';
 import { food } from '@/server/db/schema';
+import { ratelimit } from '@/server/ratelimit';
 import { auth } from '@clerk/nextjs/server';
 import { revalidatePath } from 'next/cache';
 
@@ -53,11 +54,22 @@ export async function GET(req: Request) {
 }
 
 export async function POST(req: Request) {
-  const { sessionClaims } = auth();
+  const { sessionClaims, userId } = auth();
 
   if (!sessionClaims || sessionClaims.admin !== true) {
     return new Response(JSON.stringify({ message: 'Unauthorized' }), {
       status: 401,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+  }
+
+  const { success } = await ratelimit.limit(userId);
+
+  if (!success) {
+    return new Response(JSON.stringify({ message: 'Rate limit exceeded' }), {
+      status: 429,
       headers: {
         'Content-Type': 'application/json',
       },
@@ -90,7 +102,7 @@ export async function POST(req: Request) {
     );
   }
 
-  const result = await db.insert(food).values({
+  await db.insert(food).values({
     name: name,
     image: image,
     cheeseometer: cheeseometer,
@@ -102,7 +114,7 @@ export async function POST(req: Request) {
   revalidatePath('/');
   revalidatePath('/dashboard');
 
-  return new Response(JSON.stringify({ status: 'success', data: [result] }), {
+  return new Response(JSON.stringify({ status: 'success' }), {
     status: 200,
     headers: {
       'Content-Type': 'application/json',
