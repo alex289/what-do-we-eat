@@ -16,8 +16,6 @@ Refactor Design:
 
 Features:
 
-- Sentry
-- Posthog
 - Upstash rate limiting
 - Uploadthing
 - Let users add their own food
