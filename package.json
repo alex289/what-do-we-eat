@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "web app to tell you what to eat",
   "private": true,
-  "type": "module",
   "scripts": {
     "dev": "next dev --turbo",
     "start": "next start",
