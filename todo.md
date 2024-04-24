@@ -13,10 +13,10 @@ Refactor Design:
 - Server components
 - Fix adding analytics and food
 - CRUD dialogs
+- Merge page and components of / and /dashboard
 
 Features:
 
-- Uploadthing
 - Let users add their own food
 
 Chores:

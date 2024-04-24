@@ -4,6 +4,7 @@ import { toast } from 'react-toastify';
 import { useSWRConfig } from 'swr';
 
 import { Button } from '../ui/button';
+import { SimpleUploadButton } from '../upload-button';
 
 import type { Food } from '@/server/db/types';
 import type { FormEvent } from 'react';
@@ -11,7 +12,7 @@ import type { FormEvent } from 'react';
 interface FormData {
   target: {
     name: { value: string };
-    image: { value: string };
+    imageUrl: { value: string };
     deliverable: { value: string };
     tags: { value: string };
     cheeseometer: { value: string };
@@ -26,14 +27,14 @@ const UpdateFood = ({ food }: { food: Food }) => {
   async function saveFood(e: FormEvent<HTMLFormElement> & FormData) {
     e.preventDefault();
 
-    const res = await fetch('/api/food/update/' + food.id, {
+    const res = await fetch('/api/food/' + food.id, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
         name: e.target.name.value,
-        image: e.target.image.value,
+        image: e.target.imageUrl.value,
         deliverable: e.target.deliverable.value === 'true' ? true : false,
         tags: e.target.tags.value,
         cheeseometer: Number(e.target.cheeseometer.value),
@@ -128,18 +129,10 @@ const UpdateFood = ({ food }: { food: Food }) => {
                       defaultValue={food.name}
                       className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-violet-500 focus:ring-violet-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-violet-500 dark:focus:ring-violet-500"></input>
 
-                    <label
-                      className="my-1 mr-2 text-black dark:text-white"
-                      htmlFor="updateImage">
-                      Image (Optional)
+                    <label className="mb-1 mr-2 mt-2 text-black dark:text-white">
+                      Image
                     </label>
-                    <input
-                      type="text"
-                      name="image"
-                      id="updateImage"
-                      placeholder="Enter image url"
-                      defaultValue={food.image ?? ''}
-                      className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-violet-500 focus:ring-violet-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-violet-500 dark:focus:ring-violet-500"></input>
+                    <SimpleUploadButton />
 
                     <label
                       className="my-1 mr-2 text-black dark:text-white"

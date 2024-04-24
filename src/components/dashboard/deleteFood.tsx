@@ -15,7 +15,7 @@ const DeleteFood = ({ food }: { food: Food }) => {
   async function deleteFood(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    const res = await fetch('/api/food/delete/' + food.id, {
+    const res = await fetch('/api/food/' + food.id, {
       method: 'DELETE',
     });
 

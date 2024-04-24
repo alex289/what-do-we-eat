@@ -2,15 +2,18 @@ import '@/styles/global.css';
 import 'react-toastify/dist/ReactToastify.css';
 
 import { ClerkProvider } from '@clerk/nextjs';
+import { NextSSRPlugin } from '@uploadthing/react/next-ssr-plugin';
 import clsx from 'clsx';
 import { GeistMono } from 'geist/font/mono';
 import { GeistSans } from 'geist/font/sans';
 import { type Metadata, type Viewport } from 'next';
 import { ThemeProvider } from 'next-themes';
 import Script from 'next/script';
+import { extractRouterConfig } from 'uploadthing/server';
 
 import { env } from '@/env.mjs';
 import Layout from '@/components/layout';
+import { ourFileRouter } from './api/uploadthing/core';
 
 export function generateMetadata(): Metadata {
   return {
@@ -93,6 +96,7 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en" className={clsx(GeistSans.variable, GeistMono.variable)}>
+        <NextSSRPlugin routerConfig={extractRouterConfig(ourFileRouter)} />
         <body className="min-h-screen bg-background font-sans antialiased">
           <ThemeProvider
             attribute="class"

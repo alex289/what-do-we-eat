@@ -4,13 +4,14 @@ import { toast } from 'react-toastify';
 import { useSWRConfig } from 'swr';
 
 import { Button } from '../ui/button';
+import { SimpleUploadButton } from '../upload-button';
 
 import type { FormEvent } from 'react';
 
 interface FormData {
   target: {
     name: { value: string };
-    image: { value: string };
+    imageUrl: { value: string };
     deliverable: { value: string };
     tags: { value: string };
     cheeseometer: { value: string };
@@ -32,7 +33,7 @@ const CreateFood = () => {
       },
       body: JSON.stringify({
         name: e.target.name.value,
-        image: e.target.image.value,
+        image: e.target.imageUrl.value,
         deliverable: e.target.deliverable.value === 'true' ? true : false,
         tags: e.target.tags.value,
         cheeseometer: Number(e.target.cheeseometer.value),
@@ -126,17 +127,10 @@ const CreateFood = () => {
                       placeholder="Enter name"
                       className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-violet-500 focus:ring-violet-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-violet-500 dark:focus:ring-violet-500"></input>
 
-                    <label
-                      className="my-1 mr-2 text-black dark:text-white"
-                      htmlFor="image">
-                      Image (Optional)
+                    <label className="mb-1 mr-2 mt-2 text-black dark:text-white">
+                      Image
                     </label>
-                    <input
-                      type="text"
-                      name="image"
-                      id="image"
-                      placeholder="Enter image url"
-                      className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-violet-500 focus:ring-violet-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-violet-500 dark:focus:ring-violet-500"></input>
+                    <SimpleUploadButton />
 
                     <label
                       className="my-1 mr-2 text-black dark:text-white"
