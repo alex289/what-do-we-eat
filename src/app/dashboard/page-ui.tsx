@@ -1,7 +1,6 @@
 'use client';
 
 import { type FilterConfig } from '@/types/config';
-import { type Session } from 'next-auth';
 import { useTheme } from 'next-themes';
 import dynamic from 'next/dynamic';
 import { Suspense, useState } from 'react';
@@ -24,11 +23,7 @@ const Dialog = dynamic(() => import('@/components/dialog'), {
   suspense: true,
 });
 
-export default function DashboardPage({
-  session,
-}: {
-  session: Session | null;
-}) {
+export default function DashboardPage() {
   const { resolvedTheme } = useTheme();
 
   const [page, setPage] = useState(1);
@@ -54,14 +49,6 @@ export default function DashboardPage({
     ${filter.tags !== '' ? '&tags=' + filter.tags : ''}`,
     fetcher,
   );
-
-  if (!session?.user?.isAdmin) {
-    return (
-      <div>
-        <div className="m-10">Unauthorized</div>
-      </div>
-    );
-  }
 
   if (error) {
     return (

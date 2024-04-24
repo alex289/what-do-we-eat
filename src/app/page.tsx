@@ -1,7 +1,11 @@
-import { getServerAuthSession } from '@/lib/auth';
+import { currentUser } from '@clerk/nextjs/server';
+
 import IndexPage from './page-ui';
 
 export default async function Index() {
-  const session = await getServerAuthSession();
-  return <IndexPage session={session} />;
+  const user = await currentUser();
+  const emailAddresses = user?.emailAddresses.flatMap(
+    (emailAddresses) => emailAddresses.emailAddress,
+  );
+  return <IndexPage emailAddresses={emailAddresses} />;
 }

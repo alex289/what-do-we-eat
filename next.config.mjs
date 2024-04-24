@@ -31,13 +31,14 @@ const nextConfig = {
 
 const ContentSecurityPolicy = `
   default-src 'self';
-  script-src 'self' 'unsafe-eval' 'unsafe-inline' data: https://alexanderkonietzko-analytics.vercel.app/script.js;
-  child-src 'self';
+  script-src 'self' 'unsafe-eval' 'unsafe-inline' data: https://alexanderkonietzko-analytics.vercel.app/script.js https://*.clerk.accounts.dev;
+  child-src 'self' blob:;
   style-src 'self' 'unsafe-inline';
   img-src * blob: data:;
   media-src 'none';
   connect-src *;
   font-src 'self';
+  object-src data:;
 `;
 
 const securityHeaders = [

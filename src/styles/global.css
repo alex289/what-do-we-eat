@@ -63,3 +63,8 @@
   fill-rule: evenodd;
   margin-top: 1em;
 }
+
+.cl-avatarBox.cl-userButtonAvatarBox {
+  width: 2.3rem;
+  height: 2.3rem;
+}

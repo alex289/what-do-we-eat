@@ -1,6 +1,7 @@
 import '@/styles/global.css';
 import 'react-toastify/dist/ReactToastify.css';
 
+import { ClerkProvider } from '@clerk/nextjs';
 import clsx from 'clsx';
 import { GeistMono } from 'geist/font/mono';
 import { GeistSans } from 'geist/font/sans';
@@ -10,7 +11,6 @@ import Script from 'next/script';
 
 import { env } from '@/env.mjs';
 import Layout from '@/components/layout';
-import { getServerAuthSession } from '@/lib/auth';
 
 export function generateMetadata(): Metadata {
   return {
@@ -85,35 +85,36 @@ export const viewport: Viewport = {
   colorScheme: 'light dark',
 };
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const session = await getServerAuthSession();
   return (
-    <html lang="en" className={clsx(GeistSans.variable, GeistMono.variable)}>
-      <body className="min-h-screen bg-background font-sans antialiased">
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange>
-          <Layout session={session}>
-            {children}
-            {env.NODE_ENV === 'production' && (
-              <>
-                <Script
-                  async
-                  defer
-                  data-website-id="b81d45ca-284a-4726-8f51-0aff58212749"
-                  src="https://alexanderkonietzko-analytics.vercel.app/script.js"
-                />
-              </>
-            )}
-          </Layout>
-        </ThemeProvider>
-      </body>
-    </html>
+    <ClerkProvider>
+      <html lang="en" className={clsx(GeistSans.variable, GeistMono.variable)}>
+        <body className="min-h-screen bg-background font-sans antialiased">
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange>
+            <Layout>
+              {children}
+              {env.NODE_ENV === 'production' && (
+                <>
+                  <Script
+                    async
+                    defer
+                    data-website-id="b81d45ca-284a-4726-8f51-0aff58212749"
+                    src="https://alexanderkonietzko-analytics.vercel.app/script.js"
+                  />
+                </>
+              )}
+            </Layout>
+          </ThemeProvider>
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }

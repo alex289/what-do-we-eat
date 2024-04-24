@@ -1,27 +1,24 @@
 import { db } from '@/server/db';
 import { favorite } from '@/server/db/schema';
+import { auth } from '@clerk/nextjs/server';
 import { and, eq } from 'drizzle-orm';
-
-import { getServerAuthSession } from '@/lib/auth';
 
 export async function PUT(
   _req: Request,
   { params }: { params: { id: string } },
 ) {
-  const session = await getServerAuthSession();
-  const foodId = params.id;
+  const { sessionClaims } = auth();
 
-  if (!session?.user?.email) {
-    return new Response(
-      JSON.stringify({ message: 'Unsufficient permissions' }),
-      {
-        status: 401,
-        headers: {
-          'Content-Type': 'application/json',
-        },
+  if (!sessionClaims || sessionClaims.admin !== true) {
+    return new Response(JSON.stringify({ message: 'Unauthorized' }), {
+      status: 401,
+      headers: {
+        'Content-Type': 'application/json',
       },
-    );
+    });
   }
+
+  const foodId = params.id;
 
   if (!foodId) {
     return new Response(JSON.stringify({ message: 'No food id provided' }), {
@@ -50,7 +47,8 @@ export async function PUT(
 
   const result = await db.insert(favorite).values({
     id: Number(foodId),
-    user: session.user.email,
+    // user: session.user.email,
+    user: '',
   });
 
   return new Response(JSON.stringify({ status: 'success', data: result }), {
@@ -65,20 +63,18 @@ export async function DELETE(
   _req: Request,
   { params }: { params: { id: string } },
 ) {
-  const session = await getServerAuthSession();
-  const foodId = params.id;
+  const { sessionClaims } = auth();
 
-  if (!session?.user?.email) {
-    return new Response(
-      JSON.stringify({ message: 'Unsufficient permissions' }),
-      {
-        status: 401,
-        headers: {
-          'Content-Type': 'application/json',
-        },
+  if (!sessionClaims || sessionClaims.admin !== true) {
+    return new Response(JSON.stringify({ message: 'Unauthorized' }), {
+      status: 401,
+      headers: {
+        'Content-Type': 'application/json',
       },
-    );
+    });
   }
+
+  const foodId = params.id;
 
   if (!foodId) {
     return new Response(JSON.stringify({ message: 'No food id provided' }), {
@@ -105,14 +101,13 @@ export async function DELETE(
     );
   }
 
-  await db
-    .delete(favorite)
-    .where(
-      and(
-        eq(favorite.id, Number(foodId)),
-        eq(favorite.user, session.user.email),
-      ),
-    );
+  await db.delete(favorite).where(
+    and(
+      eq(favorite.id, Number(foodId)),
+      // eq(favorite.user, session.user.email),
+      eq(favorite.user, favorite.user),
+    ),
+  );
 
   return new Response(JSON.stringify({ status: 'success' }), {
     status: 200,

@@ -1,6 +1,6 @@
 'use client';
 
-import { type Session } from 'next-auth';
+import { SignedIn } from '@clerk/nextjs';
 import { useTheme } from 'next-themes';
 import dynamic from 'next/dynamic';
 import { Suspense, useMemo, useState } from 'react';
@@ -24,7 +24,11 @@ const Dialog = dynamic(() => import('@/components/dialog'), {
   suspense: true,
 });
 
-export default function IndexPage({ session }: { session: Session | null }) {
+export default function IndexPage({
+  emailAddresses,
+}: {
+  emailAddresses: string[] | undefined;
+}) {
   const { resolvedTheme } = useTheme();
 
   const [clicked, setClicked] = useState(false);
@@ -133,25 +137,29 @@ export default function IndexPage({ session }: { session: Session | null }) {
         />
       </div>
 
-      {randomizer && session && (
-        <div className="mb-2 ml-3 flex gap-3 p-2 2xl:ml-7">
-          <Button
-            className="bg-green-600 hover:bg-green-500 dark:bg-green-700 dark:hover:bg-green-800"
-            onClick={() => submitAnalytics(true)}>
-            Good choice
-          </Button>
+      {randomizer && (
+        <SignedIn>
+          <div className="mb-2 ml-3 flex gap-3 p-2 2xl:ml-7">
+            <Button
+              className="bg-green-600 hover:bg-green-500 dark:bg-green-700 dark:hover:bg-green-800"
+              onClick={() => submitAnalytics(true)}>
+              Good choice
+            </Button>
 
-          <Button variant="destructive" onClick={() => submitAnalytics(false)}>
-            Bad choice
-          </Button>
-        </div>
+            <Button
+              variant="destructive"
+              onClick={() => submitAnalytics(false)}>
+              Bad choice
+            </Button>
+          </div>
+        </SignedIn>
       )}
       <Suspense>
         {data?.data && favoriteData?.data && (
           <Food
             foodList={memoizedFoodList}
             favorite={favoriteData?.data}
-            session={session}
+            emailAddresses={emailAddresses}
           />
         )}
       </Suspense>

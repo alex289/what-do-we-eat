@@ -1,4 +1,3 @@
-import { type Session } from 'next-auth';
 import Image from 'next/image';
 
 import Favorite from '@/components/Favorite';
@@ -10,10 +9,10 @@ import type { Favorite as FavoriteType, Food } from '@/server/db/types';
 interface Props {
   foodList: Food[];
   favorite: FavoriteType[] | undefined;
-  session: Session | null;
+  emailAddresses: string[] | undefined;
 }
 
-const Food = ({ foodList, favorite, session }: Props) => (
+const Food = ({ foodList, favorite, emailAddresses }: Props) => (
   <ul className="md:grid-flow-column 2xl:grid-cols-fit mx-2 mt-3 grid gap-6 px-2 sm:grid-cols-2 md:mt-0 lg:grid-cols-3 xl:grid-cols-5 2xl:mx-8 2xl:grid-cols-5">
     {foodList.map((food, index) => (
       <li
@@ -46,7 +45,7 @@ const Food = ({ foodList, favorite, session }: Props) => (
             <Favorite
               foodId={food.id}
               favorite={favorite?.filter((x) => x.id === food.id)}
-              session={session}
+              emailAddresses={emailAddresses}
             />
           </p>
           <div className="my-2 flex text-base">
