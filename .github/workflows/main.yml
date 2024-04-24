@@ -70,7 +70,7 @@ jobs:
         env:
           POSTGRES_URL: ${{ secrets.DATABASE_URL }}
           UPSTASH_REDIS_REST_URL: ${{ secrets.UPSTASH_REDIS_REST_URL }}
-          UPSTASH_REDIS_REST_TOKEN: ${{ secrets.UPSTASH_REDIS_WS_URL }}
+          UPSTASH_REDIS_REST_TOKEN: ${{ secrets.UPSTASH_REDIS_REST_TOKEN }}
           SKIP_ENV_VALIDATION: true
 
       - uses: actions/cache@v4
