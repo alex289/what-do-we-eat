@@ -1,4 +1,3 @@
-import { type Session } from 'next-auth';
 import { useEffect, useMemo, useState } from 'react';
 import { toast } from 'react-toastify';
 import { useSWRConfig } from 'swr';
@@ -10,21 +9,21 @@ import type { Favorite } from '@/server/db/types';
 interface Props {
   foodId: number;
   favorite: Favorite[] | undefined;
-  session: Session | null;
+  emailAddresses: string[] | undefined;
 }
 
-const Favorite = ({ foodId, favorite, session }: Props) => {
+const Favorite = ({ foodId, favorite, emailAddresses }: Props) => {
   const [favouriteCount, setFavoriteCount] = useState(favorite?.length ?? 0);
   const { mutate } = useSWRConfig();
 
   useEffect(() => setFavoriteCount(favorite?.length ?? 0), [favorite]);
 
   const isFavorite = useMemo(() => {
-    return favouriteCount > (favorite?.length ?? 0) ||
-      favorite?.find((x) => x.user === session?.user?.email) !== undefined
-      ? true
-      : false;
-  }, [favorite, favouriteCount, session]);
+    return (
+      favouriteCount > (favorite?.length ?? 0) ||
+      favorite?.find((x) => emailAddresses?.includes(x.user)) !== undefined
+    );
+  }, [favorite, favouriteCount, emailAddresses]);
 
   async function Add() {
     const res = await fetch('/api/food/favorite/' + foodId, { method: 'POST' });
@@ -54,7 +53,7 @@ const Favorite = ({ foodId, favorite, session }: Props) => {
     }
   }
 
-  if (!session) {
+  if (!emailAddresses) {
     return <></>;
   }
 

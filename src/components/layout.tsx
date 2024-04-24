@@ -1,18 +1,10 @@
-import { type Session } from 'next-auth';
-
 import Navbar from '@/components/navbar';
 
 import type { ReactNode } from 'react';
 
-const Layout = ({
-  children,
-  session,
-}: {
-  children: ReactNode;
-  session: Session | null;
-}) => (
+const Layout = ({ children }: { children: ReactNode }) => (
   <>
-    <Navbar session={session}></Navbar>
+    <Navbar></Navbar>
     <main className="mb-6">{children}</main>
   </>
 );

@@ -16,7 +16,6 @@ Refactor Design:
 
 Features:
 
-- Clerk auth
 - Sentry
 - Posthog
 - Upstash rate limiting

@@ -1,13 +1,12 @@
 import { db } from '@/server/db';
 import { analytics } from '@/server/db/schema';
+import { auth } from '@clerk/nextjs/server';
 import { revalidatePath } from 'next/cache';
 
-import { getServerAuthSession } from '@/lib/auth';
-
 export async function POST(req: Request) {
-  const session = await getServerAuthSession();
+  const session = auth();
 
-  if (!session || !session.user || !session.user.email || !session.user.name) {
+  if (!session.userId) {
     return new Response(JSON.stringify({ message: 'Unauthorized' }), {
       status: 401,
       headers: {

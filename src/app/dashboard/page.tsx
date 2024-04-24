@@ -1,7 +1,14 @@
-import { getServerAuthSession } from '@/lib/auth';
+import { auth } from '@clerk/nextjs/server';
+import { notFound } from 'next/navigation';
+
 import DashboardPage from './page-ui';
 
-export default async function Dashboard() {
-  const session = await getServerAuthSession();
-  return <DashboardPage session={session} />;
+export default function Dashboard() {
+  const { sessionClaims } = auth();
+
+  if (!sessionClaims?.admin) {
+    return notFound();
+  }
+
+  return <DashboardPage />;
 }

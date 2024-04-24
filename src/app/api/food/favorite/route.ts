@@ -1,18 +1,21 @@
 import { db } from '@/server/db';
-
-import { getServerAuthSession } from '@/lib/auth';
+import { currentUser } from '@clerk/nextjs/server';
 
 import type { Favorite } from '@/server/db/types';
 
 export async function GET() {
-  const session = await getServerAuthSession();
+  const activeUser = await currentUser();
 
   const onlySelfEmail = (user: string) => {
-    if (!session) {
+    if (!user) {
       return '-';
     }
 
-    return user === session.user?.email ? user : '-';
+    return activeUser?.emailAddresses
+      .flatMap((emailAddresses) => emailAddresses.emailAddress)
+      .includes(user)
+      ? user
+      : '-';
   };
 
   const items = await db.query.favorite.findMany();

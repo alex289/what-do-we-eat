@@ -1,8 +1,7 @@
 import { db } from '@/server/db';
 import { food } from '@/server/db/schema';
+import { auth } from '@clerk/nextjs/server';
 import { revalidatePath } from 'next/cache';
-
-import { getServerAuthSession } from '@/lib/auth';
 
 export async function GET(req: Request) {
   const queries = new URLSearchParams(req.url);
@@ -54,9 +53,9 @@ export async function GET(req: Request) {
 }
 
 export async function POST(req: Request) {
-  const session = await getServerAuthSession();
+  const { sessionClaims } = auth();
 
-  if (session && !session.user.isAdmin) {
+  if (!sessionClaims || sessionClaims.admin !== true) {
     return new Response(JSON.stringify({ message: 'Unauthorized' }), {
       status: 401,
       headers: {

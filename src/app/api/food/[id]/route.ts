@@ -1,15 +1,24 @@
 import { db } from '@/server/db';
 import { analytics, favorite, food } from '@/server/db/schema';
+import { auth } from '@clerk/nextjs/server';
 import { eq } from 'drizzle-orm';
 import { revalidatePath } from 'next/cache';
-
-import { getServerAuthSession } from '@/lib/auth';
 
 export async function PUT(
   req: Request,
   { params }: { params: { id: string } },
 ) {
-  const session = await getServerAuthSession();
+  const { sessionClaims } = auth();
+
+  if (!sessionClaims || sessionClaims.admin !== true) {
+    return new Response(JSON.stringify({ message: 'Unauthorized' }), {
+      status: 401,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+  }
+
   const foodId = params.id;
   const { name, image, cheeseometer, deliverable, tags, effort } =
     (await req.json()) as {
@@ -20,18 +29,6 @@ export async function PUT(
       tags: string;
       effort: number;
     };
-
-  if (session && !session.user.isAdmin) {
-    return new Response(
-      JSON.stringify({ message: 'Unsufficient permissions' }),
-      {
-        status: 401,
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      },
-    );
-  }
 
   const item = await db.query.food.findMany({
     where: (foods, { eq }) => eq(foods.id, Number(foodId)),
@@ -97,21 +94,18 @@ export async function DELETE(
   _req: Request,
   { params }: { params: { id: string } },
 ) {
-  const session = await getServerAuthSession();
+  const { sessionClaims } = auth();
+
+  if (!sessionClaims || sessionClaims.admin !== true) {
+    return new Response(JSON.stringify({ message: 'Unauthorized' }), {
+      status: 401,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+  }
 
   const foodId = params.id;
-
-  if (session && !session.user.isAdmin) {
-    return new Response(
-      JSON.stringify({ message: 'Unsufficient permissions' }),
-      {
-        status: 401,
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      },
-    );
-  }
 
   if (!foodId) {
     return new Response(JSON.stringify({ message: 'No food id provided' }), {
