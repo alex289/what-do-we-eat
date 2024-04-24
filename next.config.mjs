@@ -86,7 +86,7 @@ export default withSentryConfig(
   {
     silent: true,
     org: 'alexanderkonietzko',
-    project: 'javascript-nextjs',
+    project: 'what-do-we-eat',
   },
   {
     widenClientFileUpload: true,
