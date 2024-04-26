@@ -8,11 +8,9 @@ Refactor Design:
 - Pagination
 - OG image
 - Server components
-- Fix adding analytics and food
 - CRUD dialogs
 - Merge page and components of / and /dashboard
 - Skeleton?
-- Breadcrumbs?
 - loading animations for crud stuff
 - Migrate images to uploadthing
 

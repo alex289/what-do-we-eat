@@ -13,25 +13,21 @@ interface Props {
 }
 
 const Food = ({ foodList, favorite, emailAddresses }: Props) => (
-  <ul className="md:grid-flow-column 2xl:grid-cols-fit mx-2 mt-3 grid gap-6 px-2 sm:grid-cols-2 md:mt-0 lg:grid-cols-3 xl:grid-cols-5 2xl:mx-8 2xl:grid-cols-5">
+  <ul className="md:grid-flow-column 2xl:grid-cols-fit mx-4 mt-3 grid gap-6 sm:grid-cols-2 md:mt-0 lg:grid-cols-3 xl:grid-cols-4 2xl:mx-8 2xl:grid-cols-4">
     {foodList.map((food, index) => (
-      <li
-        key={index}
-        className="rounded-lg border shadow-xl dark:border-gray-700">
-        <figure className="relative h-64 w-full xl:h-48">
-          {food.image && (
-            <Image
-              src={food.image}
-              alt={food.name}
-              width={564}
-              height={564}
-              loading="lazy"
-              className="absolute inset-0 h-64 w-full rounded-tl-lg rounded-tr-lg object-cover xl:h-48"
-            />
-          )}
-        </figure>
+      <li key={index}>
+        {food.image && (
+          <Image
+            src={food.image}
+            alt={food.name}
+            width={564}
+            height={564}
+            loading="lazy"
+            className="mx-4 h-64 w-[19rem] rounded-lg object-cover xl:h-48"
+          />
+        )}
         <div className="px-5 text-black dark:text-white">
-          <p className="my-4 flex text-lg font-bold">
+          <p className="my-2 flex text-lg font-bold">
             <a
               className="hover:underline"
               href={`https://www.chefkoch.de/rs/s0/${food.name.replace(
@@ -42,13 +38,8 @@ const Food = ({ foodList, favorite, emailAddresses }: Props) => (
               rel="noreferrer noopener">
               {food.name}
             </a>
-            <Favorite
-              foodId={food.id}
-              favorite={favorite?.filter((x) => x.id === food.id)}
-              emailAddresses={emailAddresses}
-            />
           </p>
-          <div className="my-2 flex text-base">
+          <div className="my-2 flex text-base items-center">
             Cheeseometer:
             <div className="align-right ml-1 flex">
               <svg
@@ -118,7 +109,7 @@ const Food = ({ foodList, favorite, emailAddresses }: Props) => (
               </svg>
             </div>
           </div>
-          <p className="my-2 flex text-base">
+          <p className="my-2 flex text-base items-center">
             Deliverable:{' '}
             <span className="ml-2">
               {food.deliverable ? <CheckMark /> : <CrossMark />}
@@ -128,7 +119,7 @@ const Food = ({ foodList, favorite, emailAddresses }: Props) => (
             Effort:{' '}
             <span className="stat-value text-base">{food.effort}/10</span>
           </p>
-          <div className="mb-6 mt-4 grid grid-flow-col grid-cols-3">
+          <div className="mb-6 mt-4 flex">
             {food.tags &&
               food.tags !== '' &&
               food.tags.split(',').map((tag) => (
@@ -138,6 +129,12 @@ const Food = ({ foodList, favorite, emailAddresses }: Props) => (
                   </span>
                 </p>
               ))}
+
+            <Favorite
+              foodId={food.id}
+              favorite={favorite?.filter((x) => x.id === food.id)}
+              emailAddresses={emailAddresses}
+            />
           </div>
         </div>
       </li>
