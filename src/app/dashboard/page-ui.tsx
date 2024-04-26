@@ -1,10 +1,8 @@
 'use client';
 
 import { type FilterConfig } from '@/types/config';
-import { useTheme } from 'next-themes';
 import dynamic from 'next/dynamic';
 import { Suspense, useState } from 'react';
-import { ToastContainer, Zoom } from 'react-toastify';
 import useSWR from 'swr';
 
 import { Input } from '@/components/ui/input';
@@ -24,8 +22,6 @@ const Dialog = dynamic(() => import('@/components/dialog'), {
 });
 
 export default function DashboardPage() {
-  const { resolvedTheme } = useTheme();
-
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState('');
   const debouncedSearch = useDebounce(search, 500);
@@ -60,13 +56,6 @@ export default function DashboardPage() {
 
   return (
     <div>
-      <ToastContainer
-        transition={Zoom}
-        autoClose={2500}
-        newestOnTop={true}
-        theme={resolvedTheme === 'dark' ? 'dark' : 'light'}
-      />
-
       <div className="mb-4 flex flex-col sm:flex-row">
         <div className="mx-2 flex justify-between sm:block 2xl:mx-8">
           <Suspense>

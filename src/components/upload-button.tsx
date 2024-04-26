@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { toast } from 'react-toastify';
+import { toast } from 'sonner';
 
 import { useUploadThing } from '@/lib/uploadthing';
 
@@ -63,8 +63,8 @@ export function SimpleUploadButton() {
   const { inputProps, result } = useUploadThingInputProps('imageUploader', {
     onUploadBegin() {
       toast.loading('Uploading...', {
-        toastId: 'upload-begin',
-        autoClose: false,
+        duration: 100000,
+        id: 'upload-begin',
       });
     },
     onUploadError() {

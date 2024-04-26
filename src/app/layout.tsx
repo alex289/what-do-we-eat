@@ -1,5 +1,4 @@
 import '@/styles/global.css';
-import 'react-toastify/dist/ReactToastify.css';
 
 import { ClerkProvider } from '@clerk/nextjs';
 import { NextSSRPlugin } from '@uploadthing/react/next-ssr-plugin';
@@ -13,6 +12,7 @@ import { extractRouterConfig } from 'uploadthing/server';
 
 import { env } from '@/env.mjs';
 import Layout from '@/components/layout';
+import { Toaster } from '@/components/ui/sonner';
 import { ourFileRouter } from './api/uploadthing/core';
 
 export function generateMetadata(): Metadata {
@@ -116,6 +116,7 @@ export default function RootLayout({
                 </>
               )}
             </Layout>
+            <Toaster />
           </ThemeProvider>
         </body>
       </html>

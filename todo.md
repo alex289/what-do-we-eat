@@ -8,12 +8,13 @@ Refactor Design:
 - Analytics table
 - Filter dialog
 - Pagination
-- Toasts
 - OG image
 - Server components
 - Fix adding analytics and food
 - CRUD dialogs
 - Merge page and components of / and /dashboard
+- Skeleton?
+- Breadcrumbs?
 
 Features:
 

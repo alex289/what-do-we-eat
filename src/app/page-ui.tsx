@@ -1,10 +1,9 @@
 'use client';
 
 import { SignedIn } from '@clerk/nextjs';
-import { useTheme } from 'next-themes';
 import dynamic from 'next/dynamic';
 import { Suspense, useMemo, useState } from 'react';
-import { toast, ToastContainer, Zoom } from 'react-toastify';
+import { toast } from 'sonner';
 import useSWR from 'swr';
 
 import { Button } from '@/components/ui/button';
@@ -29,8 +28,6 @@ export default function IndexPage({
 }: {
   emailAddresses: string[] | undefined;
 }) {
-  const { resolvedTheme } = useTheme();
-
   const [clicked, setClicked] = useState(false);
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState('');
@@ -111,12 +108,6 @@ export default function IndexPage({
 
   return (
     <div>
-      <ToastContainer
-        transition={Zoom}
-        autoClose={2500}
-        newestOnTop={true}
-        theme={resolvedTheme === 'dark' ? 'dark' : 'light'}
-      />
       <div className="mb-4 flex flex-col sm:flex-row">
         <div className="mx-2 flex justify-between sm:block 2xl:mx-8">
           <Button
