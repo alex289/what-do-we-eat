@@ -70,7 +70,7 @@ export default function DashboardPage() {
           type="text"
           placeholder="Search"
           onChange={(e) => setSearch(e.target.value)}
-          className="ml-1 w-64"
+          className="mx-5 mt-2 sm:mt-0 w-auto sm:mx-0"
         />
       </div>
 

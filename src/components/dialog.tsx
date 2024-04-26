@@ -51,7 +51,9 @@ export default function FilterDialog({ filter, filterer }: Props) {
 
   return (
     <>
-      <Button onClick={() => setIsOpen(true)}>Filter food</Button>
+      <Button onClick={() => setIsOpen(true)} className="mr-3 ml-2">
+        Filter food
+      </Button>
 
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog

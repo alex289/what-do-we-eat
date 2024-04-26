@@ -7,7 +7,6 @@ import useSWR from 'swr';
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
   TableFooter,
   TableHead,
@@ -61,9 +60,6 @@ export default function AnalyticsPage() {
   return (
     <div className="relative mx-auto max-w-5xl overflow-x-auto shadow-md sm:rounded-lg">
       <Table>
-        <TableCaption>
-          A list of picked foods choices by getting random food.
-        </TableCaption>
         <TableHeader>
           <TableRow>
             <TableHead>Food</TableHead>

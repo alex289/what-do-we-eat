@@ -2,7 +2,6 @@
 
 Refactor Design:
 
-- Navbar
 - Settings dialog
 - Cards
 - Filter dialog
