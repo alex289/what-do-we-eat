@@ -62,7 +62,6 @@ export async function POST(req: Request) {
   await db.insert(analytics).values({
     name: name,
     picked: picked,
-    date: Date.now.toString(),
   });
 
   return new Response(JSON.stringify({ status: 'success' }), {
