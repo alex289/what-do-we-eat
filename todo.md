@@ -5,7 +5,6 @@ Refactor Design:
 - Navbar
 - Settings dialog
 - Cards
-- Analytics table
 - Filter dialog
 - Pagination
 - OG image
@@ -15,6 +14,8 @@ Refactor Design:
 - Merge page and components of / and /dashboard
 - Skeleton?
 - Breadcrumbs?
+- loading animations for crud stuff
+- Migrate images to uploadthing
 
 Features:
 

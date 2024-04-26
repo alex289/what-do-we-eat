@@ -39,6 +39,5 @@ export const favorite = createTable(
 export const analytics = createTable('analytics', {
   id: serial('id').primaryKey(),
   name: varchar('name', { length: 255 }).notNull(),
-  date: varchar('date', { length: 255 }).notNull(),
   picked: boolean('picked').default(false),
 });

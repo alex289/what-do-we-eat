@@ -4,6 +4,16 @@ import { type ApiResponse } from '@/types/apiResponse';
 import { useMemo } from 'react';
 import useSWR from 'swr';
 
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableFooter,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table';
 import fetcher from '@/lib/fetcher';
 
 import type { Analytics } from '@/server/db/types';
@@ -50,38 +60,40 @@ export default function AnalyticsPage() {
 
   return (
     <div className="relative mx-auto max-w-5xl overflow-x-auto shadow-md sm:rounded-lg">
-      <table className="w-full text-left text-sm text-gray-500 dark:text-gray-400">
-        <thead className="bg-gray-100 text-xs uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400">
-          <tr>
-            <th scope="col" className="px-6 py-3">
-              Food
-            </th>
-            <th scope="col" className="px-6 py-3">
-              Picked
-            </th>
-            <th scope="col" className="px-6 py-3">
-              Not Picked
-            </th>
-          </tr>
-        </thead>
-        <tbody>
+      <Table>
+        <TableCaption>
+          A list of picked foods choices by getting random food.
+        </TableCaption>
+        <TableHeader>
+          <TableRow>
+            <TableHead>Food</TableHead>
+            <TableHead>Picked</TableHead>
+            <TableHead>Not picked</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
           {memoizedData.map((item) => {
             return (
-              <tr
-                key={item.name}
-                className="border-b bg-white hover:bg-gray-200 dark:border-gray-700 dark:bg-gray-800 hover:dark:bg-gray-600">
-                <th
-                  scope="row"
-                  className="whitespace-nowrap px-6 py-4 font-medium text-gray-900 dark:text-white">
-                  {item.name}
-                </th>
-                <td className="px-6 py-4">{item.picked}</td>
-                <td className="px-6 py-4">{item.notPicked}</td>
-              </tr>
+              <TableRow key={item.name}>
+                <TableCell className="font-medium">{item.name}</TableCell>
+                <TableCell>{item.picked}</TableCell>
+                <TableCell>{item.notPicked}</TableCell>
+              </TableRow>
             );
           })}
-        </tbody>
-      </table>
+        </TableBody>
+        <TableFooter>
+          <TableRow>
+            <TableCell>Total</TableCell>
+            <TableCell>
+              {memoizedData.reduce((acc, item) => acc + item.picked, 0)}
+            </TableCell>
+            <TableCell>
+              {memoizedData.reduce((acc, item) => acc + item.notPicked, 0)}
+            </TableCell>
+          </TableRow>
+        </TableFooter>
+      </Table>
     </div>
   );
 }
