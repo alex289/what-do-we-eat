@@ -1,11 +1,4 @@
-import {
-  Ban,
-  CircleCheck,
-  Dumbbell,
-  FileEdit,
-  Star,
-  Trash2,
-} from 'lucide-react';
+import { Ban, CircleCheck, Dumbbell, Star } from 'lucide-react';
 import Image from 'next/image';
 
 import { Badge } from '@/components/ui/badge';
@@ -13,7 +6,6 @@ import { Card, CardContent } from '@/components/ui/card';
 import DeleteFood from './admin/deleteFood';
 import UpdateFood from './admin/updateFood';
 import Favorite from './Favorite';
-import { Button } from './ui/button';
 
 import type { Favorite as FavoriteType, Food } from '@/server/db/types';
 
