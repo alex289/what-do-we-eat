@@ -1,8 +1,7 @@
+import { Heart } from 'lucide-react';
 import { useEffect, useMemo, useState } from 'react';
 import { toast } from 'sonner';
 import { useSWRConfig } from 'swr';
-
-import HeartIcon from '@/components/icons/HeartIcon';
 
 import type { Favorite } from '@/server/db/types';
 
@@ -64,9 +63,10 @@ const Favorite = ({ foodId, favorite, emailAddresses }: Props) => {
         onClick={() => (isFavorite ? Remove() : Add())}
         className="umami--click--favorite-food"
         aria-label="Favorites">
-        <HeartIcon />
+        <Heart className="w-5 h-5 fill-red-500" />
       </button>{' '}
-      <span className={`ml-2 ${isFavorite ? 'text-red-500' : ''}`}>
+      <span
+        className={`ml-2 font-semibold ${isFavorite ? 'text-red-500 dark:text-red-400' : 'text-gray-500 dark:text-gray-400'}`}>
         {favouriteCount}
       </span>
     </span>
