@@ -35,9 +35,6 @@ const Navbar = async () => {
                   </ListItem>
                   {isAdmin ? (
                     <>
-                      <ListItem title="Dashboard" href="/dashboard">
-                        Dashboard for admins
-                      </ListItem>
                       <ListItem title="Analytics" href="/analytics">
                         Analytics for admins
                       </ListItem>

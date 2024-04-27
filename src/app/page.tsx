@@ -7,5 +7,6 @@ export default async function Index() {
   const emailAddresses = user?.emailAddresses.flatMap(
     (emailAddresses) => emailAddresses.emailAddress,
   );
-  return <IndexPage emailAddresses={emailAddresses} />;
+  const isAdmin = user?.publicMetadata.admin === true;
+  return <IndexPage emailAddresses={emailAddresses} isAdmin={isAdmin} />;
 }

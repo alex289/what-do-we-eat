@@ -1,4 +1,5 @@
 import { Dialog, Transition } from '@headlessui/react';
+import { Trash2 } from 'lucide-react';
 import { Fragment, useState } from 'react';
 import { toast } from 'sonner';
 import { useSWRConfig } from 'swr';
@@ -33,7 +34,12 @@ const DeleteFood = ({ food }: { food: Food }) => {
 
   return (
     <>
-      <Button variant="destructive" onClick={() => setIsOpen(true)}>
+      <Button
+        className="text-red-500 hover:bg-red-500 hover:text-white"
+        size="sm"
+        variant="outline"
+        onClick={() => setIsOpen(true)}>
+        <Trash2 className="w-4 h-4 mr-2" />
         Delete
       </Button>
 

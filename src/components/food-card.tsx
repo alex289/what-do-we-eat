@@ -1,9 +1,19 @@
-import { Ban, CircleCheck, Dumbbell, Star } from 'lucide-react';
+import {
+  Ban,
+  CircleCheck,
+  Dumbbell,
+  FileEdit,
+  Star,
+  Trash2,
+} from 'lucide-react';
 import Image from 'next/image';
 
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
+import DeleteFood from './admin/deleteFood';
+import UpdateFood from './admin/updateFood';
 import Favorite from './Favorite';
+import { Button } from './ui/button';
 
 import type { Favorite as FavoriteType, Food } from '@/server/db/types';
 
@@ -11,9 +21,10 @@ interface Props {
   food: Food;
   favorite: FavoriteType[] | undefined;
   emailAddresses: string[] | undefined;
+  isAdmin: boolean;
 }
 
-export function FoodCard({ food, favorite, emailAddresses }: Props) {
+export function FoodCard({ food, favorite, emailAddresses, isAdmin }: Props) {
   return (
     <Card className="w-full max-w-sm rounded-lg overflow-hidden">
       {
@@ -114,6 +125,12 @@ export function FoodCard({ food, favorite, emailAddresses }: Props) {
             <span className="text-sm text-gray-500 dark:text-gray-400">8</span>
           </div>
         </div>
+        {isAdmin ? (
+          <div className="flex items-center justify-between mt-4 pt-2">
+            <UpdateFood food={food} />
+            <DeleteFood food={food} />
+          </div>
+        ) : null}
       </CardContent>
     </Card>
   );

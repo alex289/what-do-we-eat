@@ -1,4 +1,5 @@
 import { Dialog, Transition } from '@headlessui/react';
+import { FileEdit } from 'lucide-react';
 import { Fragment, useState } from 'react';
 import { toast } from 'sonner';
 import { useSWRConfig } from 'swr';
@@ -56,10 +57,9 @@ const UpdateFood = ({ food }: { food: Food }) => {
 
   return (
     <>
-      <Button
-        className="bg-orange-600 hover:bg-orange-500 dark:bg-orange-700 dark:hover:bg-orange-800"
-        onClick={() => setIsOpen(true)}>
-        Update
+      <Button size="sm" variant="outline" onClick={() => setIsOpen(true)}>
+        <FileEdit className="w-4 h-4 mr-2" />
+        Edit
       </Button>
 
       <Transition appear show={isOpen} as={Fragment}>

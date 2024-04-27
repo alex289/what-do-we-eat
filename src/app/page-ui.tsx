@@ -6,6 +6,7 @@ import { Suspense, useMemo, useState } from 'react';
 import { toast } from 'sonner';
 import useSWR from 'swr';
 
+import CreateFood from '@/components/admin/createFood';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import fetcher from '@/lib/fetcher';
@@ -25,8 +26,10 @@ const Dialog = dynamic(() => import('@/components/dialog'), {
 
 export default function IndexPage({
   emailAddresses,
+  isAdmin,
 }: {
   emailAddresses: string[] | undefined;
+  isAdmin: boolean;
 }) {
   const [clicked, setClicked] = useState(false);
   const [page, setPage] = useState(1);
@@ -126,6 +129,8 @@ export default function IndexPage({
           onChange={(e) => setSearch(e.target.value)}
           className="mx-5 mt-2 sm:mt-0 w-auto sm:mx-0"
         />
+
+        {isAdmin ? <CreateFood /> : null}
       </div>
 
       {randomizer && (
@@ -151,6 +156,7 @@ export default function IndexPage({
             foodList={memoizedFoodList}
             favorite={favoriteData?.data}
             emailAddresses={emailAddresses}
+            isAdmin={isAdmin}
           />
         )}
       </Suspense>

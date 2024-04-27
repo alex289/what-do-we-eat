@@ -1,4 +1,5 @@
 import { Dialog, Transition } from '@headlessui/react';
+import { Plus } from 'lucide-react';
 import { Fragment, useState } from 'react';
 import { toast } from 'sonner';
 import { useSWRConfig } from 'swr';
@@ -56,9 +57,11 @@ const CreateFood = () => {
   return (
     <>
       <Button
+        variant="outline"
         onClick={() => setIsOpen(true)}
-        className="mx-3 bg-green-600 hover:bg-green-500 dark:bg-green-700 dark:hover:bg-green-800">
-        Create food
+        className="mx-5 sm:ml-auto sm:mr-4  mt-2 sm:mt-0">
+        <Plus className="w-4 h-4 mr-2" />
+        Add food
       </Button>
 
       <Transition appear show={isOpen} as={Fragment}>
