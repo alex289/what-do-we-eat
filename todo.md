@@ -9,7 +9,7 @@ Refactor Design:
 - CRUD dialogs
 - Skeleton?
 - loading animations for crud stuff
-- Migrate images to uploadthing
+- Pagination own component
 
 Features:
 
