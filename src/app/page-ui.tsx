@@ -2,20 +2,30 @@
 
 import { SignedIn } from '@clerk/nextjs';
 import dynamic from 'next/dynamic';
-import { Suspense, useMemo, useState } from 'react';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { Suspense, useMemo } from 'react';
 import { toast } from 'sonner';
 import useSWR from 'swr';
 
 import CreateFood from '@/components/admin/createFood';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import {
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from '@/components/ui/pagination';
 import fetcher from '@/lib/fetcher';
 import { handleFood } from '@/lib/filter';
 import { useDebounce } from '@/lib/useDebounce';
 
 import type { Favorite } from '@/server/db/types';
-import type { ApiResponse } from '@/types/apiResponse';
-import type { FilterConfig } from '@/types/config';
+import type { ApiResponse, PaginatedApiResponse } from '@/types/apiResponse';
+import type { ChangeEvent } from 'react';
 
 const Food = dynamic(() => import('@/components/food'), {
   suspense: true,
@@ -31,30 +41,31 @@ export default function IndexPage({
   emailAddresses: string[] | undefined;
   isAdmin: boolean;
 }) {
-  const [clicked, setClicked] = useState(false);
-  const [page, setPage] = useState(1);
-  const [search, setSearch] = useState('');
-  const debouncedSearch = useDebounce(search, 500);
-  const [btnTitle, setBtnTitle] = useState('Get random food');
-  const [randomizer, setRandomizer] = useState(false);
-  const [filter, setFilter] = useState<FilterConfig>({
-    sort: '',
-    amount: 40,
-    effort: '',
-    deliverable: '',
-    cheeseometer: '',
-    tags: '',
-  });
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
+  const router = useRouter();
 
-  const { data, error } = useSWR<ApiResponse, string>(
-    `/api/food?page=${page}
-    ${debouncedSearch !== '' ? '&search=' + debouncedSearch : ''}
-    ${filter.sort !== '' ? '&sort=' + filter.sort : ''}
-    ${filter.amount !== 40 ? '&amount=' + filter.amount : ''}
-    ${filter.effort !== '' ? '&effort=' + filter.effort : ''}
-    ${filter.deliverable !== '' ? '&deliverable=' + filter.deliverable : ''}
-    ${filter.cheeseometer !== '' ? '&cheeseometer=' + filter.cheeseometer : ''}
-    ${filter.tags !== '' ? '&tags=' + filter.tags : ''}`,
+  const page = Number(searchParams.get('page') ?? 1);
+  const amount = Number(searchParams.get('amount') ?? 40);
+  const search = searchParams.get('search') ?? '';
+  const randomize = !!searchParams.get('randomize');
+  const sort = searchParams.get('sort') ?? '';
+  const effort = searchParams.get('effort') ?? '';
+  const deliverable = searchParams.get('deliverable') ?? '';
+  const cheeseometer = searchParams.get('cheeseometer') ?? '';
+  const tags = searchParams.get('tags') ?? '';
+
+  const debouncedSearch = useDebounce(search, 500);
+
+  const { data, error } = useSWR<PaginatedApiResponse, string>(
+    `/api/food?page=${page}` +
+      `${debouncedSearch !== '' ? '&search=' + debouncedSearch : ''}` +
+      `${sort !== '' ? '&sort=' + sort : ''}` +
+      `${amount !== 40 ? '&amount=' + amount : ''}` +
+      `${effort !== '' ? '&effort=' + effort : ''}` +
+      `${deliverable !== '' ? '&deliverable=' + deliverable : ''}` +
+      `${cheeseometer !== '' ? '&cheeseometer=' + cheeseometer : ''}` +
+      `${tags !== '' ? '&tags=' + tags : ''}`,
     fetcher,
   );
   const { data: favoriteData } = useSWR<ApiResponse<Favorite[]>>(
@@ -62,19 +73,58 @@ export default function IndexPage({
     fetcher,
   );
 
+  const pagesCount = data ? Math.ceil(data.data.count / data.data.pageSize) : 0;
+  const firstPages = pagesCount > 1 ? [1, 2] : [1];
+
+  const middlePages = useMemo(() => {
+    const pages: number[] = [];
+
+    for (
+      let i: number = Math.max(page - 2, 3);
+      i <= Math.min(page + 2, pagesCount - 2) && i <= pagesCount - 2;
+      i++
+    ) {
+      pages.push(i);
+    }
+
+    return pages;
+  }, [page, pagesCount]);
+
+  const lastPages = useMemo(() => {
+    const pages: number[] = [];
+
+    if (pagesCount > 2) {
+      for (let i: number = Math.max(pagesCount - 1, 3); i <= pagesCount; i++) {
+        pages.push(i);
+      }
+    }
+
+    return pages;
+  }, [pagesCount]);
+
+  const showFirstToMiddleConnector =
+    (firstPages[firstPages.length - 1] ?? -1) + 1 !== middlePages[0];
+  const showMiddleToLastConnector =
+    (middlePages[middlePages.length - 1] ?? -1) + 1 !== lastPages[0];
+
   function handleClick(e: React.MouseEvent) {
     e.preventDefault();
 
-    let isClicked = false;
-    if (clicked) {
-      setClicked(false);
-      isClicked = false;
-    } else {
-      setClicked(true);
-      isClicked = true;
-    }
-    setBtnTitle(isClicked ? 'Get food list' : 'Get random food');
-    setRandomizer(isClicked);
+    const current = new URLSearchParams(Array.from(searchParams.entries()));
+    current.set('randomize', (!randomize).toString());
+    const search = current.toString();
+    const query = search ? `?${search}` : '';
+    void router.push(`${pathname}${query}`);
+  }
+
+  function handleSearch(e: ChangeEvent<HTMLInputElement>) {
+    e.preventDefault();
+
+    const current = new URLSearchParams(Array.from(searchParams.entries()));
+    current.set('search', e.target.value);
+    const search = current.toString();
+    const query = search ? `?${search}` : '';
+    void router.push(`${pathname}${query}`);
   }
 
   async function submitAnalytics(picked: boolean) {
@@ -101,9 +151,19 @@ export default function IndexPage({
   }
 
   const memoizedFoodList = useMemo(
-    () => handleFood(data?.data ?? [], randomizer),
-    [data, randomizer],
+    () => handleFood(data?.data.items ?? [], randomize),
+    [data, randomize],
   );
+
+  function goToPage(page: number) {
+    const current = new URLSearchParams(Array.from(searchParams.entries()));
+
+    current.set('page', page.toString());
+
+    const search = current.toString();
+    const query = search ? `?${search}` : '';
+    void router.push(`${pathname}${query}`);
+  }
 
   if (error) {
     return <div className="m-10">Failed to load</div>;
@@ -116,24 +176,23 @@ export default function IndexPage({
           <Button
             className="umami--click--random-food mx-3"
             onClick={handleClick}>
-            {btnTitle}
+            {randomize ? 'Get food list' : 'Get random food'}
           </Button>
           <Suspense>
-            <Dialog filter={filter} filterer={setFilter} />
+            <Dialog />
           </Suspense>
         </div>
 
         <Input
           type="text"
           placeholder="Search"
-          onChange={(e) => setSearch(e.target.value)}
+          onChange={handleSearch}
           className="mx-5 mt-2 sm:mt-0 w-auto sm:mx-0"
         />
 
         {isAdmin ? <CreateFood /> : null}
       </div>
-
-      {randomizer && (
+      {randomize && (
         <SignedIn>
           <div className="mb-2 ml-3 flex gap-3 p-2 2xl:ml-7">
             <Button
@@ -161,51 +220,71 @@ export default function IndexPage({
         )}
       </Suspense>
 
-      <ul className="mx-auto my-4 flex items-center justify-center -space-x-px">
-        <li>
-          <button
-            disabled={page === 1}
-            onClick={() => setPage(page - 1)}
-            className="ml-0 block rounded-l-lg border border-gray-300 bg-white px-3 py-2 leading-tight text-gray-500 enabled:hover:bg-gray-100 enabled:hover:text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 enabled:dark:hover:bg-gray-700 enabled:dark:hover:text-white">
-            <span className="sr-only">Previous</span>
-            <svg
-              aria-hidden="true"
-              className="h-5 w-5"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-              xmlns="http://www.w3.org/2000/svg">
-              <path
-                fillRule="evenodd"
-                d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-                clipRule="evenodd"></path>
-            </svg>
-          </button>
-        </li>
-        <li>
-          <div className="border border-gray-300 bg-white px-3 py-2 leading-tight text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-            {page}
-          </div>
-        </li>
-        <li>
-          <button
-            disabled={data?.data.length !== filter.amount}
-            onClick={() => setPage(page + 1)}
-            className="block rounded-r-lg border border-gray-300 bg-white px-3 py-2 leading-tight text-gray-500 enabled:hover:bg-gray-100 enabled:hover:text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 enabled:dark:hover:bg-gray-700 enabled:dark:hover:text-white">
-            <span className="sr-only">Next</span>
-            <svg
-              aria-hidden="true"
-              className="h-5 w-5"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-              xmlns="http://www.w3.org/2000/svg">
-              <path
-                fillRule="evenodd"
-                d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                clipRule="evenodd"></path>
-            </svg>
-          </button>
-        </li>
-      </ul>
+      <Pagination className="mt-4">
+        <PaginationContent>
+          <PaginationItem>
+            <PaginationPrevious
+              onClick={() => goToPage(page - 1)}
+              className={page === 1 ? 'pointer-events-none' : ''}
+            />
+          </PaginationItem>
+          {firstPages.map((p) => (
+            <PaginationItem key={p} className="hidden sm:block">
+              <PaginationLink
+                onClick={() => goToPage(p)}
+                className={page === p ? 'pointer-events-none' : ''}>
+                {p}
+              </PaginationLink>
+            </PaginationItem>
+          ))}
+          <PaginationItem
+            hidden={showFirstToMiddleConnector}
+            className="hidden sm:block">
+            <PaginationEllipsis />
+          </PaginationItem>
+          {middlePages.map((p) => (
+            <PaginationItem key={p} className="hidden sm:block">
+              <PaginationLink
+                onClick={() => goToPage(p)}
+                className={page === p ? 'pointer-events-none' : ''}>
+                {p}
+              </PaginationLink>
+            </PaginationItem>
+          ))}
+          <PaginationItem
+            hidden={showMiddleToLastConnector}
+            className="hidden sm:block">
+            <PaginationEllipsis />
+          </PaginationItem>
+          {lastPages.map((p) => (
+            <PaginationItem key={p} className="hidden sm:block">
+              <PaginationLink
+                onClick={() => goToPage(p)}
+                className={page === p ? 'pointer-events-none' : ''}>
+                {p}
+              </PaginationLink>
+            </PaginationItem>
+          ))}
+          <PaginationItem>
+            <PaginationNext
+              onClick={() => goToPage(page + 1)}
+              className={
+                page === lastPages[lastPages.length - 1]
+                  ? 'pointer-events-none'
+                  : ''
+              }
+            />
+          </PaginationItem>
+        </PaginationContent>
+      </Pagination>
+
+      <div className="flex justify-center items-center mt-4 text-sm text-gray-500 dark:text-gray-400">
+        Items {data ? (data.data.page - 1) * data.data.pageSize + 1 : 0} -{' '}
+        {data
+          ? Math.min(data.data.page * data.data.pageSize, data.data.count)
+          : 0}{' '}
+        of {data?.data.count}
+      </div>
     </div>
   );
 }

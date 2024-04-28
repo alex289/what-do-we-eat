@@ -1,16 +1,24 @@
 import { db } from '@/server/db';
 import { food } from '@/server/db/schema';
 import { ratelimit } from '@/server/ratelimit';
+import { type PaginatedApiResponse } from '@/types/apiResponse';
 import { auth } from '@clerk/nextjs/server';
+import { count, like } from 'drizzle-orm';
 import { revalidatePath } from 'next/cache';
+import { type NextRequest } from 'next/server';
 
-export async function GET(req: Request) {
-  const queries = new URLSearchParams(req.url);
+export async function GET(req: NextRequest) {
+  const queries = req.nextUrl.searchParams;
 
   const sort = queries.get('sort');
   const page = parseInt(queries.get('page')!) || 1;
   const amount = parseInt(queries.get('amount')!) || 40;
   const search = queries.get('search') ?? '';
+
+  const itemCount = await db
+    .select({ count: count() })
+    .from(food)
+    .where(like(food.name, search.length > 1 ? `%${search}%` : '%'));
 
   let items = await db.query.food.findMany({
     limit: amount,
@@ -45,7 +53,17 @@ export async function GET(req: Request) {
     items = items.filter((item) => item.effort === effort);
   }
 
-  return new Response(JSON.stringify({ status: 'success', data: items }), {
+  const response: PaginatedApiResponse = {
+    status: 'success',
+    data: {
+      count: itemCount[0]?.count ?? 0,
+      items: items,
+      page: page,
+      pageSize: amount,
+    },
+  };
+
+  return new Response(JSON.stringify(response), {
     status: 200,
     headers: {
       'Content-Type': 'application/json',

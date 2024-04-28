@@ -1,17 +1,22 @@
+/* eslint-disable drizzle/enforce-delete-with-where */
 import { Dialog, Transition } from '@headlessui/react';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { Fragment, useState } from 'react';
 
 import { Button } from './ui/button';
 
-import type { FilterConfig } from '@/types/config';
-
-interface Props {
-  filter: FilterConfig;
-  filterer: (filter: FilterConfig) => void;
-}
-
-export default function FilterDialog({ filter, filterer }: Props) {
+export default function FilterDialog() {
   const [isOpen, setIsOpen] = useState(false);
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
+
+  const amount = Number(searchParams.get('amount') ?? 40);
+  const sort = searchParams.get('sort') ?? '';
+  const effort = searchParams.get('effort') ?? '';
+  const deliverable = searchParams.get('deliverable') ?? '';
+  const cheeseometer = searchParams.get('cheeseometer') ?? '';
+  const tags = searchParams.get('tags') ?? '';
 
   function submit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -24,27 +29,35 @@ export default function FilterDialog({ filter, filterer }: Props) {
       tags: { value: string };
     };
 
-    filterer({
-      sort: target.sort.value.replace('-', ''),
-      amount: Number(target.amount.value),
-      effort: target.effort.value.replace('-', ''),
-      deliverable: target.deliverable.value.replace('-', ''),
-      cheeseometer: target.cheeseometer.value.replace('-', ''),
-      tags: target.tags.value.replace('-', ''),
-    });
+    const current = new URLSearchParams(Array.from(searchParams.entries()));
+
+    current.set('amount', target.amount.value);
+    current.set('sort', target.sort.value);
+    current.set('effort', target.effort.value);
+    current.set('deliverable', target.deliverable.value);
+    current.set('cheeseometer', target.cheeseometer.value);
+    current.set('tags', target.tags.value);
+
+    const search = current.toString();
+    const query = search ? `?${search}` : '';
+    void router.push(`${pathname}${query}`);
 
     setIsOpen(false);
   }
 
   function clearFilter() {
-    filterer({
-      sort: '',
-      amount: 40,
-      effort: '',
-      deliverable: '',
-      cheeseometer: '',
-      tags: '',
-    });
+    const current = new URLSearchParams(Array.from(searchParams.entries()));
+
+    current.delete('amount');
+    current.delete('sort');
+    current.delete('effort');
+    current.delete('deliverable');
+    current.delete('cheeseometer');
+    current.delete('tags');
+
+    const search = current.toString();
+    const query = search ? `?${search}` : '';
+    void router.push(`${pathname}${query}`);
 
     setIsOpen(false);
   }
@@ -96,7 +109,7 @@ export default function FilterDialog({ filter, filterer }: Props) {
                   </label>
                   <select
                     id="sort"
-                    defaultValue={filter.sort}
+                    defaultValue={sort}
                     className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-violet-500 focus:ring-violet-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-violet-500 dark:focus:ring-violet-500">
                     <option value="">-</option>
                     <option value="asc">Ascending</option>
@@ -113,7 +126,7 @@ export default function FilterDialog({ filter, filterer }: Props) {
                     type="number"
                     min={1}
                     max={100}
-                    defaultValue={filter.amount}
+                    defaultValue={amount}
                     className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-violet-500 focus:ring-violet-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-violet-500 dark:focus:ring-violet-500"></input>
 
                   <label
@@ -123,9 +136,9 @@ export default function FilterDialog({ filter, filterer }: Props) {
                   </label>
                   <select
                     id="cheeseometer"
-                    defaultValue={filter.cheeseometer}
+                    defaultValue={cheeseometer}
                     className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-violet-500 focus:ring-violet-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-violet-500 dark:focus:ring-violet-500">
-                    <option value="-">-</option>
+                    <option value="">-</option>
                     <option value="0">0</option>
                     <option value="1">1</option>
                     <option value="2">2</option>
@@ -141,9 +154,9 @@ export default function FilterDialog({ filter, filterer }: Props) {
                   </label>
                   <select
                     id="deliverable"
-                    defaultValue={filter.deliverable}
+                    defaultValue={deliverable}
                     className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-violet-500 focus:ring-violet-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-violet-500 dark:focus:ring-violet-500">
-                    <option value="-">-</option>
+                    <option value="">-</option>
                     <option value="true">Yes</option>
                     <option value="false">No</option>
                   </select>
@@ -155,9 +168,9 @@ export default function FilterDialog({ filter, filterer }: Props) {
                   </label>
                   <select
                     id="tags"
-                    defaultValue={filter.tags}
+                    defaultValue={tags}
                     className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-violet-500 focus:ring-violet-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-violet-500 dark:focus:ring-violet-500">
-                    <option value="-">-</option>
+                    <option value="">-</option>
                     <option value="Veggie">Veggie</option>
                     <option value="Vegan">Vegan</option>
                   </select>
@@ -169,9 +182,9 @@ export default function FilterDialog({ filter, filterer }: Props) {
                   </label>
                   <select
                     id="effort"
-                    defaultValue={filter.effort}
+                    defaultValue={effort}
                     className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-violet-500 focus:ring-violet-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-violet-500 dark:focus:ring-violet-500">
-                    <option value="-">-</option>
+                    <option value="">-</option>
                     <option value="0">0</option>
                     <option value="1">1</option>
                     <option value="2">2</option>

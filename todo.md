@@ -4,7 +4,6 @@ Refactor Design:
 
 - Settings dialog
 - Filter dialog
-- Pagination
 - OG image
 - Server components
 - CRUD dialogs
