@@ -29,7 +29,7 @@ export function FoodCard({ food, favorite, emailAddresses, isAdmin }: Props) {
       />
       <CardContent className="p-4 space-y-2">
         <div className="flex items-center justify-between">
-          <h3 className="text-lg font-medium">
+          <h3 className="text-lg font-medium truncate">
             <a
               className="hover:underline"
               href={`https://www.chefkoch.de/rs/s0/${food.name.replace(

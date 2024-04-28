@@ -8,7 +8,6 @@ Refactor Design:
 - OG image
 - Server components
 - loading animations for crud stuff
-- food card line breaks on big names
 
 Features:
 
