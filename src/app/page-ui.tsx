@@ -8,17 +8,9 @@ import { toast } from 'sonner';
 import useSWR from 'swr';
 
 import CreateFood from '@/components/admin/createFood';
+import PaginationGroup from '@/components/pagination-group';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import {
-  Pagination,
-  PaginationContent,
-  PaginationEllipsis,
-  PaginationItem,
-  PaginationLink,
-  PaginationNext,
-  PaginationPrevious,
-} from '@/components/ui/pagination';
 import fetcher from '@/lib/fetcher';
 import { handleFood } from '@/lib/filter';
 import { useDebounce } from '@/lib/useDebounce';
@@ -73,40 +65,6 @@ export default function IndexPage({
     fetcher,
   );
 
-  const pagesCount = data ? Math.ceil(data.data.count / data.data.pageSize) : 0;
-  const firstPages = pagesCount > 1 ? [1, 2] : [1];
-
-  const middlePages = useMemo(() => {
-    const pages: number[] = [];
-
-    for (
-      let i: number = Math.max(page - 2, 3);
-      i <= Math.min(page + 2, pagesCount - 2) && i <= pagesCount - 2;
-      i++
-    ) {
-      pages.push(i);
-    }
-
-    return pages;
-  }, [page, pagesCount]);
-
-  const lastPages = useMemo(() => {
-    const pages: number[] = [];
-
-    if (pagesCount > 2) {
-      for (let i: number = Math.max(pagesCount - 1, 3); i <= pagesCount; i++) {
-        pages.push(i);
-      }
-    }
-
-    return pages;
-  }, [pagesCount]);
-
-  const showFirstToMiddleConnector =
-    (firstPages[firstPages.length - 1] ?? -1) + 1 !== middlePages[0];
-  const showMiddleToLastConnector =
-    (middlePages[middlePages.length - 1] ?? -1) + 1 !== lastPages[0];
-
   function handleClick(e: React.MouseEvent) {
     e.preventDefault();
 
@@ -154,16 +112,6 @@ export default function IndexPage({
     () => handleFood(data?.data.items ?? [], randomize),
     [data, randomize],
   );
-
-  function goToPage(page: number) {
-    const current = new URLSearchParams(Array.from(searchParams.entries()));
-
-    current.set('page', page.toString());
-
-    const search = current.toString();
-    const query = search ? `?${search}` : '';
-    void router.push(`${pathname}${query}`);
-  }
 
   if (error) {
     return <div className="m-10">Failed to load</div>;
@@ -220,71 +168,7 @@ export default function IndexPage({
         )}
       </Suspense>
 
-      <Pagination className="mt-4">
-        <PaginationContent>
-          <PaginationItem>
-            <PaginationPrevious
-              onClick={() => goToPage(page - 1)}
-              className={page === 1 ? 'pointer-events-none' : ''}
-            />
-          </PaginationItem>
-          {firstPages.map((p) => (
-            <PaginationItem key={p} className="hidden sm:block">
-              <PaginationLink
-                onClick={() => goToPage(p)}
-                className={page === p ? 'pointer-events-none' : ''}>
-                {p}
-              </PaginationLink>
-            </PaginationItem>
-          ))}
-          <PaginationItem
-            hidden={showFirstToMiddleConnector}
-            className="hidden sm:block">
-            <PaginationEllipsis />
-          </PaginationItem>
-          {middlePages.map((p) => (
-            <PaginationItem key={p} className="hidden sm:block">
-              <PaginationLink
-                onClick={() => goToPage(p)}
-                className={page === p ? 'pointer-events-none' : ''}>
-                {p}
-              </PaginationLink>
-            </PaginationItem>
-          ))}
-          <PaginationItem
-            hidden={showMiddleToLastConnector}
-            className="hidden sm:block">
-            <PaginationEllipsis />
-          </PaginationItem>
-          {lastPages.map((p) => (
-            <PaginationItem key={p} className="hidden sm:block">
-              <PaginationLink
-                onClick={() => goToPage(p)}
-                className={page === p ? 'pointer-events-none' : ''}>
-                {p}
-              </PaginationLink>
-            </PaginationItem>
-          ))}
-          <PaginationItem>
-            <PaginationNext
-              onClick={() => goToPage(page + 1)}
-              className={
-                page === lastPages[lastPages.length - 1]
-                  ? 'pointer-events-none'
-                  : ''
-              }
-            />
-          </PaginationItem>
-        </PaginationContent>
-      </Pagination>
-
-      <div className="flex justify-center items-center mt-4 text-sm text-gray-500 dark:text-gray-400">
-        Items {data ? (data.data.page - 1) * data.data.pageSize + 1 : 0} -{' '}
-        {data
-          ? Math.min(data.data.page * data.data.pageSize, data.data.count)
-          : 0}{' '}
-        of {data?.data.count}
-      </div>
+      {data?.data ? <PaginationGroup data={data} /> : null}
     </div>
   );
 }

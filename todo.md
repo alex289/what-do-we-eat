@@ -9,7 +9,6 @@ Refactor Design:
 - CRUD dialogs
 - Skeleton?
 - loading animations for crud stuff
-- Pagination own component
 
 Features:
 
