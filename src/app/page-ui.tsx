@@ -9,6 +9,7 @@ import useSWR from 'swr';
 
 import CreateFood from '@/components/admin/createFood';
 import PaginationGroup from '@/components/pagination-group';
+import { SkeletonCard } from '@/components/skeleton-card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import fetcher from '@/lib/fetcher';
@@ -49,7 +50,7 @@ export default function IndexPage({
 
   const debouncedSearch = useDebounce(search, 500);
 
-  const { data, error } = useSWR<PaginatedApiResponse, string>(
+  const { data, error, isLoading } = useSWR<PaginatedApiResponse, string>(
     `/api/food?page=${page}` +
       `${debouncedSearch !== '' ? '&search=' + debouncedSearch : ''}` +
       `${sort !== '' ? '&sort=' + sort : ''}` +
@@ -167,6 +168,14 @@ export default function IndexPage({
           />
         )}
       </Suspense>
+
+      <ul className="md:grid-flow-column 2xl:grid-cols-fit mx-4 mt-3 grid gap-6 sm:grid-cols-2 md:mt-0 lg:grid-cols-3 xl:grid-cols-4 2xl:mx-8 2xl:grid-cols-4">
+        {isLoading
+          ? Array.from({ length: amount }).map((_, i) => (
+              <SkeletonCard key={i} />
+            ))
+          : null}
+      </ul>
 
       {data?.data ? <PaginationGroup data={data} /> : null}
     </div>

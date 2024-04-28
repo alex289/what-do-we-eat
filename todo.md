@@ -4,11 +4,11 @@ Refactor Design:
 
 - Settings dialog
 - Filter dialog
+- CRUD dialogs
 - OG image
 - Server components
-- CRUD dialogs
-- Skeleton?
 - loading animations for crud stuff
+- food card line breaks on big names
 
 Features:
 

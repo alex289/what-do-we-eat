@@ -19,16 +19,14 @@ interface Props {
 export function FoodCard({ food, favorite, emailAddresses, isAdmin }: Props) {
   return (
     <Card className="w-full max-w-sm rounded-lg overflow-hidden">
-      {
-        <Image
-          alt={food.name}
-          className="w-full h-48 object-cover"
-          src={food.image ?? '/static/food-placeholder.svg'}
-          width={564}
-          height={564}
-          loading="lazy"
-        />
-      }
+      <Image
+        alt={food.name}
+        className="w-full h-48 object-cover"
+        src={food.image ?? '/static/food-placeholder.svg'}
+        width={564}
+        height={564}
+        loading="lazy"
+      />
       <CardContent className="p-4 space-y-2">
         <div className="flex items-center justify-between">
           <h3 className="text-lg font-medium">
