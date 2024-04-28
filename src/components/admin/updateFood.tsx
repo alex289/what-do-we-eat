@@ -24,9 +24,16 @@ interface FormData {
 const UpdateFood = ({ food }: { food: Food }) => {
   const { mutate } = useSWRConfig();
   const [isOpen, setIsOpen] = useState(false);
+  const [isSaving, setIsSaving] = useState(false);
 
   async function saveFood(e: FormEvent<HTMLFormElement> & FormData) {
     e.preventDefault();
+
+    setIsSaving(true);
+    toast.loading(`Creating '${e.target.name.value}'`, {
+      duration: 100000,
+      id: 'update-begin',
+    });
 
     const res = await fetch('/api/food/' + food.id, {
       method: 'PUT',
@@ -42,6 +49,9 @@ const UpdateFood = ({ food }: { food: Food }) => {
         effort: Number(e.target.effort.value),
       }),
     });
+
+    setIsSaving(false);
+    toast.dismiss('update-begin');
 
     if (res.status !== 200) {
       const data = (await res.json()) as { message: string };
@@ -132,7 +142,9 @@ const UpdateFood = ({ food }: { food: Food }) => {
                     <label className="mb-1 mr-2 mt-2 text-black dark:text-white">
                       Image
                     </label>
-                    <SimpleUploadButton />
+                    <SimpleUploadButton
+                      existingImageUrl={food.image ?? undefined}
+                    />
 
                     <label
                       className="my-1 mr-2 text-black dark:text-white"
@@ -205,7 +217,8 @@ const UpdateFood = ({ food }: { food: Food }) => {
                     </select>
                     <button
                       className="btn mt-5 rounded-lg border-none bg-orange-600 py-2 text-lg text-gray-100 ring-orange-400 hover:bg-orange-700 hover:ring-4"
-                      type="submit">
+                      type="submit"
+                      disabled={isSaving}>
                       Save food
                     </button>
                   </form>

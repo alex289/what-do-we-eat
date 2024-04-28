@@ -11,14 +11,24 @@ import type { FormEvent } from 'react';
 
 const DeleteFood = ({ food }: { food: Food }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
   const { mutate } = useSWRConfig();
 
   async function deleteFood(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
+    setIsDeleting(true);
+    toast.loading(`Deleting '${food.name}'`, {
+      duration: 100000,
+      id: 'delete-begin',
+    });
+
     const res = await fetch('/api/food/' + food.id, {
       method: 'DELETE',
     });
+
+    setIsDeleting(false);
+    toast.dismiss('delete-begin');
 
     if (res.status !== 200) {
       const data = (await res.json()) as { message: string };
@@ -95,7 +105,10 @@ const DeleteFood = ({ food }: { food: Food }) => {
                   <form
                     className="mt-4 flex flex-col"
                     onSubmit={(e) => deleteFood(e)}>
-                    <Button variant="destructive" type="submit">
+                    <Button
+                      variant="destructive"
+                      type="submit"
+                      disabled={isDeleting}>
                       Delete food
                     </Button>
                   </form>

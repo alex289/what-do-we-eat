@@ -59,9 +59,21 @@ function UploadSVG() {
   );
 }
 
-export function SimpleUploadButton() {
+export function SimpleUploadButton({
+  existingImageUrl,
+}: {
+  existingImageUrl?: string;
+}) {
   const { inputProps, result } = useUploadThingInputProps('imageUploader', {
+    onBeforeUploadBegin(files) {
+      toast.info('Starting upload', {
+        duration: 100000,
+        id: 'upload-before',
+      });
+      return files;
+    },
     onUploadBegin() {
+      toast.dismiss('upload-before');
       toast.loading('Uploading...', {
         duration: 100000,
         id: 'upload-begin',
@@ -92,7 +104,7 @@ export function SimpleUploadButton() {
         id="imageUrl"
         type="text"
         className="sr-only"
-        value={result?.serverData.fileUrl ?? ''}
+        value={result?.serverData.fileUrl ?? existingImageUrl ?? ''}
       />
       <div className="ml-4">{result?.name}</div>
     </div>

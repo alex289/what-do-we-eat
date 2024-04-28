@@ -7,7 +7,6 @@ Refactor Design:
 - CRUD dialogs
 - OG image
 - Server components
-- loading animations for crud stuff
 
 Features:
 

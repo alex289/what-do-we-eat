@@ -41,7 +41,7 @@ export default function IndexPage({
   const page = Number(searchParams.get('page') ?? 1);
   const amount = Number(searchParams.get('amount') ?? 40);
   const search = searchParams.get('search') ?? '';
-  const randomize = !!searchParams.get('randomize');
+  const randomize = searchParams.get('randomize') === 'true';
   const sort = searchParams.get('sort') ?? '';
   const effort = searchParams.get('effort') ?? '';
   const deliverable = searchParams.get('deliverable') ?? '';
@@ -69,11 +69,13 @@ export default function IndexPage({
   function handleClick(e: React.MouseEvent) {
     e.preventDefault();
 
+    const newRandomize = randomize ? 'false' : 'true';
+
     const current = new URLSearchParams(Array.from(searchParams.entries()));
-    current.set('randomize', (!randomize).toString());
+    current.set('randomize', newRandomize);
     const search = current.toString();
     const query = search ? `?${search}` : '';
-    void router.push(`${pathname}${query}`);
+    router.push(`${pathname}${query}`);
   }
 
   function handleSearch(e: ChangeEvent<HTMLInputElement>) {
@@ -83,7 +85,7 @@ export default function IndexPage({
     current.set('search', e.target.value);
     const search = current.toString();
     const query = search ? `?${search}` : '';
-    void router.push(`${pathname}${query}`);
+    router.push(`${pathname}${query}`);
   }
 
   async function submitAnalytics(picked: boolean) {
