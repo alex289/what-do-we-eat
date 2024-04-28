@@ -7,10 +7,6 @@ Refactor Design:
 - CRUD dialogs
 - Server components
 
-Features:
-
-- Let users add their own food
-
 Chores:
 
 - Readme update

@@ -118,7 +118,8 @@ const PaginationGroup = ({ data }: { data: PaginatedApiResponse }) => {
             <PaginationNext
               onClick={() => goToPage(data.data.page + 1)}
               className={
-                data.data.page === lastPages[lastPages.length - 1]
+                data.data.page === lastPages[lastPages.length - 1] ||
+                lastPages.length === 0
                   ? 'pointer-events-none'
                   : ''
               }
