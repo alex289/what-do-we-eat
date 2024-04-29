@@ -1,8 +1,4 @@
-'use client';
-
-import { type ApiResponse } from '@/types/apiResponse';
-import { useMemo } from 'react';
-import useSWR from 'swr';
+import { db } from '@/server/db';
 
 import {
   Table,
@@ -13,49 +9,32 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import fetcher from '@/lib/fetcher';
 
 import type { Analytics } from '@/server/db/types';
 
-export default function AnalyticsPage() {
-  const { data, error } = useSWR<ApiResponse<Analytics[]>, string>(
-    '/api/analytics',
-    fetcher,
-  );
+export const dynamic = 'force-dynamic';
 
-  const memoizedData = useMemo(() => {
-    if (!data?.data) {
-      return [];
-    }
+export default async function AnalyticsPage() {
+  const items = await db.query.analytics.findMany();
+  const uniqueAnalytics: Analytics[] = [];
 
-    const uniqueAnalytics: Analytics[] = [];
-
-    for (const currentAnalytics of data.data) {
-      const existingAnalytics = uniqueAnalytics.find(
-        (a) => a.name === currentAnalytics.name,
-      );
-
-      if (!existingAnalytics) {
-        uniqueAnalytics.push(currentAnalytics);
-      }
-    }
-
-    return (
-      uniqueAnalytics.map((item) => {
-        return {
-          name: item.name,
-          picked: data.data.filter((v) => v.name === item.name && v.picked)
-            .length,
-          notPicked: data.data.filter((v) => v.name === item.name && !v.picked)
-            .length,
-        };
-      }) ?? []
+  for (const currentAnalytics of items) {
+    const existingAnalytics = uniqueAnalytics.find(
+      (a) => a.name === currentAnalytics.name,
     );
-  }, [data?.data]);
 
-  if (error) {
-    return <div>Failed to load</div>;
+    if (!existingAnalytics) {
+      uniqueAnalytics.push(currentAnalytics);
+    }
   }
+
+  const data = uniqueAnalytics.map((item) => {
+    return {
+      name: item.name,
+      picked: items.filter((v) => v.name === item.name && v.picked).length,
+      notPicked: items.filter((v) => v.name === item.name && !v.picked).length,
+    };
+  });
 
   return (
     <div className="relative mx-auto max-w-5xl overflow-x-auto shadow-md sm:rounded-lg">
@@ -68,7 +47,7 @@ export default function AnalyticsPage() {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {memoizedData.map((item) => {
+          {data.map((item) => {
             return (
               <TableRow key={item.name}>
                 <TableCell className="font-medium">{item.name}</TableCell>
@@ -82,10 +61,10 @@ export default function AnalyticsPage() {
           <TableRow>
             <TableCell>Total</TableCell>
             <TableCell>
-              {memoizedData.reduce((acc, item) => acc + item.picked, 0)}
+              {data.reduce((acc, item) => acc + item.picked, 0)}
             </TableCell>
             <TableCell>
-              {memoizedData.reduce((acc, item) => acc + item.notPicked, 0)}
+              {data.reduce((acc, item) => acc + item.notPicked, 0)}
             </TableCell>
           </TableRow>
         </TableFooter>

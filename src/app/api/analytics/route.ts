@@ -71,13 +71,3 @@ export async function POST(req: Request) {
     },
   });
 }
-
-export async function GET() {
-  const items = await db.query.analytics.findMany();
-  return new Response(JSON.stringify({ status: 'success', data: items }), {
-    status: 200,
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  });
-}
