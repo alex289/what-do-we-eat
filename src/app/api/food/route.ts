@@ -11,8 +11,8 @@ export async function GET(req: NextRequest) {
   const queries = req.nextUrl.searchParams;
 
   const sort = queries.get('sort');
-  const page = parseInt(queries.get('page')!) || 1;
-  const amount = parseInt(queries.get('amount')!) || 40;
+  const page = parseInt(queries.get('page') ?? '1') || 1;
+  const amount = parseInt(queries.get('amount') ?? '40') || 40;
   const search = queries.get('search') ?? '';
 
   const itemCount = await db
@@ -20,38 +20,29 @@ export async function GET(req: NextRequest) {
     .from(food)
     .where(like(food.name, search.length > 1 ? `%${search}%` : '%'));
 
-  let items = await db.query.food.findMany({
+  const items = await db.query.food.findMany({
     limit: amount,
     offset: (page - 1) * amount,
-    where: (foods, { like }) =>
-      like(foods.name, search.length > 1 ? `%${search}%` : '%'),
+    where: (foods, { like, and, eq }) =>
+      and(
+        like(foods.name, search.length > 1 ? `%${search}%` : '%'),
+        like(foods.tags, queries.get('tags') ?? '%'),
+        queries.get('deliverable')
+          ? eq(foods.deliverable, queries.get('deliverable') === 'true')
+          : undefined,
+        queries.get('cheeseometer')
+          ? eq(foods.cheeseometer, parseInt(queries.get('cheeseometer')!))
+          : undefined,
+        queries.get('effort')
+          ? eq(foods.effort, parseInt(queries.get('effort')!))
+          : undefined,
+      ),
     orderBy: (foods, { asc, desc }) => [
       sort === 'desc'
         ? desc(sort ? foods.name : foods.id)
         : asc(sort ? foods.name : foods.id),
     ],
   });
-
-  // Todo: These filters should be moved to the database query
-  const cheeseometer = parseInt(queries.get('cheeseometer')!);
-  if (cheeseometer) {
-    items = items.filter((item) => item.cheeseometer === cheeseometer);
-  }
-
-  const deliverable = queries.get('deliverable');
-  if (deliverable) {
-    items = items.filter((item) => item.deliverable.toString() === deliverable);
-  }
-
-  const tags = queries.get('tags');
-  if (tags) {
-    items = items.filter((item) => item.tags === tags);
-  }
-
-  const effort = parseInt(queries.get('effort')!);
-  if (effort) {
-    items = items.filter((item) => item.effort === effort);
-  }
 
   const response: PaginatedApiResponse = {
     status: 'success',
