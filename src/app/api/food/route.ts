@@ -120,7 +120,24 @@ export async function POST(req: Request) {
     );
   }
 
+  const foodCount = await db.select({ count: count() }).from(food);
+  let nextAvailableId = foodCount[0]?.count ?? 1;
+
+  // eslint-disable-next-line no-constant-condition
+  while (true) {
+    const existingFood = await db.query.food.findFirst({
+      where: (foods, { eq }) => eq(foods.id, nextAvailableId),
+    });
+
+    if (existingFood) {
+      nextAvailableId++;
+    } else {
+      break;
+    }
+  }
+
   await db.insert(food).values({
+    id: nextAvailableId,
     name: name,
     image: image,
     cheeseometer: cheeseometer,

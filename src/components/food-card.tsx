@@ -3,9 +3,9 @@ import Image from 'next/image';
 
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
-import DeleteFood from './admin/deleteFood';
-import UpdateFood from './admin/updateFood';
+import DeleteFood from './deleteFood';
 import Favorite from './Favorite';
+import { UpsertFood } from './upsert-food';
 
 import type { Favorite as FavoriteType, Food } from '@/server/db/types';
 
@@ -96,6 +96,7 @@ export function FoodCard({ food, favorite, emailAddresses, isAdmin }: Props) {
             )}
           </div>
           {food.tags !== '' &&
+            food.tags !== '-' &&
             food.tags?.split(',').map((tag) => (
               <Badge className="px-2 py-1" variant="outline" key={tag}>
                 {tag}
@@ -112,12 +113,14 @@ export function FoodCard({ food, favorite, emailAddresses, isAdmin }: Props) {
           </div>
           <div className="flex items-center gap-2">
             <Dumbbell className="w-5 h-5 fill-yellow-500" />
-            <span className="text-sm text-gray-500 dark:text-gray-400">8</span>
+            <span className="text-sm text-gray-500 dark:text-gray-400">
+              {food.effort}
+            </span>
           </div>
         </div>
         {isAdmin ? (
           <div className="flex items-center justify-between mt-4 pt-2">
-            <UpdateFood food={food} />
+            <UpsertFood existingFood={food} />
             <DeleteFood food={food} />
           </div>
         ) : null}

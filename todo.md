@@ -2,9 +2,7 @@
 
 Refactor Design:
 
-- Settings dialog
 - Filter dialog
-- CRUD dialogs
 - Server components
 
 Chores:

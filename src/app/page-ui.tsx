@@ -7,11 +7,11 @@ import { Suspense, useMemo } from 'react';
 import { toast } from 'sonner';
 import useSWR from 'swr';
 
-import CreateFood from '@/components/admin/createFood';
 import PaginationGroup from '@/components/pagination-group';
 import { SkeletonCard } from '@/components/skeleton-card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { UpsertFood } from '@/components/upsert-food';
 import fetcher from '@/lib/fetcher';
 import { handleFood } from '@/lib/filter';
 import { useDebounce } from '@/lib/useDebounce';
@@ -138,10 +138,13 @@ export default function IndexPage({
           type="text"
           placeholder="Search"
           onChange={handleSearch}
+          defaultValue={search}
           className="mx-5 mt-2 sm:mt-0 w-auto sm:mx-0"
         />
 
-        {isAdmin ? <CreateFood /> : null}
+        <div className="mx-5 sm:ml-auto sm:mr-4  mt-2 sm:mt-0">
+          {isAdmin ? <UpsertFood /> : null}
+        </div>
       </div>
       {randomize && (
         <SignedIn>
