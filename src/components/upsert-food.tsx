@@ -56,7 +56,6 @@ export function UpsertFood({ existingFood }: { existingFood?: Food }) {
   const $ut = useUploadThing('imageUploader');
 
   const form = useForm<z.infer<typeof formSchema>>({
-    // @ts-expect-error zodResolver is typed incorrectly
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: existingFood?.name ?? '',
