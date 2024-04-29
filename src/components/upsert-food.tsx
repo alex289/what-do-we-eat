@@ -143,7 +143,10 @@ export function UpsertFood({ existingFood }: { existingFood?: Food }) {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="outline" size={isUpdating ? 'sm' : 'default'}>
+        <Button
+          variant="outline"
+          size={isUpdating ? 'sm' : 'default'}
+          className="mr-1 sm:mr-0">
           {isUpdating ? (
             <FileEdit className="w-4 h-4 mr-2" />
           ) : (
@@ -216,7 +219,7 @@ export function UpsertFood({ existingFood }: { existingFood?: Food }) {
                 <FormItem className="grid grid-cols-4 items-center gap-4">
                   <FormLabel className="text-right">Deliverable</FormLabel>
                   <FormControl>
-                    <div className="flex gap-2 items-center">
+                    <div className="flex gap-2 items-center col-span-3">
                       <Checkbox
                         checked={field.value}
                         onCheckedChange={field.onChange}
@@ -238,7 +241,7 @@ export function UpsertFood({ existingFood }: { existingFood?: Food }) {
                     defaultValue={field.value.toString()}>
                     <FormControl>
                       <SelectTrigger className="col-span-3">
-                        <SelectValue placeholder="Select dietary tag" />
+                        <SelectValue placeholder="Select effort" />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>

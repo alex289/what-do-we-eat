@@ -23,7 +23,7 @@ import type { ChangeEvent } from 'react';
 const Food = dynamic(() => import('@/components/food'), {
   suspense: true,
 });
-const Dialog = dynamic(() => import('@/components/dialog'), {
+const Dialog = dynamic(() => import('@/components/filter-dialog'), {
   suspense: true,
 });
 
@@ -142,7 +142,7 @@ export default function IndexPage({
           className="mx-5 mt-2 sm:mt-0 w-auto sm:mx-0"
         />
 
-        <div className="mx-5 sm:ml-auto sm:mr-4  mt-2 sm:mt-0">
+        <div className="ml-auto mr-4 mt-2 sm:mt-0">
           {isAdmin ? <UpsertFood /> : null}
         </div>
       </div>
