@@ -1,3 +1,4 @@
+import { sql } from 'drizzle-orm';
 import {
   boolean,
   index,
@@ -12,9 +13,11 @@ export const createTable = pgTableCreator((name) => `wdwe_${name}`);
 export const food = createTable(
   'food',
   {
-    id: serial('id').primaryKey(),
+    id: integer('id')
+      .default(sql`nextval('food_id_seq'::regclass)`)
+      .primaryKey(),
     name: varchar('name', { length: 255 }).notNull(),
-    image: varchar('image', { length: 255 }).default(''),
+    image: varchar('image', { length: 1000 }).default(''),
     cheeseometer: integer('cheeseometer').default(0).notNull(),
     deliverable: boolean('deliverable').default(false).notNull(),
     tags: varchar('tags', { length: 255 }).default(''),
@@ -37,7 +40,9 @@ export const favorite = createTable(
 );
 
 export const analytics = createTable('analytics', {
-  id: serial('id').primaryKey(),
+  id: integer('id')
+    .default(sql`nextval('analytics_id_seq'::regclass)`)
+    .primaryKey(),
   name: varchar('name', { length: 255 }).notNull(),
   picked: boolean('picked').default(false),
 });
