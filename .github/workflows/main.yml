@@ -35,7 +35,7 @@ jobs:
           key: ${{ runner.os }}-build-${{ env.cache-name }}
 
       - name: Set up pnpm
-        uses: pnpm/action-setup@v3.0.0
+        uses: pnpm/action-setup@v4
         with:
           version: 9.0.5
           run_install: false
@@ -89,7 +89,7 @@ jobs:
           key: ${{ github.sha }}-${{ github.run_number }}
 
       - name: Setup pnpm
-        uses: pnpm/action-setup@v3
+        uses: pnpm/action-setup@v4
         with:
           version: 8
 
