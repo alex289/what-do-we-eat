@@ -4,6 +4,9 @@ import { withSentryConfig } from '@sentry/nextjs';
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
+  experimental: {
+    instrumentationHook: true,
+  },
   // eslint-disable-next-line @typescript-eslint/require-await
   async headers() {
     return [
@@ -79,10 +82,8 @@ export default withSentryConfig(
     silent: true,
     org: 'alexanderkonietzko',
     project: 'what-do-we-eat',
-  },
-  {
+
     widenClientFileUpload: true,
-    transpileClientSDK: true,
     hideSourceMaps: true,
     disableLogger: true,
     automaticVercelMonitors: true,
