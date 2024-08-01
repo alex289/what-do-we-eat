@@ -36,6 +36,7 @@ export async function POST(req: Request) {
     name = String(name);
     picked = Boolean(picked);
   } catch (e) {
+    console.error(e);
     return new Response(JSON.stringify({ message: 'Bad request' }), {
       status: 400,
       headers: {

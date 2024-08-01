@@ -11,6 +11,7 @@ const config = {
     'prettier',
     'next/core-web-vitals',
   ],
+  // @ts-ignore
   plugins: ['@typescript-eslint', 'drizzle'],
   rules: {
     semi: 'warn',
@@ -32,6 +33,7 @@ const config = {
     ],
     'drizzle/enforce-delete-with-where': 'error',
     'drizzle/enforce-update-with-where': 'error',
+    '@typescript-eslint/only-throw-error': 'off',
   },
 };
 
