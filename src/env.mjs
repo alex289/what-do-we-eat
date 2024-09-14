@@ -7,8 +7,7 @@ export const env = createEnv({
     SENTRY_AUTH_TOKEN: z.string(),
     UPSTASH_REDIS_REST_REST_API_URL: z.string(),
     UPSTASH_REDIS_REST_REST_API_TOKEN: z.string(),
-    UPLOADTHING_SECRET: z.string(),
-    UPLOADTHING_APP_ID: z.string(),
+    UPLOADTHING_TOKEN: z.string(),
     CLERK_SECRET_KEY: z.string(),
     NODE_ENV: z
       .enum(['development', 'test', 'production'])
@@ -24,8 +23,7 @@ export const env = createEnv({
       process.env.UPSTASH_REDIS_REST_REST_API_URL,
     UPSTASH_REDIS_REST_REST_API_TOKEN:
       process.env.UPSTASH_REDIS_REST_REST_API_TOKEN,
-    UPLOADTHING_SECRET: process.env.UPLOADTHING_SECRET,
-    UPLOADTHING_APP_ID: process.env.UPLOADTHING_APP_ID,
+    UPLOADTHING_TOKEN: process.env.UPLOADTHING_TOKEN,
     CLERK_SECRET_KEY: process.env.CLERK_SECRET_KEY,
     NODE_ENV: process.env.NODE_ENV,
     NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY:

@@ -18,7 +18,7 @@ import type { ComponentPropsWithoutRef, ElementRef } from 'react';
 
 const Navbar = async () => {
   const activeUser = await currentUser();
-  const isAdmin = activeUser?.publicMetadata.admin;
+  const isAdmin = !!activeUser?.publicMetadata.admin;
   return (
     <nav className="top-0 z-50 mx-auto my-0 flex w-full items-center justify-between p-3 text-gray-900 dark:text-gray-100 md:mb-4 md:p-0">
       <div className="p-1 sm:p-4">

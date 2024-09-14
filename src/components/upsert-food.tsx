@@ -200,8 +200,7 @@ export function UpsertFood({ existingFood }: { existingFood?: Food }) {
                         accept="image/*"
                         onChange={onImageChange}
                         multiple={
-                          ($ut.permittedFileInfo?.config?.image?.maxFileCount ??
-                            1) > 1
+                          ($ut.routeConfig?.image?.maxFileCount ?? 1) > 1
                         }
                         className="col-span-3 cursor-pointer"
                       />
