@@ -15,9 +15,10 @@ export const ourFileRouter = {
         throw new UploadThingError('Unauthorized');
       }
 
-      const fullUserData = await clerkClient.users.getUser(user.userId);
+      const clerk = await clerkClient();
+      const fullUserData = await clerk.users.getUser(user.userId);
 
-      if (fullUserData?.publicMetadata?.admin !== true) {
+      if (fullUserData.publicMetadata.admin !== true) {
         throw new UploadThingError('User Does Not Have Upload Permissions');
       }
 
