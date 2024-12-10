@@ -94,10 +94,10 @@ jobs:
         with:
           version: 9.15.0
 
-      - name: Use Node.js 18.x
+      - name: Use Node.js 2.x
         uses: actions/setup-node@v4
         with:
-          node-version: 2.x
+          node-version: 22.x
 
       - name: Analyze bundle
         run: pnpm add -D gzip-size@6 mkdirp && node .github/report-bundle-size.js
