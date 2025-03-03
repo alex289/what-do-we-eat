@@ -84,7 +84,6 @@ export default withSentryConfig(nextConfig, {
   org: 'alexanderkonietzko',
   project: 'what-do-we-eat',
   widenClientFileUpload: true,
-  hideSourceMaps: true,
   disableLogger: true,
   automaticVercelMonitors: true,
   sourcemaps: {
