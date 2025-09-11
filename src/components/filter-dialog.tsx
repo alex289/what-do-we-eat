@@ -1,5 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
@@ -46,7 +46,6 @@ export default function FilterDialog() {
   const [open, setOpen] = useState(false);
   const router = useRouter();
   const searchParams = useSearchParams();
-  const pathname = usePathname();
 
   const amount = Number(searchParams.get('amount') ?? 40);
   const sort = searchParams.get('sort') ?? '';
