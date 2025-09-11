@@ -2,7 +2,7 @@
 
 import { SignedIn } from '@clerk/nextjs';
 import dynamic from 'next/dynamic';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { Suspense, useMemo } from 'react';
 import { toast } from 'sonner';
 import useSWR from 'swr';
@@ -31,7 +31,6 @@ export default function IndexPage({
   isAdmin: boolean;
 }) {
   const searchParams = useSearchParams();
-  const pathname = usePathname();
   const router = useRouter();
 
   const page = Number(searchParams.get('page') ?? 1);
@@ -70,8 +69,8 @@ export default function IndexPage({
     const current = new URLSearchParams(Array.from(searchParams.entries()));
     current.set('randomize', newRandomize);
     const search = current.toString();
-    const query = search ? `?${search}` : '';
-    router.push(`${pathname}${query}`);
+    const query = search ? (`?${search}` as const) : ('' as const);
+    router.push(`/${query}`);
   }
 
   function handleSearch(e: ChangeEvent<HTMLInputElement>) {
@@ -80,8 +79,8 @@ export default function IndexPage({
     const current = new URLSearchParams(Array.from(searchParams.entries()));
     current.set('search', e.target.value);
     const search = current.toString();
-    const query = search ? `?${search}` : '';
-    router.push(`${pathname}${query}`);
+    const query = search ? (`?${search}` as const) : ('' as const);
+    router.push(`/${query}`);
   }
 
   async function submitAnalytics(picked: boolean) {
