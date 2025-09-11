@@ -69,7 +69,7 @@ export default function IndexPage({
     const current = new URLSearchParams(Array.from(searchParams.entries()));
     current.set('randomize', newRandomize);
     const search = current.toString();
-    const query = search ? (`?${search}` as const) : ('' as const);
+    const query = search ? (`?${search}` as const) : '';
     router.push(`/${query}`);
   }
 
@@ -79,7 +79,7 @@ export default function IndexPage({
     const current = new URLSearchParams(Array.from(searchParams.entries()));
     current.set('search', e.target.value);
     const search = current.toString();
-    const query = search ? (`?${search}` as const) : ('' as const);
+    const query = search ? (`?${search}` as const) : '';
     router.push(`/${query}`);
   }
 

@@ -61,8 +61,8 @@ const PaginationGroup = ({ data }: { data: PaginatedApiResponse }) => {
     current.set('page', page.toString());
 
     const search = current.toString();
-    const query = search ? `?${search}` : '';
-    void router.push(`${pathname}${query}`);
+    const query = search ? (`?${search}` as const) : '';
+    void router.push(`/${query}`);
   }
 
   return (

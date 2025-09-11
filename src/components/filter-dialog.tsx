@@ -78,15 +78,15 @@ export default function FilterDialog() {
     current.set('tags', values.tags ?? '');
 
     const search = current.toString();
-    const query = search ? `?${search}` : '';
-    router.push(`${pathname}${query}`);
+    const query = search ? (`?${search}` as const) : '';
+    router.push(`/${query}`);
 
     setOpen(false);
   }
 
   function clearFilter() {
     toast.info('Filters cleared');
-    router.push(pathname);
+    router.push('/');
     setOpen(false);
   }
 
