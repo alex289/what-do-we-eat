@@ -1,5 +1,5 @@
 import { type PaginatedApiResponse } from '@/types/apiResponse';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useMemo } from 'react';
 
 import {
@@ -14,7 +14,6 @@ import {
 
 const PaginationGroup = ({ data }: { data: PaginatedApiResponse }) => {
   const searchParams = useSearchParams();
-  const pathname = usePathname();
   const router = useRouter();
 
   const pagesCount = Math.ceil(data.data.count / data.data.pageSize);
@@ -61,8 +60,8 @@ const PaginationGroup = ({ data }: { data: PaginatedApiResponse }) => {
     current.set('page', page.toString());
 
     const search = current.toString();
-    const query = search ? `?${search}` : '';
-    void router.push(`${pathname}${query}`);
+    const query = search ? (`?${search}` as const) : '';
+    void router.push(`/${query}`);
   }
 
   return (
