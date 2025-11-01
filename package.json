@@ -68,6 +68,7 @@
     "@upstash/redis": "^1.35.6",
     "@vercel/og": "^0.8.5",
     "@vercel/postgres": "^0.10.0",
+    "babel-plugin-react-compiler": "^1.0.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "drizzle-orm": "^0.44.7",

@@ -12,8 +12,6 @@ import {
 
 import type { Analytics } from '@/server/db/types';
 
-export const dynamic = 'force-dynamic';
-
 export default async function AnalyticsPage() {
   const items = await db.query.analytics.findMany();
   const uniqueAnalytics: Analytics[] = [];
