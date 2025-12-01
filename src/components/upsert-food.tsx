@@ -237,7 +237,7 @@ export function UpsertFood({ existingFood }: { existingFood?: Food }) {
                   <FormLabel className="text-right">Effort</FormLabel>
                   <Select
                     onValueChange={(e) => field.onChange(Number(e))}
-                    defaultValue={field.value.toString()}>
+                    defaultValue={field.value?.toString()}>
                     <FormControl>
                       <SelectTrigger className="col-span-3">
                         <SelectValue placeholder="Select effort" />
@@ -294,7 +294,7 @@ export function UpsertFood({ existingFood }: { existingFood?: Food }) {
                   <FormLabel className="text-right">Cheesometer</FormLabel>
                   <Select
                     onValueChange={(e) => field.onChange(Number(e))}
-                    defaultValue={field.value.toString()}>
+                    defaultValue={field.value?.toString()}>
                     <FormControl>
                       <SelectTrigger className="col-span-3">
                         <SelectValue placeholder="Select cheeseometer" />
