@@ -15,6 +15,7 @@ const Favorite = ({ foodId, favorite, emailAddresses }: Props) => {
   const [favouriteCount, setFavoriteCount] = useState(favorite?.length ?? 0);
   const { mutate } = useSWRConfig();
 
+  // eslint-disable-next-line react-hooks/set-state-in-effect
   useEffect(() => setFavoriteCount(favorite?.length ?? 0), [favorite]);
 
   const isFavorite = useMemo(() => {

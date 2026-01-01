@@ -106,6 +106,7 @@ export default function IndexPage({
     toast.success(`Submitted choice '${picked ? 'Good one' : 'Bad one'}'`);
   }
 
+  // eslint-disable-next-line react-hooks/preserve-manual-memoization
   const memoizedFoodList = useMemo(
     () => handleFood(data?.data.items ?? [], randomize),
     [data, randomize],
